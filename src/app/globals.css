@@ -2922,3 +2922,690 @@
     transform: none;
   }
 }
+
+/* ============================================
+   Round 5: Advanced Styling Improvements
+   ============================================ */
+
+/* ── 28. Card Shine Effect ── */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.12) 55%,
+    transparent 60%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+.card-shine:hover::before {
+  left: 120%;
+}
+.dark .card-shine::before {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.04) 55%,
+    transparent 60%
+  );
+}
+
+/* ── 29. Card Tilt Effect ── */
+.card-tilt {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.card-tilt:hover {
+  transform: perspective(1000px) rotateX(1.5deg) rotateY(-1.5deg) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08),
+              0 8px 16px rgba(0, 0, 0, 0.04);
+}
+.dark .card-tilt:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+              0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ── 30. Card Border Glow ── */
+@keyframes cardBorderGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 196, 182, 0); }
+  50% { box-shadow: 0 0 16px 2px rgba(46, 196, 182, 0.2), 0 0 0 2px rgba(46, 196, 182, 0.1); }
+}
+.card-border-glow {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.card-border-glow:hover {
+  animation: cardBorderGlow 2s ease-in-out infinite;
+  border-color: rgba(46, 196, 182, 0.4);
+}
+.dark .card-border-glow:hover {
+  box-shadow: 0 0 20px 3px rgba(46, 196, 182, 0.15), 0 0 0 2px rgba(46, 196, 182, 0.08);
+}
+
+/* ── 31. Card Numbered ── */
+.card-numbered {
+  position: relative;
+  overflow: hidden;
+}
+.card-numbered::before {
+  content: attr(data-number);
+  position: absolute;
+  top: -8px;
+  left: -4px;
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(46, 196, 182, 0.06);
+  pointer-events: none;
+  z-index: 0;
+  font-family: 'Inter', sans-serif;
+}
+.dark .card-numbered::before {
+  color: rgba(46, 196, 182, 0.04);
+}
+.card-numbered > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 32. Section Transition Animations ── */
+@keyframes sectionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.section-enter {
+  animation: sectionEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes sectionExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+.section-exit {
+  animation: sectionExit 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+/* Tab content smooth height transition */
+.tab-content-transition {
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+}
+
+/* ── 33. Enhanced Quiz Option Styling ── */
+.quiz-option-enhanced {
+  position: relative;
+  border-left: 4px solid var(--border);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.quiz-option-enhanced:hover {
+  border-left-color: var(--ems-teal);
+  background: rgba(46, 196, 182, 0.04) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.dark .quiz-option-enhanced:hover {
+  background: rgba(46, 196, 182, 0.06) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.quiz-option-correct {
+  border-left-color: #22C55E !important;
+  background: rgba(34, 197, 94, 0.08) !important;
+}
+.quiz-option-correct .quiz-option-icon {
+  color: #22C55E;
+}
+.dark .quiz-option-correct {
+  background: rgba(34, 197, 94, 0.12) !important;
+}
+.quiz-option-wrong {
+  border-left-color: #EF4444 !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+.quiz-option-wrong .quiz-option-icon {
+  color: #EF4444;
+}
+.dark .quiz-option-wrong {
+  background: rgba(239, 68, 68, 0.12) !important;
+}
+.quiz-option-selected {
+  border-left-color: var(--ems-teal) !important;
+  background: rgba(46, 196, 182, 0.08) !important;
+}
+.dark .quiz-option-selected {
+  background: rgba(46, 196, 182, 0.12) !important;
+}
+
+/* Shake animation for wrong answers */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Pop animation for correct answers */
+@keyframes pop {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.03); }
+  60% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+.pop {
+  animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── 34. Loading Skeleton Improvements ── */
+.skeleton-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--muted);
+  height: 180px;
+}
+.skeleton-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 60%,
+    transparent 100%
+  );
+  animation: skeletonShimmer 1.8s ease-in-out infinite;
+}
+.dark .skeleton-card::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+}
+.skeleton-text {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--muted);
+  height: 14px;
+  margin-bottom: 8px;
+}
+.skeleton-text:last-child {
+  width: 60%;
+  margin-bottom: 0;
+}
+.skeleton-text::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 60%,
+    transparent 100%
+  );
+  animation: skeletonShimmer 1.8s ease-in-out infinite;
+}
+.dark .skeleton-text::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+}
+.skeleton-circle {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.skeleton-circle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 60%,
+    transparent 100%
+  );
+  animation: skeletonShimmer 1.8s ease-in-out infinite;
+}
+.dark .skeleton-circle::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+}
+.skeleton-chart {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--muted);
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 8px;
+}
+.skeleton-chart-bar {
+  flex: 1;
+  background: var(--border);
+  border-radius: 4px 4px 0 0;
+  min-height: 20%;
+}
+.skeleton-chart::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.2) 60%,
+    transparent 100%
+  );
+  animation: skeletonShimmer 1.8s ease-in-out infinite;
+}
+.dark .skeleton-chart::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 60%,
+    transparent 100%
+  );
+}
+@keyframes skeletonShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── 35. Notification Badge Enhancement ── */
+.notification-dot {
+  position: relative;
+}
+.notification-dot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  border: 2px solid var(--card);
+  animation: notificationPulse 2s ease-in-out infinite;
+}
+.dark .notification-dot::after {
+  border-color: var(--card);
+}
+@keyframes notificationPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 4px rgba(239, 68, 68, 0); }
+}
+.notification-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9999px;
+  background: #EF4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid var(--card);
+}
+.dark .notification-badge {
+  border-color: var(--card);
+}
+.notification-badge.bounce {
+  animation: badgeBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes badgeBounce {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.3); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+.notification-badge-new {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, #EF4444, #F97316);
+  box-shadow: 0 1px 4px rgba(239, 68, 68, 0.3);
+}
+
+/* ── 36. Enhanced Mobile Bottom Nav (Round 5) ── */
+.mobile-bottom-nav-enhanced {
+  height: 68px;
+  padding-top: 8px;
+}
+.mobile-bottom-nav-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46, 196, 182, 0.4), rgba(30, 58, 95, 0.3), transparent);
+  pointer-events: none;
+}
+.dark .mobile-bottom-nav-enhanced::before {
+  background: linear-gradient(90deg, transparent, rgba(46, 196, 182, 0.2), rgba(74, 144, 217, 0.15), transparent);
+}
+.mobile-nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  min-width: 56px;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-nav-item:active {
+  transform: scale(0.93);
+}
+.mobile-nav-item.active {
+  color: var(--ems-teal);
+}
+.mobile-nav-item.active .mobile-nav-icon {
+  color: var(--ems-teal);
+  transform: scale(1.1);
+}
+.mobile-nav-item.active .mobile-nav-label {
+  color: var(--ems-teal);
+  font-weight: 600;
+}
+.mobile-nav-item .mobile-nav-icon {
+  transition: all 0.2s ease;
+  color: var(--muted-foreground);
+}
+.mobile-nav-item:not(.active) .mobile-nav-icon {
+  color: var(--muted-foreground);
+}
+.mobile-nav-item:not(.active):hover .mobile-nav-icon {
+  color: var(--foreground);
+}
+.mobile-nav-item .mobile-nav-label {
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+}
+.mobile-nav-item:not(.active):hover .mobile-nav-label {
+  color: var(--foreground);
+}
+/* Active pill indicator */
+.mobile-nav-item.active::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--ems-teal);
+  box-shadow: 0 2px 8px rgba(46, 196, 182, 0.4);
+}
+
+/* ── 37. Header Scroll Shadow ── */
+.header-scrolled {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06),
+              0 4px 16px rgba(0, 0, 0, 0.04);
+}
+.dark .header-scrolled {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2),
+              0 4px 16px rgba(0, 0, 0, 0.15);
+}
+/* Keyboard shortcut badge */
+.kbd-shortcut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--muted-foreground);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  line-height: 1.4;
+  box-shadow: 0 1px 0 var(--border);
+}
+.dark .kbd-shortcut {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--muted-foreground);
+}
+/* Breadcrumb chevron */
+.breadcrumb-chevron {
+  color: var(--muted-foreground);
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+.breadcrumb-chevron:hover {
+  opacity: 0.8;
+}
+
+/* ── 38. Daily Challenge Enhancements ── */
+/* Gradient accent bar for challenge card */
+.challenge-accent-bar {
+  position: relative;
+  overflow: hidden;
+}
+.challenge-accent-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F59E0B, #EF4444, #845EC2, #2EC4B6);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Streak flame animation */
+@keyframes streakFlame {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  25% { transform: scale(1.15) rotate(3deg); }
+  50% { transform: scale(1.05) rotate(-1deg); }
+  75% { transform: scale(1.2) rotate(2deg); }
+}
+.streak-flame-icon {
+  animation: streakFlame 1.5s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+}
+
+/* Countdown circular progress for daily challenge */
+.countdown-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.countdown-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.countdown-ring-track {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 4;
+}
+.countdown-ring-fill {
+  fill: none;
+  stroke: var(--ems-teal);
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+  filter: drop-shadow(0 0 4px rgba(46, 196, 182, 0.3));
+}
+.countdown-ring-center {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Confetti burst for daily challenge completion */
+@keyframes confettiBurst {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120px) scale(1);
+    opacity: 0;
+  }
+}
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confettiBurst 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+/* ── Reduced Motion: Round 5 new animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .card-shine::before {
+    transition: none;
+    display: none;
+  }
+  .card-tilt:hover {
+    transform: none;
+  }
+  .card-border-glow:hover {
+    animation: none;
+  }
+  .section-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .section-exit {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .tab-content-transition {
+    transition: none;
+  }
+  .shake {
+    animation: none;
+  }
+  .pop {
+    animation: none;
+  }
+  .skeleton-card::after,
+  .skeleton-text::after,
+  .skeleton-circle::after,
+  .skeleton-chart::after {
+    animation: none;
+    display: none;
+  }
+  .notification-dot::after {
+    animation: none;
+  }
+  .notification-badge.bounce {
+    animation: none;
+  }
+  .mobile-nav-item:active {
+    transform: none;
+  }
+  .mobile-nav-item.active .mobile-nav-icon {
+    transform: none;
+  }
+  .mobile-nav-item.active::before {
+    box-shadow: none;
+  }
+  .streak-flame-icon {
+    animation: none;
+  }
+  .countdown-ring-fill {
+    transition: none;
+    filter: none;
+  }
+  .confetti-particle {
+    animation: none;
+    display: none;
+  }
+}

@@ -84,11 +84,11 @@ export function StudyStreakCalendar() {
 
   // Build the grid data: 7 rows (Sun-Sat) × 12 columns (weeks)
   const { grid, monthLabels, stats } = useMemo(() => {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
+    const calendarToday = new Date()
+    calendarToday.setHours(0, 0, 0, 0)
 
     // Start from (TOTAL_DAYS - 1) days ago, aligned to Sunday
-    const startDate = new Date(today)
+    const startDate = new Date(calendarToday)
     startDate.setDate(startDate.getDate() - (TOTAL_DAYS - 1))
     // Align to previous Sunday
     const dayOfWeek = startDate.getDay()
@@ -107,8 +107,8 @@ export function StudyStreakCalendar() {
       d.setDate(d.getDate() + i)
 
       const dateKey = d.toISOString().split('T')[0]
-      const isFuture = d > today
-      const isToday = d.getTime() === today.getTime()
+      const isFuture = d > calendarToday
+      const isToday = d.getTime() === calendarToday.getTime()
       const count = studyActivityLog[dateKey] || 0
 
       // Track month label
@@ -137,8 +137,8 @@ export function StudyStreakCalendar() {
 
     // Calculate current streak
     let currentStreak = 0
-    const todayKey = today.toISOString().split('T')[0]
-    const yesterdayKey = new Date(today.getTime() - 86400000)
+    const todayKey = calendarToday.toISOString().split('T')[0]
+    const yesterdayKey = new Date(calendarToday.getTime() - 86400000)
       .toISOString()
       .split('T')[0]
 
@@ -146,7 +146,7 @@ export function StudyStreakCalendar() {
     if (studyActivityLog[todayKey] > 0) {
       currentStreak = 1
       // Walk backwards from yesterday
-      let checkDate = new Date(today)
+      let checkDate = new Date(calendarToday)
       checkDate.setDate(checkDate.getDate() - 1)
       while (true) {
         const key = checkDate.toISOString().split('T')[0]
@@ -159,13 +159,13 @@ export function StudyStreakCalendar() {
       }
     } else if (studyActivityLog[yesterdayKey] > 0) {
       currentStreak = 1
-      let checkDate = new Date(yesterdayKey)
-      checkDate.setDate(checkDate.getDate() - 1)
+      let checkDateCal = new Date(yesterdayKey)
+      checkDateCal.setDate(checkDateCal.getDate() - 1)
       while (true) {
-        const key = checkDate.toISOString().split('T')[0]
+        const key = checkDateCal.toISOString().split('T')[0]
         if (studyActivityLog[key] > 0) {
           currentStreak++
-          checkDate.setDate(checkDate.getDate() - 1)
+          checkDateCal.setDate(checkDateCal.getDate() - 1)
         } else {
           break
         }

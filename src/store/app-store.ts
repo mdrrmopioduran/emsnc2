@@ -141,6 +141,8 @@ interface AppState {
   settings: AppSettings
   updateSettings: (partial: Partial<AppSettings>) => void
   resetProgress: () => void
+  importProgress: (progress: ProgressData) => void
+  importSettings: (settings: AppSettings) => void
 }
 
 const defaultProgress: ProgressData = {
@@ -754,6 +756,27 @@ export const useAppStore = create<AppState>((set, get) => ({
   resetProgress: () => {
     saveToStorage('ems-progress', defaultProgress)
     set({ progress: defaultProgress })
+  },
+  importProgress: (importedProgress) => {
+    const migrated: ProgressData = { ...defaultProgress, ...importedProgress }
+    saveToStorage('ems-progress', migrated)
+    set({ progress: migrated })
+  },
+  importSettings: (importedSettings) => {
+    const migrated: AppSettings = {
+      ...defaultSettings,
+      ...importedSettings,
+      ai: { ...defaultAISettings, ...(importedSettings.ai || {}) },
+    }
+    saveToStorage('ems-settings', migrated)
+    set({ settings: migrated })
+    if (migrated.theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+    document.documentElement.setAttribute('data-font-size', migrated.fontSize)
+    document.documentElement.classList.toggle('reduce-motion', migrated.reducedMotion)
   },
 }))
 

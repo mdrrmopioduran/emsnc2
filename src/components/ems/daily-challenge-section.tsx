@@ -115,7 +115,7 @@ export function DailyChallengeSection() {
   if (isCompletedToday && !started) {
     return (
       <div className="content-transition space-y-4 overflow-x-hidden w-full max-w-full">
-        <Card className="card-modern border-ems-teal/20 bg-gradient-to-br from-ems-teal/5 to-transparent">
+        <Card className="card-modern border-ems-teal/20 bg-gradient-to-br from-ems-teal/5 to-transparent challenge-accent-bar">
           <CardContent className="p-6 text-center">
             <div className="w-16 h-16 rounded-2xl bg-ems-teal/10 flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="w-8 h-8 text-ems-teal" />
@@ -125,7 +125,7 @@ export function DailyChallengeSection() {
 
             {/* Streak */}
             <div className="flex items-center justify-center gap-2 mb-6">
-              <Flame className="w-5 h-5 text-orange-500" />
+              <Flame className="w-5 h-5 text-orange-500 streak-flame-icon" />
               <span className="text-sm font-semibold">{progress.dailyChallengeStreak || 0} {t('daily.streak')}</span>
             </div>
 
@@ -225,7 +225,7 @@ export function DailyChallengeSection() {
   if (!started) {
     return (
       <div className="content-transition space-y-4 overflow-x-hidden w-full max-w-full">
-        <Card className="card-modern border-amber-200/50 dark:border-amber-800/30 bg-gradient-to-br from-amber-50/50 to-transparent dark:from-amber-950/20">
+        <Card className="card-modern border-amber-200/50 dark:border-amber-800/30 bg-gradient-to-br from-amber-50/50 to-transparent dark:from-amber-950/20 challenge-accent-bar">
           <CardContent className="p-6 text-center">
             <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
               <CalendarDays className="w-7 h-7 text-amber-500" />
@@ -240,7 +240,7 @@ export function DailyChallengeSection() {
               </div>
               <div className="w-px h-4 bg-border" />
               <div className="flex items-center gap-1.5">
-                <Flame className="w-4 h-4 text-orange-500" />
+                <Flame className="w-4 h-4 text-orange-500 streak-flame-icon" />
                 <span className="text-xs font-semibold">{progress.dailyChallengeStreak || 0} {t('daily.streak')}</span>
               </div>
             </div>

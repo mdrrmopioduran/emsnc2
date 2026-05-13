@@ -381,7 +381,7 @@ export function FlashcardSection() {
     return (
       <div className="relative content-transition">
         <ConfettiCelebration />
-        <Card className="card-modern max-w-md mx-auto text-center p-8">
+        <Card className="card-modern card-shine max-w-md mx-auto text-center p-8">
           <CardContent className="space-y-4">
             <div className="text-6xl mb-2">🎉</div>
             <h3 className="text-xl font-bold text-foreground">Session Complete!</h3>

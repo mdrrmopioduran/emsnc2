@@ -11,8 +11,9 @@ import {
   Info, Shield, Eye, Volume2, AlertTriangle, BookOpen,
   ClipboardCheck, Heart, Zap, Flame, Award, Target, RotateCcw,
   Clock, GraduationCap, Rocket, Trophy, Star, Sparkles,
-  CheckCircle2, Milestone, TrendingUp, WifiOff
+  CheckCircle2, Milestone, TrendingUp, WifiOff, Upload, HardDrive
 } from 'lucide-react'
+import { toast as sonnerToast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -318,7 +319,7 @@ function KeyboardShortcutsPanel({ expanded, onToggle }: { expanded: boolean; onT
 }
 
 export function SettingsSection() {
-  const { settings, updateSettings, progress, resetProgress, setLearningMode, setDailyGoalMinutes } = useAppStore()
+  const { settings, updateSettings, progress, resetProgress, setLearningMode, setDailyGoalMinutes, importProgress, importSettings } = useAppStore()
   const [shortcutsExpanded, setShortcutsExpanded] = React.useState(true)
   useKeyboardShortcuts()
   const { toast } = useToast()
@@ -357,20 +358,68 @@ export function SettingsSection() {
 
   const dailyGoalOptions = [5, 15, 30, 60]
 
+  const fileInputRef = React.useRef<HTMLInputElement>(null)
+  const [importFileName, setImportFileName] = React.useState<string>('')
+
   const handleExport = () => {
     const data = {
       progress,
-      settings,
+      settings: { ...settings, ai: { ...settings.ai, apiKey: '' } },
       exportedAt: new Date().toISOString(),
     }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `ems-ncii-progress-${new Date().toISOString().split('T')[0]}.json`
+    a.download = `ems-reviewer-progress-${new Date().toISOString().split('T')[0]}.json`
     a.click()
     URL.revokeObjectURL(url)
-    toast({ title: 'Exported!', description: 'Progress data downloaded as JSON' })
+    sonnerToast.success(t('dataExport.exportSuccess'), { description: t('dataExport.exportDesc') })
+  }
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImportFileName(file.name)
+  }
+
+  const handleImport = () => {
+    const file = fileInputRef.current?.files?.[0]
+    if (!file) {
+      sonnerToast.error(t('dataExport.importError'), { description: t('dataExport.selectFile') })
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        const parsed = JSON.parse(e.target?.result as string)
+        // Validate structure
+        if (!parsed.progress || !parsed.settings) {
+          throw new Error('Invalid structure')
+        }
+        // Check required progress fields
+        const requiredFields = ['readTopics', 'quizScores', 'completedSimulations', 'bookmarks', 'xp', 'level', 'badges']
+        for (const field of requiredFields) {
+          if (!(field in parsed.progress)) {
+            throw new Error(`Missing field: ${field}`)
+          }
+        }
+        // Import data
+        importProgress(parsed.progress)
+        importSettings(parsed.settings)
+        sonnerToast.success(t('dataExport.importSuccess'), { description: t('dataExport.importSuccessDesc') })
+        setImportFileName('')
+        setTimeout(() => window.location.reload(), 1500)
+      } catch {
+        sonnerToast.error(t('dataExport.importError'), { description: t('dataExport.importErrorDesc') })
+        setImportFileName('')
+      }
+    }
+    reader.readAsText(file)
   }
 
   // Preparedness level label
@@ -986,6 +1035,98 @@ export function SettingsSection() {
 
       {/* PWA Install */}
       <PWAInstallCard />
+
+      {/* Export / Import Progress */}
+      <Card className="card-modern border-primary/20 bg-primary/5">
+        <CardHeader>
+          <CardTitle className="text-sm flex items-center gap-2">
+            <HardDrive className="w-4 h-4 text-primary" /> {t('dataExport.title')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-xs text-muted-foreground">{t('dataExport.description')}</p>
+          <p className="text-[10px] text-muted-foreground">{t('dataExport.fileInfo')}</p>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Button variant="outline" size="sm" onClick={handleExport} className="gap-2">
+              <Download className="w-4 h-4" /> {t('dataExport.exportBtn')}
+            </Button>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="sm" onClick={handleImportClick} className="gap-2" disabled={!importFileName}>
+                  <Upload className="w-4 h-4" /> {t('dataExport.importBtn')}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="flex items-center gap-2">
+                    <Upload className="w-5 h-5 text-amber-500" />
+                    {t('dataExport.importConfirmTitle')}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {t('dataExport.importConfirmDesc')}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleImport} className="bg-primary hover:bg-primary/90">
+                    {t('dataExport.importAction')}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="sm" className="gap-2">
+                  <Trash2 className="w-4 h-4" /> {t('dataExport.resetBtn')}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5 text-ems-red" />
+                    {t('dataExport.resetConfirmTitle')}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {t('dataExport.resetConfirmDesc')}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => {
+                      resetProgress()
+                      sonnerToast.success(t('dataExport.resetSuccess'), { description: t('dataExport.resetSuccessDesc') })
+                      setTimeout(() => window.location.reload(), 1500)
+                    }}
+                    className="bg-ems-red hover:bg-ems-red/90"
+                  >
+                    {t('dataExport.resetAction')}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+
+          {importFileName && (
+            <div className="flex items-center gap-2 p-2 rounded-lg bg-muted/50 text-xs">
+              <Upload className="w-3 h-3 text-muted-foreground" />
+              <span className="text-muted-foreground">{t('dataExport.fileName')}</span>
+              <span className="font-medium truncate max-w-[200px]">{importFileName}</span>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Offline Storage Info */}
       <CacheInfoCard />

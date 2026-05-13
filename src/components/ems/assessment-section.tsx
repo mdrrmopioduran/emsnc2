@@ -184,7 +184,7 @@ export function QuizEngine() {
   if (!mode) {
     return (
       <div className="quiz-state-enter space-y-6 overflow-x-hidden w-full max-w-full">
-        <Card>
+        <Card className="card-modern card-shine">
           <CardHeader>
             <CardTitle className="text-lg">PIO DURAN EMS NCII Self-Assessment Quiz</CardTitle>
             <p className="text-xs text-muted-foreground mt-1">{questions.length} competency-based questions across {categories.length} categories</p>
@@ -257,7 +257,7 @@ export function QuizEngine() {
               <h3 className="font-semibold text-sm mb-3">Choose Quiz Mode</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <Card
-                  className="card-modern cursor-pointer hover:border-primary transition-all"
+                  className="card-modern card-border-glow card-tilt cursor-pointer hover:border-primary transition-all"
                   onClick={() => startQuiz('timed')}
                 >
                   <CardContent className="p-4 text-center">
@@ -270,7 +270,7 @@ export function QuizEngine() {
                   </CardContent>
                 </Card>
                 <Card
-                  className="card-modern cursor-pointer hover:border-primary transition-all"
+                  className="card-modern card-border-glow card-tilt cursor-pointer hover:border-primary transition-all"
                   onClick={() => startQuiz('practice')}
                 >
                   <CardContent className="p-4 text-center">
@@ -283,7 +283,7 @@ export function QuizEngine() {
                   </CardContent>
                 </Card>
                 <Card
-                  className="card-modern cursor-pointer hover:border-primary transition-all"
+                  className="card-modern card-border-glow card-tilt cursor-pointer hover:border-primary transition-all"
                   onClick={() => startQuiz('category')}
                 >
                   <CardContent className="p-4 text-center">
@@ -469,7 +469,7 @@ export function QuizEngine() {
       </div>
 
       {/* Question */}
-      <Card>
+      <Card className="card-modern card-numbered" data-number={String(currentIndex + 1)}>
         <CardContent className="p-5">
           <div className="flex items-center gap-2 mb-3 flex-wrap">
             {currentCatInfo && (
@@ -647,7 +647,7 @@ export function SimulationEngine() {
             return (
               <Card
                 key={s.id}
-                className="card-modern cursor-pointer hover:border-primary transition-all"
+                className="card-modern card-shine card-border-glow cursor-pointer hover:border-primary transition-all"
                 onClick={() => startScenario(s.id)}
               >
                 <CardContent className="p-4">

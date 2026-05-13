@@ -7,14 +7,14 @@ import { roadmapTopics } from '@/data/roadmap'
 import {
   CheckCircle2, ChevronDown, ChevronUp, Clock, BookOpen, Sparkles,
   Star, Zap, Flame, Award, Lock, Play, Eye, Bookmark, BookmarkCheck,
-  ArrowRight, Target, AlertTriangle, Lightbulb, RotateCcw
+  ArrowRight, ArrowLeft, Target, AlertTriangle, Lightbulb, RotateCcw
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { ModuleQuiz, DiagnosticAssessment } from '@/components/ems/shared-components'
+import { ModuleQuiz, DiagnosticAssessment, ReadTimeTracker } from '@/components/ems/shared-components'
 import { SpeakerButton } from '@/components/ems/tts-button'
 import { useTranslatedContent } from '@/hooks/use-translated-content'
 
@@ -174,11 +174,16 @@ function KnowledgeBlock({ icon, title, items, color }: { icon: React.ReactNode; 
 }
 
 export function RoadmapSection() {
-  const { progress, markTopicRead, activeSubSection, settings, setLastViewedTopic } = useAppStore()
+  const { progress, markTopicRead, activeSubSection, settings, setLastViewedTopic, setActiveSubSection } = useAppStore()
   const { t } = useTranslation()
   const [expandedId, setExpandedId] = useState<string | null>(activeSubSection || null)
   const isQuickReview = settings.learningMode === 'quickReview'
   const topicRefs = useRef<Record<string, HTMLDivElement | null>>({})
+
+  // Find if activeSubSection matches a roadmap topic
+  const activeTopic = activeSubSection
+    ? roadmapTopics.find(tp => tp.id === activeSubSection)
+    : null
 
   // Track last viewed topic on initial load and when expandedId changes
   useEffect(() => {
@@ -221,6 +226,41 @@ export function RoadmapSection() {
 
   const handleToggle = (topicId: string) => {
     setExpandedId(expandedId === topicId ? null : topicId)
+  }
+
+  // Navigate to the full topic lesson view
+  const handleStartLesson = (topicId: string) => {
+    setActiveSubSection(topicId)
+    setLastViewedTopic(topicId)
+  }
+
+  // Go back from topic view to roadmap grid
+  const handleBackToRoadmap = () => {
+    setActiveSubSection('')
+    setExpandedId(null)
+  }
+
+  // ── Topic Lesson View ──────────────────────────────────────────
+  // When activeSubSection matches a topic ID, show full lesson view
+  if (activeTopic) {
+    return (
+      <div className="content-transition space-y-6 overflow-x-hidden w-full max-w-full animate-in fade-in duration-300">
+        {/* Back button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground hover:text-foreground"
+          onClick={handleBackToRoadmap}
+        >
+          <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('roadmap.backToRoadmap')}
+        </Button>
+
+        <TopicLessonView
+          topic={activeTopic}
+          onBack={handleBackToRoadmap}
+        />
+      </div>
+    )
   }
 
   return (
@@ -281,7 +321,7 @@ export function RoadmapSection() {
               <Button
                 size="sm"
                 className="bg-ems-teal hover:bg-ems-teal/90 shadow-sm shadow-ems-teal/20 flex-shrink-0"
-                onClick={() => handleToggle(continueTopic.id)}
+                onClick={() => handleStartLesson(continueTopic.id)}
               >
                 {t('common.resume')} <ArrowRight className="w-3.5 h-3.5 ml-1" />
               </Button>
@@ -400,6 +440,7 @@ export function RoadmapSection() {
                   totalSections={totalSections}
                   index={index}
                   onToggle={() => handleToggle(topic.id)}
+                  onStartLesson={() => handleStartLesson(topic.id)}
                   onMarkRead={() => markTopicRead(topic.id)}
                   cardRef={(el) => { topicRefs.current[topic.id] = el }}
                 />
@@ -422,11 +463,12 @@ interface TopicCardProps {
   totalSections: number
   index: number
   onToggle: () => void
+  onStartLesson: () => void
   onMarkRead: () => void
   cardRef?: (el: HTMLDivElement | null) => void
 }
 
-function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, sectionsCompleted, totalSections, onToggle, onMarkRead, cardRef }: TopicCardProps) {
+function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, sectionsCompleted, totalSections, onToggle, onStartLesson, onMarkRead, cardRef }: TopicCardProps) {
   const { progress, toggleBookmark } = useAppStore()
   const { t } = useTranslation()
   const tc = useTranslatedContent()
@@ -481,7 +523,7 @@ function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, 
       {/* Card - Modern Redesign */}
       <Card
         className={cn(
-          'card-modern cursor-pointer group overflow-hidden',
+          'card-modern card-shine card-tilt cursor-pointer group overflow-hidden',
           isCompleted && 'border-ems-teal/20 bg-gradient-to-br from-ems-teal/5 to-transparent',
           isExpanded && 'card-active-glow',
           isSuggested && !isCompleted && 'border-ems-red/20',
@@ -576,7 +618,11 @@ function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, 
               className="h-8 text-xs font-semibold text-primary hover:text-primary"
               onClick={(e) => {
                 e.stopPropagation()
-                onToggle()
+                if (isExpanded) {
+                  onToggle()
+                } else {
+                  onStartLesson()
+                }
               }}
             >
               {isExpanded ? (
@@ -784,6 +830,256 @@ function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, 
               </div>
             </div>
           )}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+// ── Topic Lesson View (full-screen lesson when a topic is selected) ──
+interface TopicLessonViewProps {
+  topic: typeof roadmapTopics[0]
+  onBack: () => void
+}
+
+function TopicLessonView({ topic, onBack }: TopicLessonViewProps) {
+  const { progress, markTopicRead } = useAppStore()
+  const { t } = useTranslation()
+  const tc = useTranslatedContent()
+  const isCompleted = progress.readTopics.includes(topic.id)
+  const hasModuleQuiz = ['osh', 'first-aider', 'chain-of-survival'].includes(topic.id)
+
+  const topicTitle = tc.getTopicTitle(topic)
+  const topicShortDesc = tc.getTopicShortDesc(topic)
+  const topicContent = tc.getTopicContent(topic)
+  const topicKeyPoints = tc.getTopicKeyPoints(topic)
+  const topicOutcomes = tc.getTopicOutcomes(topic)
+  const topicWhatYoullLearn = tc.getTopicWhatYoullLearn(topic)
+  const topicQuickNotes = tc.getTopicQuickNotes(topic)
+
+  useTimeTracker(topic.id, true)
+
+  return (
+    <div className="space-y-6">
+      {/* Topic Header Card */}
+      <Card className="overflow-hidden card-modern">
+        <div
+          className="h-1.5 w-full"
+          style={{ backgroundColor: topic.categoryColor }}
+        />
+        <CardContent className="p-5 md:p-6">
+          <div className="flex items-start gap-4">
+            <div
+              className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 shadow-sm"
+              style={{ backgroundColor: topic.categoryColor + '18' }}
+            >
+              {topic.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0 mb-1.5">
+                <Badge
+                  className="text-[10px] px-1.5 sm:px-2 py-0.5 font-semibold"
+                  style={{ backgroundColor: topic.categoryColor, color: 'white' }}
+                >
+                  {topic.badge}
+                </Badge>
+                <DifficultyBadge difficulty={topic.difficulty} />
+                {topic.isCritical && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-ems-red bg-ems-red/5">
+                    🚑 {t('common.criticalSkill')}
+                  </span>
+                )}
+              </div>
+              <h2 className="font-bold text-xl md:text-2xl text-foreground leading-tight break-words">{topicTitle}</h2>
+              <p className="text-sm text-muted-foreground mt-2 leading-relaxed break-words">{topicShortDesc}</p>
+              <div className="mt-3">
+                <ReadTimeTracker topicId={topic.id} estimatedMinutes={topic.estimatedMinutes} />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Learning Outcomes */}
+      <Card className="card-modern">
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+            <Target className="w-4 h-4 text-ems-teal" /> {t('roadmap.learningOutcomes')}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {topicOutcomes.map((outcome, i) => (
+              <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg bg-ems-teal/5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-ems-teal flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground/80">{outcome}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Key Topics */}
+      <Card className="card-modern">
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-primary" /> {t('roadmap.keyTopics')}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {topicWhatYoullLearn.map((item, i) => (
+              <div key={i} className="knowledge-block !p-2.5 !gap-2">
+                <span className="text-sm text-foreground/80">{item}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Full Lesson Content */}
+      <Card className="card-modern">
+        <CardContent className="p-5">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-semibold text-sm flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-primary" /> {t('roadmap.fullLesson')}
+            </h3>
+            <SpeakerButton text={topicContent} size="sm" />
+          </div>
+          <div className="prose prose-sm max-w-none">
+            {topicContent.split('\n\n').map((paragraph, i) => (
+              <p key={i} className="text-sm text-foreground/80 mb-3 leading-relaxed break-words">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Key Points */}
+      {topicKeyPoints.length > 0 && (
+        <Card className="card-modern">
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-sm flex items-center gap-2">
+                <Star className="w-4 h-4 text-amber-500" /> {t('roadmap.keyPoints')}
+              </h3>
+              <SpeakerButton text={topicKeyPoints.join('. ')} size="xs" />
+            </div>
+            <ul className="space-y-2">
+              {topicKeyPoints.map((point, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-foreground/70">
+                  <span
+                    className="w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold flex-shrink-0 mt-0.5"
+                    style={{ backgroundColor: topic.categoryColor + '18', color: topic.categoryColor }}
+                  >
+                    {i + 1}
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Quick Notes - expandable */}
+      <Card className="card-modern">
+        <CardContent className="p-5">
+          <details className="group">
+            <summary className="font-semibold text-sm cursor-pointer flex items-center gap-2 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+              <Lightbulb className="w-4 h-4 text-amber-500" />
+              {t('roadmap.quickReviewNotes')}
+              <ChevronDown className="w-4 h-4 ml-auto transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="mt-3 space-y-3 p-1">
+              <div>
+                <h4 className="text-xs font-bold text-ems-teal mb-1">{t('roadmap.keyTerms')}</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {topicQuickNotes.keyTerms.map((term) => (
+                    <Badge key={term} variant="outline" className="text-[10px]">{term}</Badge>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-green-600 mb-1">{t('roadmap.importantProtocols')}</h4>
+                <ul className="space-y-1">
+                  {topicQuickNotes.protocols.map((p, i) => (
+                    <li key={i} className="text-xs text-foreground/70 flex items-start gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0 mt-1.5" />{p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-amber-600 mb-1">{t('roadmap.mnemonics')}</h4>
+                <ul className="space-y-1">
+                  {topicQuickNotes.mnemonics.map((m, i) => (
+                    <li key={i} className="text-xs text-foreground/70 flex items-start gap-1.5">
+                      <Lightbulb className="w-3 h-3 text-amber-500 flex-shrink-0 mt-0.5" />{m}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-ems-red mb-1">{t('roadmap.commonMistakes')}</h4>
+                <ul className="space-y-1">
+                  {topicQuickNotes.commonMistakes.map((m, i) => (
+                    <li key={i} className="text-xs text-foreground/70 flex items-start gap-1.5">
+                      <AlertTriangle className="w-3 h-3 text-ems-red flex-shrink-0 mt-0.5" />{m}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="p-2.5 rounded-lg bg-muted/50 border border-border/50">
+                <div className="flex items-center justify-between mb-1">
+                  <h4 className="text-xs font-bold text-primary">{t('roadmap.summary')}</h4>
+                  <SpeakerButton text={topicQuickNotes.summary} size="xs" />
+                </div>
+                <p className="text-xs text-foreground/70">{topicQuickNotes.summary}</p>
+              </div>
+            </div>
+          </details>
+        </CardContent>
+      </Card>
+
+      {/* Chain of Survival special content */}
+      {topic.id === 'chain-of-survival' && <ChainOfSurvivalDiagram />}
+
+      {/* Module Quiz */}
+      {hasModuleQuiz && (
+        <ModuleQuiz topicId={topic.id} topicTitle={topic.title} />
+      )}
+
+      {/* Mark as Complete + Back */}
+      <Card className="card-modern">
+        <CardContent className="p-5">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+              onClick={onBack}
+            >
+              <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('roadmap.backToRoadmap')}
+            </Button>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                <Zap className="w-3 h-3" /> +{topic.xpReward} {t('roadmap.xpOnCompletion')}
+              </span>
+              <Button
+                variant={isCompleted ? 'outline' : 'default'}
+                size="sm"
+                className={cn(
+                  isCompleted
+                    ? 'border-green-500 text-green-600 hover:bg-green-50 dark:hover:bg-green-950/30'
+                    : 'bg-ems-teal hover:bg-ems-teal/90 shadow-sm shadow-ems-teal/20'
+                )}
+                onClick={() => markTopicRead(topic.id)}
+              >
+                {isCompleted ? (
+                  <><CheckCircle2 className="w-4 h-4 mr-1" /> {t('common.completed')}</>
+                ) : (
+                  <><CheckCircle2 className="w-4 h-4 mr-1" /> {t('roadmap.markComplete')}</>
+                )}
+              </Button>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>

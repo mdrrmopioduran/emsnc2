@@ -254,9 +254,9 @@ function WeeklyHeatmap({
 
   // Get the last 7 days (today + 6 days back)
   const days = useMemo(() => {
-    const today = new Date()
+    const statsToday = new Date()
     return Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(today)
+      const d = new Date(statsToday)
       d.setDate(d.getDate() - (6 - i))
       return {
         dayOfWeek: d.getDay(),

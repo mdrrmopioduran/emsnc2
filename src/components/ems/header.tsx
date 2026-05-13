@@ -58,6 +58,23 @@ export function Header() {
 
   const { t, tBoth, language } = useTranslation()
 
+  // Scroll shadow state
+  const [scrolled, setScrolled] = useState(false)
+  const scrollRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollRef.current) clearTimeout(scrollRef.current)
+      scrollRef.current = setTimeout(() => {
+        setScrolled(window.scrollY > 8)
+      }, 10)
+    }
+    const main = document.querySelector('main')
+    if (main) {
+      main.addEventListener('scroll', handleScroll, { passive: true })
+      return () => main.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   // Get translated title
   const title = activeSubSection
     ? (subTitleKeys[activeSubSection] ? t(subTitleKeys[activeSubSection]) : activeSubSection)
@@ -118,7 +135,10 @@ export function Header() {
 
   return (
     <div className="flex-shrink-0 z-20 no-print" role="banner">
-      <header className="flex items-center gap-2 md:gap-3 px-3 md:px-6 h-14 bg-card/80 backdrop-blur-md border-b-0 header-gradient-border shadow-sm">
+      <header className={cn(
+        'flex items-center gap-2 md:gap-3 px-3 md:px-6 h-14 bg-card/80 backdrop-blur-md border-b-0 header-gradient-border transition-shadow duration-300',
+        scrolled && 'header-scrolled'
+      )}>
         {/* Mobile menu toggle */}
         <button
           onClick={toggleSidebar}
@@ -149,11 +169,11 @@ export function Header() {
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] text-muted-foreground overflow-hidden mt-0.5">
             <span className="hidden sm:inline">PIO DURAN EMS NCII</span>
-            <span className="hidden sm:inline">›</span>
+            <ChevronRight className="hidden sm:inline w-3 h-3 breadcrumb-chevron" />
             <span className="text-foreground font-medium truncate">{t(sectionTitleKeys[activeSection])}</span>
             {activeSubSection && subTitleKeys[activeSubSection] && (
               <>
-                <span>›</span>
+                <ChevronRight className="w-3 h-3 breadcrumb-chevron" />
                 <span className="truncate">{t(subTitleKeys[activeSubSection])}</span>
               </>
             )}
@@ -177,11 +197,19 @@ export function Header() {
           <span className="sm:hidden">{language === 'en' ? 'EN' : 'FL'}</span>
         </button>
 
-        {/* Search button */}
+        {/* Search button with keyboard shortcut badge */}
         <button
           onClick={() => setSearchOpen(true)}
-          className="p-2 rounded-lg hover:bg-muted transition-colors search-pulse-btn"
+          className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-muted transition-colors search-pulse-btn"
           aria-label="Search (Ctrl+K)"
+        >
+          <Search className="w-4 h-4 text-muted-foreground" />
+          <span className="kbd-shortcut">⌘K</span>
+        </button>
+        <button
+          onClick={() => setSearchOpen(true)}
+          className="sm:hidden p-2 rounded-lg hover:bg-muted transition-colors search-pulse-btn"
+          aria-label="Search"
         >
           <Search className="w-4 h-4 text-muted-foreground" />
         </button>

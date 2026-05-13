@@ -14,6 +14,7 @@ import { GlobalSearch, OnboardingWalkthrough } from '@/components/ems/shared-com
 import { StartDialog } from '@/components/ems/start-dialog'
 import { FloatingChatButton } from '@/components/ems/ai-assistant'
 import { OfflineIndicator, UpdateBanner, LastSyncDisplay } from '@/components/ems/pwa-components'
+import { AchievementToastWatcher } from '@/components/ems/achievement-toast-watcher'
 import { BookOpen, BookText, Heart, ClipboardCheck, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/hooks/use-translation'
@@ -36,7 +37,7 @@ function MobileBottomNav() {
   const { t } = useTranslation()
 
   return (
-    <nav className="mobile-bottom-nav mobile-nav-frosted" aria-label="Mobile navigation">
+    <nav className="mobile-bottom-nav mobile-nav-frosted mobile-bottom-nav-enhanced" aria-label="Mobile navigation">
       {bottomNavKeys.map(({ section, labelKey, icon: Icon }) => {
         const isActive = activeSection === section
         return (
@@ -47,16 +48,14 @@ function MobileBottomNav() {
               setSidebarOpen(false)
             }}
             className={cn(
-              'flex flex-col items-center gap-0.5 py-2 px-3 rounded-lg min-h-[44px] transition-colors min-w-[56px]',
-              isActive
-                ? 'text-primary'
-                : 'text-muted-foreground hover:text-foreground'
+              'mobile-nav-item',
+              isActive && 'active'
             )}
             aria-label={t(labelKey)}
             aria-current={isActive ? 'page' : undefined}
           >
-            <Icon className={cn('w-5 h-5', isActive && 'text-primary')} />
-            <span className={cn('text-[11px] leading-tight', isActive && 'font-semibold text-primary')}>
+            <Icon className={cn('w-5 h-5 mobile-nav-icon')} />
+            <span className="mobile-nav-label">
               {t(labelKey).split(' ')[0]}
             </span>
           </button>
@@ -143,6 +142,7 @@ export default function HomePage() {
       <OfflineIndicator />
       <UpdateBanner />
       <FloatingChatButton />
+      <AchievementToastWatcher />
     </div>
   )
 }
