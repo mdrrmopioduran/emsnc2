@@ -11,7 +11,8 @@ import {
   Shuffle, X, ArrowRight, Pill, ShieldAlert, Beaker,
   Eye, EyeOff, GraduationCap, Zap, Scale, Stethoscope,
   ClipboardCheck, Globe, Building2, Truck, Lightbulb,
-  RotateCcw, Star, StarOff, Trophy, Brain, Sparkles, BookText, Type
+  RotateCcw, Star, StarOff, Trophy, Brain, Sparkles, BookText, Type,
+  CreditCard
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useToast } from '@/hooks/use-toast'
 import { CompetenciesSection } from '@/components/ems/competencies-section'
 import { AIAssistantSection } from '@/components/ems/ai-assistant'
+import { FlashcardSection } from '@/components/ems/flashcard-section'
 import { useTranslation } from '@/hooks/use-translation'
 import { InlineSpeakerButton } from '@/components/ems/tts-button'
 
@@ -1113,8 +1115,6 @@ export function StudySection() {
   const { activeSubSection, setActiveSubSection } = useAppStore()
   const { t } = useTranslation()
 
-  const defaultTab = activeSubSection || 'acronyms'
-
   return (
     <div className="content-transition space-y-4">
       {/* Mode Toggle at the top */}
@@ -1124,8 +1124,7 @@ export function StudySection() {
       </div>
 
       <Tabs
-        defaultValue={defaultTab}
-        value={activeSubSection || undefined}
+        value={activeSubSection || 'acronyms'}
         onValueChange={(v) => setActiveSubSection(v)}
       >
         <TabsList className="w-full justify-start mb-4 overflow-x-auto flex-nowrap scrollbar-none">
@@ -1133,6 +1132,7 @@ export function StudySection() {
           <TabsTrigger value="acronyms" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal"><BookText className="w-3.5 h-3.5" />{t('sub.acronyms')}</TabsTrigger>
           <TabsTrigger value="definitions" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><Type className="w-3.5 h-3.5" />{t('sub.definitions')}</TabsTrigger>
           <TabsTrigger value="drugs" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Pill className="w-3.5 h-3.5" />{t('sub.drugs')}</TabsTrigger>
+          <TabsTrigger value="flashcards" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><CreditCard className="w-3.5 h-3.5" />{t('sub.flashcards')}</TabsTrigger>
           <TabsTrigger value="ai-assistant" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><Sparkles className="w-3.5 h-3.5" />{t('sub.ai-assistant')}</TabsTrigger>
         </TabsList>
         <TabsContent value="competencies">
@@ -1146,6 +1146,9 @@ export function StudySection() {
         </TabsContent>
         <TabsContent value="drugs">
           <DrugReferencePanel />
+        </TabsContent>
+        <TabsContent value="flashcards">
+          <FlashcardSection />
         </TabsContent>
         <TabsContent value="ai-assistant">
           <AIAssistantSection />

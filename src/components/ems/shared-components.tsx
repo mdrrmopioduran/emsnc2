@@ -2,11 +2,18 @@
 
 import React from 'react'
 import { useAppStore, type Section, BADGE_DEFINITIONS, getLevelFromXp, getXpForNextLevel } from '@/store/app-store'
+import { acronyms } from '@/data/acronyms'
+import { drugs } from '@/data/drugs'
+import { questions } from '@/data/questions'
+import { roadmapTopics } from '@/data/roadmap'
 import {
   Search, ChevronRight, X, Trophy, Flame, Star, Zap,
   Home, BookOpen, BookText, Heart, ClipboardCheck, Settings,
-  Target, Award, CheckCircle2, Sparkles
+  Target, Award, CheckCircle2, Sparkles, Shuffle, Pill,
+  GraduationCap, Map, BookMarked, HelpCircle, FileQuestion,
+  CreditCard
 } from 'lucide-react'
+import { allFlashcards } from '@/data/flashcards'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/hooks/use-translation'
 import { Badge } from '@/components/ui/badge'
@@ -79,6 +86,7 @@ const subLabels: Record<string, string> = {
   quiz: 'Pre-Self Exam',
   simulation: 'Simulation',
   'pre-assessment': 'Pre-Assessment (Group)',
+  flashcards: 'Flashcards',
 }
 
 export function Breadcrumbs() {
@@ -286,7 +294,7 @@ export function GlobalSearch() {
   const searchResults = React.useMemo(() => {
     if (!query.trim()) return []
     const q = query.toLowerCase()
-    const results: { section: Section; sub: string; label: string; type: string }[] = []
+    const results: { section: Section; sub: string; label: string; type: string; icon?: React.ReactNode }[] = []
 
     // Search sections
     const sectionMap: Section[] = ['roadmap', 'study', 'visual', 'assessment', 'settings']
@@ -296,18 +304,95 @@ export function GlobalSearch() {
       }
     })
 
+    // Search flashcards
+    allFlashcards.forEach(fc => {
+      if (
+        fc.front.toLowerCase().includes(q) ||
+        fc.back.toLowerCase().includes(q)
+      ) {
+        results.push({
+          section: 'study' as Section,
+          sub: 'flashcards',
+          label: fc.front,
+          type: 'Flashcard',
+        })
+      }
+    })
+
     // Search sub-sections
     Object.entries(subLabels).forEach(([id, label]) => {
       if (label.toLowerCase().includes(q)) {
         let section: Section = 'roadmap'
-        if (['acronyms', 'definitions', 'drugs'].includes(id)) section = 'study'
+        if (['acronyms', 'definitions', 'drugs', 'flashcards'].includes(id)) section = 'study'
         else if (['diagrams', 'infographics'].includes(id)) section = 'visual'
         else if (['quiz', 'simulation', 'pre-assessment'].includes(id)) section = 'assessment'
         results.push({ section, sub: id, label, type: 'Page' })
       }
     })
 
-    return results.slice(0, 8)
+    // Search acronyms
+    acronyms.forEach(a => {
+      if (
+        a.acronym.toLowerCase().includes(q) ||
+        a.fullTerm.toLowerCase().includes(q) ||
+        a.definition.toLowerCase().includes(q)
+      ) {
+        results.push({
+          section: 'study' as Section,
+          sub: 'acronyms',
+          label: `${a.acronym} — ${a.fullTerm}`,
+          type: 'Acronym',
+        })
+      }
+    })
+
+    // Search drugs
+    drugs.forEach(d => {
+      if (
+        d.genericName.toLowerCase().includes(q) ||
+        d.brandNames.some(b => b.toLowerCase().includes(q)) ||
+        d.indications.some(i => i.toLowerCase().includes(q))
+      ) {
+        results.push({
+          section: 'study' as Section,
+          sub: 'drugs',
+          label: `${d.genericName} (${d.drugClass})`,
+          type: 'Drug',
+        })
+      }
+    })
+
+    // Search questions
+    questions.forEach(qItem => {
+      if (
+        qItem.question.toLowerCase().includes(q) ||
+        qItem.options.some(o => o.toLowerCase().includes(q))
+      ) {
+        results.push({
+          section: 'assessment' as Section,
+          sub: 'quiz',
+          label: qItem.question.length > 80 ? qItem.question.substring(0, 80) + '…' : qItem.question,
+          type: 'Question',
+        })
+      }
+    })
+
+    // Search roadmap topics
+    roadmapTopics.forEach(topic => {
+      if (
+        topic.title.toLowerCase().includes(q) ||
+        topic.shortDescription.toLowerCase().includes(q)
+      ) {
+        results.push({
+          section: 'roadmap' as Section,
+          sub: topic.id,
+          label: topic.title,
+          type: 'Topic',
+        })
+      }
+    })
+
+    return results.slice(0, 12)
   }, [query])
 
   React.useEffect(() => {
@@ -355,7 +440,7 @@ export function GlobalSearch() {
             {searchResults.length > 0 ? (
               searchResults.map((result, i) => (
                 <button
-                  key={i}
+                  key={`${result.type}-${i}`}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-muted transition-colors text-left"
                   onClick={() => {
                     setActiveSection(result.section)
@@ -363,7 +448,9 @@ export function GlobalSearch() {
                     setSearchOpen(false)
                   }}
                 >
-                  <Search className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                  <div className="w-7 h-7 rounded-md bg-muted/60 flex items-center justify-center flex-shrink-0">
+                    {result.icon || <Search className="w-3.5 h-3.5 text-muted-foreground" />}
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">{result.label}</p>
                     <p className="text-[10px] text-muted-foreground">{result.type} · {sectionLabels[result.section]}</p>
@@ -373,18 +460,92 @@ export function GlobalSearch() {
               ))
             ) : (
               <div className="text-center py-8 text-muted-foreground text-sm">
-                No results for &ldquo;{query}&rdquo;
+                <HelpCircle className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                <p>No results for &ldquo;{query}&rdquo;</p>
+                <p className="text-xs mt-1">Try searching for acronyms, drugs, or topics</p>
               </div>
             )}
           </div>
         )}
         {!query.trim() && (
-          <div className="p-4 text-center text-sm text-muted-foreground">
-            <Search className="w-8 h-8 mx-auto mb-2 opacity-30" />
-            <p>Start typing to search</p>
-            <p className="text-xs mt-1">
-              <kbd className="px-1.5 py-0.5 rounded bg-muted text-[10px] font-mono">Ctrl+K</kbd> to open search
-            </p>
+          <div className="max-h-[50vh] sm:max-h-72 overflow-y-auto custom-scrollbar">
+            <div className="p-4 text-center text-sm text-muted-foreground pb-2">
+              <Search className="w-8 h-8 mx-auto mb-2 opacity-30" />
+              <p>Start typing to search</p>
+              <p className="text-xs mt-1">
+                <kbd className="px-1.5 py-0.5 rounded bg-muted text-[10px] font-mono">Ctrl+K</kbd> to open search
+              </p>
+            </div>
+            <div className="border-t border-border px-2 pb-2">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground px-3 pt-3 pb-2">Quick Links</p>
+              <div className="space-y-0.5">
+                <button
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                  onClick={() => { setActiveSection('assessment'); setActiveSubSection('quiz'); setSearchOpen(false) }}
+                >
+                  <div className="w-7 h-7 rounded-md bg-ems-amber/10 flex items-center justify-center flex-shrink-0">
+                    <Shuffle className="w-3.5 h-3.5 text-ems-amber" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">Random Quiz</p>
+                    <p className="text-[10px] text-muted-foreground">Practice exam questions</p>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+                <button
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                  onClick={() => { setActiveSection('study'); setActiveSubSection('acronyms'); setSearchOpen(false) }}
+                >
+                  <div className="w-7 h-7 rounded-md bg-ems-teal/10 flex items-center justify-center flex-shrink-0">
+                    <BookMarked className="w-3.5 h-3.5 text-ems-teal" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">Acronyms</p>
+                    <p className="text-[10px] text-muted-foreground">{acronyms.length} EMS abbreviations</p>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+                <button
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                  onClick={() => { setActiveSection('study'); setActiveSubSection('drugs'); setSearchOpen(false) }}
+                >
+                  <div className="w-7 h-7 rounded-md bg-ems-red/10 flex items-center justify-center flex-shrink-0">
+                    <Pill className="w-3.5 h-3.5 text-ems-red" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">Drug Reference</p>
+                    <p className="text-[10px] text-muted-foreground">{drugs.length} medications &amp; protocols</p>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+                <button
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                  onClick={() => { setActiveSection('roadmap'); setSearchOpen(false) }}
+                >
+                  <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Map className="w-3.5 h-3.5 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">Learning Roadmap</p>
+                    <p className="text-[10px] text-muted-foreground">{roadmapTopics.length} study topics</p>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+                <button
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted transition-colors text-left"
+                  onClick={() => { setActiveSection('visual'); setSearchOpen(false) }}
+                >
+                  <div className="w-7 h-7 rounded-md bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                    <Heart className="w-3.5 h-3.5 text-purple-500" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium">Interactive Diagrams</p>
+                    <p className="text-[10px] text-muted-foreground">Anatomy, heart, airway, pulse, brain</p>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </DialogContent>

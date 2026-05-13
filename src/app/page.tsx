@@ -36,7 +36,7 @@ function MobileBottomNav() {
   const { t } = useTranslation()
 
   return (
-    <nav className="mobile-bottom-nav" aria-label="Mobile navigation">
+    <nav className="mobile-bottom-nav mobile-nav-frosted" aria-label="Mobile navigation">
       {bottomNavKeys.map(({ section, labelKey, icon: Icon }) => {
         const isActive = activeSection === section
         return (
@@ -102,7 +102,7 @@ export default function HomePage() {
 
         {/* Scrollable content area */}
         <main className="flex-1 overflow-y-auto overflow-x-hidden" role="main">
-          <div className="min-h-full flex flex-col">
+          <div className="main-content-wrapper min-h-full flex flex-col">
             {/* Content */}
             <div className="flex-1 px-3 sm:px-4 md:px-6 pt-4 md:pt-6 pb-20 md:pb-6">
               <div className="max-w-4xl mx-auto w-full">

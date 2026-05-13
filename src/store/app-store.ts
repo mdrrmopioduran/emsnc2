@@ -43,6 +43,9 @@ export interface ProgressData {
   milestones: string[] // reached milestones like 'first-quiz', 'half-roadmap', etc.
   lastViewedTopic: string // which topic the user was last viewing
   favoriteAcronyms: string[] // acronyms the user has favorited
+  focusSessionsToday: number
+  focusMinutesToday: number
+  lastFocusDate: string
 }
 
 export interface AISettings {
@@ -107,6 +110,7 @@ interface AppState {
   setLastViewedTopic: (topicId: string) => void
   addMilestone: (milestone: string) => void
   toggleFavoriteAcronym: (acronym: string) => void
+  addFocusSession: (minutes: number) => void
 
   // Settings
   settings: AppSettings
@@ -136,6 +140,9 @@ const defaultProgress: ProgressData = {
   milestones: [],
   lastViewedTopic: '',
   favoriteAcronyms: [],
+  focusSessionsToday: 0,
+  focusMinutesToday: 0,
+  lastFocusDate: '',
 }
 
 const defaultAISettings: AISettings = {
@@ -180,6 +187,7 @@ export const BADGE_DEFINITIONS: BadgeData[] = [
   { id: 'drug-expert', title: 'Drug Expert', description: 'Review all drug cards', icon: '💊', category: 'special' },
   { id: 'diagnostic-done', title: 'Self-Aware', description: 'Complete the diagnostic assessment', icon: '🎯', category: 'special' },
   { id: 'full-checklist', title: 'Assessment Ready', description: 'Complete a full assessment checklist', icon: '✅', category: 'special' },
+  { id: 'focus-4', title: 'Focus Champion', description: 'Complete 4 focus sessions in one day', icon: '⏱️', category: 'special' },
 ]
 
 export const XP_PER_ACTION = {
@@ -265,6 +273,7 @@ function checkAndUnlockBadges(progress: ProgressData): { newBadges: string[]; ne
     return scene && scene.length > 0 && scene.every(c => c === true)
   })
   if (fullChecklist) unlock('full-checklist', 'checklist-complete')
+  if (progress.focusSessionsToday >= 4) unlock('focus-4', 'focus-champion')
 
   return { newBadges, newMilestones }
 }
@@ -562,6 +571,33 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ progress: updated })
   },
 
+  addFocusSession: (minutes) => {
+    const p = get().progress
+    const today = new Date().toISOString().split('T')[0]
+    // Reset counters if it's a new day
+    const isNewDay = p.lastFocusDate !== today
+    const sessions = isNewDay ? 1 : (p.focusSessionsToday || 0) + 1
+    const totalMinutes = isNewDay ? minutes : (p.focusMinutesToday || 0) + minutes
+    const xpGain = 20
+    const newXp = p.xp + xpGain
+
+    const updated = {
+      ...p,
+      focusSessionsToday: sessions,
+      focusMinutesToday: totalMinutes,
+      lastFocusDate: today,
+      xp: newXp,
+      level: getLevelFromXp(newXp),
+    }
+
+    const { newBadges, newMilestones } = checkAndUnlockBadges(updated)
+    if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
+    if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
+
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
   settings: defaultSettings,
   updateSettings: (partial) => {
     const updated = { ...get().settings, ...partial }
@@ -608,6 +644,9 @@ if (typeof window !== 'undefined') {
     milestones: storedProgress.milestones || [],
     lastViewedTopic: storedProgress.lastViewedTopic || '',
     favoriteAcronyms: storedProgress.favoriteAcronyms || [],
+    focusSessionsToday: storedProgress.focusSessionsToday || 0,
+    focusMinutesToday: storedProgress.focusMinutesToday || 0,
+    lastFocusDate: storedProgress.lastFocusDate || '',
   }
 
   const migratedSettings: AppSettings = {

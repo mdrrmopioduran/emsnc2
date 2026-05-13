@@ -35,6 +35,7 @@ import { useToast } from '@/hooks/use-toast'
 import { roadmapTopics } from '@/data/roadmap'
 import { BadgeDisplay, XPBar, GoalsTracker } from '@/components/ems/shared-components'
 import { StudyStatsSection } from '@/components/ems/study-stats-section'
+import { FocusTimerSection } from '@/components/ems/focus-timer-section'
 
 // ==================== MILESTONE DEFINITIONS ====================
 const MILESTONE_INFO: Record<string, { label: string; icon: string; color: string }> = {
@@ -366,6 +367,9 @@ export function SettingsSection() {
 
       {/* Learning Goals */}
       <GoalsTracker />
+
+      {/* Focus Timer */}
+      <FocusTimerSection />
 
       {/* Learning Mode & Daily Goal */}
       <Card className="card-modern">

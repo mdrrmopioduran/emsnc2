@@ -11,7 +11,7 @@ import {
   CheckCircle2, HardHat, Activity, Stethoscope, Scale,
   Siren, Users, FileSearch, Link2, LetterText,
   Pill, ScanEye, Brain, Monitor, FlaskConical,
-  Trophy, Wrench, MessageSquare, Sparkles
+  Trophy, Wrench, MessageSquare, Sparkles, CreditCard
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ConnectionStatusBadge } from '@/components/ems/pwa-components'
@@ -48,6 +48,7 @@ const navItems: NavItem[] = [
       { id: 'acronyms', labelKey: 'sub.acronyms', miniIcon: <LetterText className="w-3 h-3" /> },
       { id: 'definitions', labelKey: 'sub.definitions', miniIcon: <ScanEye className="w-3 h-3" /> },
       { id: 'drugs', labelKey: 'sub.drugs', miniIcon: <Pill className="w-3 h-3" /> },
+      { id: 'flashcards', labelKey: 'sub.flashcards', miniIcon: <CreditCard className="w-3 h-3" /> },
       { id: 'ai-assistant', labelKey: 'sub.ai-assistant', miniIcon: <Sparkles className="w-3 h-3" /> },
     ],
   },
@@ -173,7 +174,7 @@ export function Sidebar() {
       <aside
         className={cn(
           'fixed top-0 left-0 z-50 h-full w-[270px] flex flex-col sidebar-transition',
-          'bg-sidebar text-sidebar-foreground',
+          'bg-sidebar text-sidebar-foreground sidebar-gradient-overlay',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
           'md:translate-x-0 md:z-30'
         )}
@@ -229,7 +230,7 @@ export function Sidebar() {
               {progress.xp} XP
             </span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-sidebar-border/50 overflow-hidden progress-bar-animated">
+          <div className="w-full h-1.5 rounded-full bg-sidebar-border/50 overflow-hidden progress-bar-animated xp-shimmer-bar">
             <div
               className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-700"
               style={{ width: `${xpInfo.progress * 100}%` }}
@@ -255,8 +256,9 @@ export function Sidebar() {
                     onClick={() => handleSectionClick(item)}
                     className={cn(
                       'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+                      'hover:translate-x-[2px]',
                       isActive
-                        ? 'bg-sidebar-accent text-white sidebar-item-active'
+                        ? 'bg-sidebar-accent text-white sidebar-item-active sidebar-active-glow'
                         : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-white'
                     )}
                     aria-expanded={isExpanded}
@@ -282,7 +284,7 @@ export function Sidebar() {
                       </span>
                     )}
                     {item.subItems.length > 0 && (
-                      <span className="text-sidebar-foreground/40 transition-transform duration-300" style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
+                      <span className="text-sidebar-foreground/40 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
                         <ChevronDown className="w-3.5 h-3.5" />
                       </span>
                     )}
@@ -375,7 +377,18 @@ export function Sidebar() {
         </nav>
 
         {/* ── Footer ── */}
-        <div className="px-3 py-2.5 border-t border-sidebar-border space-y-2">
+        <div className="px-3 py-2.5 border-t border-sidebar-border space-y-2 relative">
+          {/* Decorative heartbeat line */}
+          <div className="sidebar-heartbeat-line absolute inset-x-0 top-0 h-[1px] opacity-15 pointer-events-none overflow-hidden">
+            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 270 1">
+              <polyline
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                points="0,0.5 40,0.5 60,0.5 80,0.1 90,0.9 100,0.2 110,0.5 120,0.5 160,0.5 180,0.5 200,0.1 210,0.9 220,0.2 230,0.5 240,0.5 270,0.5"
+              />
+            </svg>
+          </div>
           <ConnectionStatusBadge />
           <div className="flex items-center justify-center gap-2">
             <p className="text-[10px] text-sidebar-foreground/40 text-center">{t('footer.text')}</p>

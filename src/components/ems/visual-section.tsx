@@ -1822,8 +1822,6 @@ export function VisualSection() {
   const { activeSubSection, setActiveSubSection } = useAppStore()
   const [diagramType, setDiagramType] = useState<DiagramType>('body')
 
-  const defaultTab = activeSubSection || 'diagrams'
-
   const diagramOptions: { type: DiagramType; label: string; icon: React.ReactNode; color: string }[] = [
     { type: 'body', label: 'Human Body', icon: <Activity className="w-4 h-4" />, color: '#6366F1' },
     { type: 'heart', label: 'Heart', icon: <Heart className="w-4 h-4" />, color: '#EF4444' },
@@ -1834,8 +1832,7 @@ export function VisualSection() {
 
   return (
     <Tabs
-      defaultValue={defaultTab}
-      value={activeSubSection || undefined}
+      value={activeSubSection || 'diagrams'}
       onValueChange={(v) => setActiveSubSection(v)}
       className="content-transition overflow-hidden w-full"
     >

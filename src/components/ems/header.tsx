@@ -1,12 +1,13 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useAppStore, type Section, getLevelFromXp } from '@/store/app-store'
 import { useTranslation } from '@/hooks/use-translation'
 // BilingualTooltip removed per user request
 import Image from 'next/image'
-import { Menu, Search, Zap, Flame, Play, ChevronRight, Globe } from 'lucide-react'
+import { Menu, Search, Zap, Flame, Play, ChevronRight, Globe, Timer } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { subscribeToTimer, getGlobalTimerState } from '@/components/ems/focus-timer-section'
 
 // Translation key maps for section/sub titles
 const sectionTitleKeys: Record<Section, string> = {
@@ -79,9 +80,45 @@ export function Header() {
     updateSettings({ language: language === 'en' ? 'fil' : 'en' })
   }
 
+  // Floating timer state
+  const [timerInfo, setTimerInfo] = useState({ running: false, remaining: 0 })
+  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  useEffect(() => {
+    const unsub = subscribeToTimer(() => {
+      const state = getGlobalTimerState()
+      setTimerInfo({ running: state.isRunning, remaining: state.remainingSeconds })
+    })
+    return unsub
+  }, [])
+
+  useEffect(() => {
+    if (tickRef.current) {
+      clearInterval(tickRef.current)
+      tickRef.current = null
+    }
+    if (timerInfo.running) {
+      tickRef.current = setInterval(() => {
+        const state = getGlobalTimerState()
+        setTimerInfo({ running: state.isRunning, remaining: state.remainingSeconds })
+      }, 1000)
+    }
+    return () => {
+      if (tickRef.current) { clearInterval(tickRef.current); tickRef.current = null }
+    }
+  }, [timerInfo.running])
+
+  const handleTimerClick = () => {
+    setActiveSection('settings')
+  }
+
+  const timerMinutes = Math.floor(timerInfo.remaining / 60)
+  const timerSeconds = timerInfo.remaining % 60
+  const timerDisplay = `${timerMinutes.toString().padStart(2, '0')}:${timerSeconds.toString().padStart(2, '0')}`
+
   return (
     <div className="flex-shrink-0 z-20 no-print" role="banner">
-      <header className="flex items-center gap-2 md:gap-3 px-3 md:px-6 h-14 bg-card/95 backdrop-blur-sm border-b border-border shadow-sm">
+      <header className="flex items-center gap-2 md:gap-3 px-3 md:px-6 h-14 bg-card/80 backdrop-blur-md border-b-0 header-gradient-border shadow-sm">
         {/* Mobile menu toggle */}
         <button
           onClick={toggleSidebar}
@@ -105,12 +142,12 @@ export function Header() {
         </div>
 
         {/* Title & breadcrumbs */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 breadcrumb-area">
           <h1 className="text-sm md:text-base font-semibold text-foreground truncate">
             {title}
           </h1>
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[11px] text-muted-foreground overflow-hidden">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] text-muted-foreground overflow-hidden mt-0.5">
             <span className="hidden sm:inline">PIO DURAN EMS NCII</span>
             <span className="hidden sm:inline">›</span>
             <span className="text-foreground font-medium truncate">{t(sectionTitleKeys[activeSection])}</span>
@@ -143,7 +180,7 @@ export function Header() {
         {/* Search button */}
         <button
           onClick={() => setSearchOpen(true)}
-          className="p-2 rounded-lg hover:bg-muted transition-colors"
+          className="p-2 rounded-lg hover:bg-muted transition-colors search-pulse-btn"
           aria-label="Search (Ctrl+K)"
         >
           <Search className="w-4 h-4 text-muted-foreground" />
@@ -166,6 +203,24 @@ export function Header() {
             </span>
           </div>
         </div>
+
+        {/* Floating Timer Indicator */}
+        {timerInfo.running && (
+          <button
+            onClick={handleTimerClick}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800/50 hover:bg-teal-100 dark:hover:bg-teal-950/50 transition-all cursor-pointer"
+            aria-label="Go to Focus Timer"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500" />
+            </span>
+            <Timer className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+            <span className="text-[11px] font-bold tabular-nums text-teal-600 dark:text-teal-400">
+              {timerDisplay}
+            </span>
+          </button>
+        )}
 
         {/* Desktop badge */}
         <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground">

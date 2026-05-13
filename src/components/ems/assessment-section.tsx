@@ -1433,7 +1433,6 @@ function RoleplayBanner({ onDismiss, onStart }: { onDismiss: () => void; onStart
 // ==================== ASSESSMENT SECTION ====================
 export function AssessmentSection() {
   const { activeSubSection, setActiveSubSection, progress } = useAppStore()
-  const defaultTab = activeSubSection || 'quiz'
   const [showRoleplayBanner, setShowRoleplayBanner] = useState(true)
 
   return (
@@ -1453,8 +1452,7 @@ export function AssessmentSection() {
       )}
 
       <Tabs
-        defaultValue={defaultTab}
-        value={activeSubSection || undefined}
+        value={activeSubSection || 'quiz'}
         onValueChange={(v) => setActiveSubSection(v)}
       >
         <TabsList className="w-full justify-start mb-4 overflow-x-auto flex-nowrap scrollbar-none">

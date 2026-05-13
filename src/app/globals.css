@@ -389,6 +389,27 @@
   animation: fireGlow 2s ease-in-out infinite;
 }
 
+/* Confetti animation for flashcard celebration */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti-fall 3s ease-in forwards;
+}
+
+.reduce-motion .animate-confetti {
+  animation: none;
+  opacity: 0.3;
+}
+
 /* Focus ring for keyboard nav */
 *:focus-visible {
   outline: 2px solid var(--primary);
@@ -1152,4 +1173,709 @@
   border-radius: 50%;
   background: var(--ems-teal);
   box-shadow: 0 0 6px rgba(46, 196, 182, 0.5);
+}
+
+/* ============================================
+   Task 4: Major Styling Improvements
+   ============================================ */
+
+/* ── 1. Sidebar Enhancements ── */
+
+/* Gradient overlay on sidebar (navy → darker navy) */
+.sidebar-gradient-overlay {
+  position: relative;
+}
+.sidebar-gradient-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(30, 58, 95, 0) 0%, rgba(10, 20, 35, 0.25) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.sidebar-gradient-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Soft glow behind active section item */
+.sidebar-active-glow {
+  box-shadow: 0 0 20px rgba(46, 196, 182, 0.08), 0 0 40px rgba(46, 196, 182, 0.04);
+}
+
+/* Heartbeat line in sidebar footer */
+.sidebar-heartbeat-line {
+  color: #2EC4B6;
+}
+
+/* XP shimmer bar */
+.xp-shimmer-bar {
+  position: relative;
+}
+.xp-shimmer-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+  animation: xpShimmer 2.5s ease-in-out infinite;
+  border-radius: inherit;
+}
+@keyframes xpShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── 2. Header Enhancements ── */
+
+/* Gradient bottom border (navy → teal) */
+.header-gradient-border {
+  position: relative;
+  border-bottom: none;
+}
+.header-gradient-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1E3A5F 0%, #2EC4B6 50%, #1E3A5F 100%);
+  background-size: 200% 100%;
+  animation: headerBorderShift 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+@keyframes headerBorderShift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+.dark .header-gradient-border::after {
+  opacity: 0.4;
+}
+
+/* Search button pulse */
+.search-pulse-btn {
+  position: relative;
+}
+.search-pulse-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: transparent;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.search-pulse-btn:hover::before {
+  background: rgba(30, 58, 95, 0.04);
+  box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.06);
+}
+.search-pulse-btn:active::before {
+  background: rgba(30, 58, 95, 0.08);
+}
+
+/* Breathing animation for online indicator */
+@keyframes breathing {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+.online-pulse-dot {
+  animation: breathing 2.5s ease-in-out infinite;
+}
+
+/* Better breadcrumb spacing */
+.breadcrumb-area {
+  gap: 2px;
+}
+
+/* ── 3. Card System Overhaul ── */
+
+/* Glassmorphism card */
+.card-modern {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s ease;
+}
+.dark .card-modern {
+  background: rgba(26, 39, 54, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Interactive card with dramatic hover */
+.card-interactive {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease;
+  cursor: pointer;
+}
+.card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1),
+              0 4px 16px rgba(0, 0, 0, 0.06);
+  border-color: var(--ems-teal);
+}
+.dark .card-interactive:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35),
+              0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Emergency card (red gradient left border) */
+.card-emergency {
+  position: relative;
+  overflow: hidden;
+}
+.card-emergency::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #E63946, #FF6B6B);
+  border-radius: 12px 0 0 12px;
+}
+
+/* Success card (green gradient left border) */
+.card-success {
+  position: relative;
+  overflow: hidden;
+}
+.card-success::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #22C55E, #4ADE80);
+  border-radius: 12px 0 0 12px;
+}
+
+/* Study card (teal gradient left border) */
+.card-study {
+  position: relative;
+  overflow: hidden;
+}
+.card-study::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #2EC4B6, #5DE8DA);
+  border-radius: 12px 0 0 12px;
+}
+
+/* Gradient text: navy → teal */
+.gradient-text-primary {
+  background: linear-gradient(135deg, #1E3A5F, #2EC4B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient text: amber → red */
+.gradient-text-warm {
+  background: linear-gradient(135deg, #F59E0B, #E63946);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Universal hover lift */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08),
+              0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.dark .hover-lift:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Section header with icon badge and gradient underline */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  position: relative;
+}
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1E3A5F, #2EC4B6, transparent);
+  border-radius: 1px;
+}
+.section-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(30, 58, 95, 0.1), rgba(46, 196, 182, 0.1));
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.dark .section-header-icon {
+  background: linear-gradient(135deg, rgba(74, 144, 217, 0.15), rgba(46, 196, 182, 0.15));
+  color: var(--ems-teal);
+}
+
+/* Quick action button */
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: var(--card);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.quick-action-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #1E3A5F, #2EC4B6);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(30, 58, 95, 0.15);
+}
+.quick-action-btn:hover::before {
+  opacity: 1;
+}
+.quick-action-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.1);
+}
+
+/* ── 4. Enhanced Page Backgrounds ── */
+
+/* Main content wrapper with dot grid and decorative orb */
+.main-content-wrapper {
+  position: relative;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .main-content-wrapper {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+/* Decorative gradient orb in top-right corner */
+.main-content-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(46, 196, 182, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.main-content-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(30, 58, 95, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.main-content-wrapper > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 5. Button Styling Enhancements ── */
+
+/* Primary button with glow */
+.btn-primary-glow {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.2),
+              0 0 0 0 rgba(30, 58, 95, 0);
+}
+.btn-primary-glow:hover {
+  box-shadow: 0 4px 16px rgba(30, 58, 95, 0.3),
+              0 0 0 4px rgba(30, 58, 95, 0.08);
+  transform: translateY(-1px);
+}
+.btn-primary-glow:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.2);
+}
+
+/* Outline button with gradient border on hover */
+.btn-outline-enhanced {
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  color: var(--foreground);
+}
+.btn-outline-enhanced::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #1E3A5F, #2EC4B6);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.btn-outline-enhanced:hover {
+  border-color: transparent;
+  color: var(--primary-foreground);
+}
+.btn-outline-enhanced:hover::before {
+  opacity: 1;
+}
+.btn-outline-enhanced:hover > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Destructive button with red pulse */
+.btn-danger-pulse {
+  background: var(--destructive);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.btn-danger-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.3);
+  animation: dangerPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes dangerPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(230, 57, 70, 0); }
+}
+.btn-danger-pulse:hover {
+  background: #d32f3d;
+  transform: translateY(-1px);
+}
+
+/* ── 6. Improved Progress Indicators ── */
+
+/* Circular progress ring using conic-gradient */
+.progress-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--ems-teal) calc(var(--progress, 0) * 1%),
+    var(--muted) calc(var(--progress, 0) * 1%)
+  );
+}
+.progress-ring::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--card);
+}
+.progress-ring-value {
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--foreground);
+}
+
+/* Animated progress bar with moving gradient */
+.progress-animated {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--muted);
+  overflow: hidden;
+  position: relative;
+}
+.progress-animated-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #1E3A5F, #2EC4B6, #1E3A5F);
+  background-size: 200% 100%;
+  animation: progressGradient 3s linear infinite;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes progressGradient {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Stat card */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+.stat-card-number {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #1E3A5F, #2EC4B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .stat-card-number {
+  background: linear-gradient(135deg, #4A90D9, #2EC4B6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.stat-card-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── 7. Notification Toast Enhancements ── */
+
+/* Toast base */
+.toast-emergency {
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+@keyframes toastSlideIn {
+  from { transform: translateY(20px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Success toast */
+.toast-success {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: #166534;
+}
+.dark .toast-success {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #86EFAC;
+}
+.toast-success-icon {
+  animation: toastCheck 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes toastCheck {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Warning toast */
+.toast-warning {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #92400E;
+}
+.dark .toast-warning {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #FDE68A;
+}
+
+/* Error toast */
+.toast-error {
+  background: rgba(230, 57, 70, 0.12);
+  border: 1px solid rgba(230, 57, 70, 0.25);
+  color: #991B1B;
+}
+.dark .toast-error {
+  background: rgba(230, 57, 70, 0.15);
+  border-color: rgba(230, 57, 70, 0.3);
+  color: #FCA5A5;
+}
+
+/* ── 8. Responsive Polish ── */
+
+/* Frosted glass mobile bottom nav */
+.mobile-nav-frosted {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
+}
+.dark .mobile-nav-frosted {
+  background: rgba(15, 25, 35, 0.85) !important;
+  border-top-color: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Touch-friendly: no hover-only states for critical actions */
+@media (pointer: coarse) {
+  .card-interactive:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+  .card-interactive:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: var(--ems-teal);
+  }
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .hover-lift:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+  /* Larger tap targets for quick action buttons on touch */
+  .quick-action-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Mobile-specific (375px width) adjustments */
+@media (max-width: 375px) {
+  .card-modern,
+  .card-interactive,
+  .card-emergency,
+  .card-success,
+  .card-study {
+    border-radius: 8px;
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+  .section-header {
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+  .section-header-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+  .stat-card {
+    padding: 12px;
+  }
+  .stat-card-number {
+    font-size: 22px;
+  }
+  .btn-primary-glow,
+  .btn-outline-enhanced,
+  .btn-danger-pulse {
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  /* Smaller decorative orbs on small screens */
+  .main-content-wrapper::before {
+    width: 200px;
+    height: 200px;
+    top: -60px;
+    right: -60px;
+  }
+  .main-content-wrapper::after {
+    width: 150px;
+    height: 150px;
+    bottom: -40px;
+    left: -40px;
+  }
+  /* Toast adjustments */
+  .toast-emergency {
+    padding: 10px 12px;
+    border-radius: 8px;
+  }
+}
+
+/* Reduce motion for all new animations */
+.reduce-motion .sidebar-gradient-overlay::before,
+.reduce-motion .header-gradient-border::after,
+.reduce-motion .xp-shimmer-bar::after,
+.reduce-motion .online-pulse-dot,
+.reduce-motion .btn-danger-pulse::after,
+.reduce-motion .progress-animated-fill,
+.reduce-motion .toast-success-icon {
+  animation: none !important;
+}
+.reduce-motion .card-interactive,
+.reduce-motion .hover-lift,
+.reduce-motion .btn-primary-glow,
+.reduce-motion .btn-outline-enhanced,
+.reduce-motion .btn-danger-pulse,
+.reduce-motion .quick-action-btn {
+  transition: none !important;
 }

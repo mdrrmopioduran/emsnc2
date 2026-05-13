@@ -396,49 +396,49 @@ export const acronyms: Acronym[] = [
     fullTerm: "Blood Pressure",
     definition:
       "The force of blood against arterial walls; measured as systolic over diastolic pressure in mmHg, a key vital sign in patient assessment.",
-    category: "drugs",
+    category: "assessment",
   },
   {
     acronym: "HR",
     fullTerm: "Heart Rate",
     definition:
       "The number of heartbeats per minute; a fundamental vital sign that indicates cardiovascular function and overall patient condition.",
-    category: "drugs",
+    category: "assessment",
   },
   {
     acronym: "RR",
     fullTerm: "Respiratory Rate",
     definition:
       "The number of breaths per minute; a critical vital sign that indicates respiratory function and the need for intervention.",
-    category: "drugs",
+    category: "assessment",
   },
   {
     acronym: "SpO2",
     fullTerm: "Peripheral Capillary Oxygen Saturation",
     definition:
       "A pulse oximetry measurement of oxygen saturation in the blood, with normal values typically 95-100%; below 90% indicates hypoxemia.",
-    category: "drugs",
+    category: "assessment",
   },
   {
     acronym: "ECG",
     fullTerm: "Electrocardiogram",
     definition:
       "A diagnostic test that records the electrical activity of the heart, used to identify arrhythmias, ischemia, and other cardiac abnormalities.",
-    category: "drugs",
+    category: "assessment",
   },
   {
     acronym: "EKG",
     fullTerm: "Elektrokardiogramm (German)",
     definition:
       "An alternative abbreviation for ECG derived from the German spelling; both ECG and EKG refer to the same cardiac electrical recording.",
-    category: "drugs",
+    category: "assessment",
   },
   {
     acronym: "PPE",
     fullTerm: "Personal Protective Equipment",
     definition:
       "Equipment worn to minimize exposure to hazards, including gloves, masks, eye protection, and gowns, essential for BSI and Standard Precautions.",
-    category: "drugs",
+    category: "general",
   },
   {
     acronym: "TTM",
