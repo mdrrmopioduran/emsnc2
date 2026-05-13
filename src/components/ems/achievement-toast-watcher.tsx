@@ -3,15 +3,14 @@
 import React from 'react'
 import { useAppStore, getLevelFromXp, BADGE_DEFINITIONS } from '@/store/app-store'
 import { useTranslation } from '@/hooks/use-translation'
-import { toast } from 'sonner'
 
 /**
  * Watches progress state for badge unlocks, level-ups, and streak milestones,
- * then fires celebratory sonner toasts. Uses refs to track previously notified
- * state so each event fires exactly once.
+ * then fires celebratory notifications via the Zustand store notification system.
+ * Uses refs to track previously notified state so each event fires exactly once.
  */
 export function AchievementToastWatcher() {
-  const { progress } = useAppStore()
+  const { progress, addNotification } = useAppStore()
   const { t } = useTranslation()
 
   // Track what we've already notified about to avoid duplicates
@@ -20,6 +19,10 @@ export function AchievementToastWatcher() {
   const notifiedStreaksRef = React.useRef<Set<number>>(new Set())
   const notifiedFirstQuizPassRef = React.useRef(false)
   const notifiedFlashcardRef = React.useRef(false)
+  const notifiedDailyChallengeRef = React.useRef(false)
+  const notifiedQuizPerfectRef = React.useRef(false)
+  const notifiedTopicsReadRef = React.useRef<Set<number>>(new Set())
+  const notifiedFocusChampRef = React.useRef(false)
 
   React.useEffect(() => {
     // ── Badge unlock notifications ──
@@ -29,25 +32,26 @@ export function AchievementToastWatcher() {
       if (!badge) continue
       notifiedBadgesRef.current.add(badgeId)
 
-      toast(t('achievement.badgeUnlocked'), {
+      addNotification({
+        title: t('achievement.badgeUnlocked'),
         description: t('achievement.newBadgeDesc').replace('{title}', badge.title).replace('{description}', badge.description),
-        icon: <span className="text-2xl">{badge.icon}</span>,
-        duration: 5000,
+        icon: badge.icon,
+        xpReward: 0,
+        type: 'achievement',
       })
     }
 
     // ── Level-up notifications ──
     const currentLevel = getLevelFromXp(progress.xp)
     if (currentLevel > notifiedLevelRef.current && notifiedLevelRef.current > 0) {
-      const newXpInfo = progress.xp
-      const levelXpBase = (currentLevel - 1) * 100
-      const xpInLevel = newXpInfo - levelXpBase
       notifiedLevelRef.current = currentLevel
 
-      toast(t('achievement.levelUp'), {
+      addNotification({
+        title: t('achievement.levelUp'),
         description: t('achievement.levelUpDesc').replace('{level}', String(currentLevel)),
-        description: `${t('achievement.levelUpDesc').replace('{level}', String(currentLevel))}  (${xpInLevel}/${100} XP)`,
-        duration: 5000,
+        icon: '🎉',
+        xpReward: 0,
+        type: 'achievement',
       })
     } else if (currentLevel > 0) {
       notifiedLevelRef.current = currentLevel
@@ -58,9 +62,53 @@ export function AchievementToastWatcher() {
     for (const milestone of streakMilestones) {
       if (progress.dailyChallengeStreak >= milestone && !notifiedStreaksRef.current.has(milestone)) {
         notifiedStreaksRef.current.add(milestone)
-        toast(t('achievement.streakMilestone'), {
+        addNotification({
+          title: t('achievement.streakMilestone'),
           description: t('achievement.streakMilestoneDesc').replace('{count}', String(milestone)),
-          duration: 5000,
+          icon: '🔥',
+          xpReward: 0,
+          type: 'streak',
+        })
+      }
+    }
+
+    // ── Daily challenge completed ──
+    if (progress.dailyChallengeCompleted && !notifiedDailyChallengeRef.current) {
+      const today = new Date().toISOString().split('T')[0]
+      if (progress.dailyChallengeCompleted.startsWith(today)) {
+        notifiedDailyChallengeRef.current = true
+        addNotification({
+          title: t('achievement.dailyChallengeComplete'),
+          description: t('achievement.dailyChallengeCompleteDesc'),
+          icon: '🎯',
+          xpReward: 50,
+          type: 'milestone',
+        })
+      }
+    }
+
+    // ── Quiz score >= 90% (notified per quiz) ──
+    if (progress.quizScores.length > 0) {
+      const latestQuiz = progress.quizScores[progress.quizScores.length - 1]
+      const pct = latestQuiz.score / latestQuiz.total
+      const quizId = `${latestQuiz.date}-${latestQuiz.category}`
+
+      if (pct >= 1.0 && !notifiedQuizPerfectRef.current) {
+        notifiedQuizPerfectRef.current = true
+        addNotification({
+          title: t('achievement.quizPerfect'),
+          description: t('achievement.quizPerfectDesc'),
+          icon: '🌟',
+          xpReward: 50,
+          type: 'quiz',
+        })
+      } else if (pct >= 0.9 && pct < 1.0) {
+        addNotification({
+          title: t('achievement.quizHighScore'),
+          description: t('achievement.quizHighScoreDesc'),
+          icon: '⭐',
+          xpReward: 30,
+          type: 'quiz',
         })
       }
     }
@@ -70,27 +118,53 @@ export function AchievementToastWatcher() {
       const hasPassingScore = progress.quizScores.some((q) => (q.score / q.total) >= 0.7)
       if (hasPassingScore) {
         notifiedFirstQuizPassRef.current = true
-        toast(t('achievement.firstQuizPass'), {
+        addNotification({
+          title: t('achievement.firstQuizPass'),
           description: t('achievement.firstQuizPassDesc'),
-          duration: 5000,
+          icon: '📝',
+          xpReward: 0,
+          type: 'quiz',
         })
       }
     }
 
-    // ── First flashcard session (detected via milestones) ──
-    if (!notifiedFlashcardRef.current && progress.milestones.length > 0) {
-      // Use module quiz scores as a proxy for "flashcard session completed"
-      // since the app tracks module quiz completion as part of study activity
-      const hasModuleQuiz = Object.keys(progress.moduleQuizScores).length > 0
-      if (hasModuleQuiz) {
-        notifiedFlashcardRef.current = true
-        toast(t('achievement.flashcardComplete'), {
-          description: t('achievement.flashcardCompleteDesc'),
-          duration: 5000,
-        })
-      }
+    // ── First flashcard session ──
+    if (!notifiedFlashcardRef.current && Object.keys(progress.moduleQuizScores).length > 0) {
+      notifiedFlashcardRef.current = true
+      addNotification({
+        title: t('achievement.flashcardComplete'),
+        description: t('achievement.flashcardCompleteDesc'),
+        icon: '🃏',
+        xpReward: 10,
+        type: 'general',
+      })
     }
-  }, [progress, t])
+
+    // ── 10 topics read ──
+    const topicsCount = progress.readTopics.length
+    if (topicsCount >= 10 && !notifiedTopicsReadRef.current.has(10)) {
+      notifiedTopicsReadRef.current.add(10)
+      addNotification({
+        title: t('achievement.topicsRead'),
+        description: t('achievement.topicsReadDesc'),
+        icon: '📚',
+        xpReward: 25,
+        type: 'milestone',
+      })
+    }
+
+    // ── Focus champion: 4 sessions in a day ──
+    if (progress.focusSessionsToday >= 4 && !notifiedFocusChampRef.current) {
+      notifiedFocusChampRef.current = true
+      addNotification({
+        title: t('achievement.focusChampion'),
+        description: t('achievement.focusChampionDesc'),
+        icon: '⏱️',
+        xpReward: 0,
+        type: 'focus',
+      })
+    }
+  }, [progress, t, addNotification])
 
   return null // This is a headless watcher component
 }

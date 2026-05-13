@@ -555,6 +555,7 @@ export function RoadmapSection() {
                   onMarkRead={() => markTopicRead(topic.id)}
                   cardRef={(el) => { topicRefs.current[topic.id] = el }}
                 />
+                </div>
               )
             })}
           </div>
@@ -586,6 +587,10 @@ function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, 
   const timeSpent = progress.timeSpent[topic.id] || 0
   const minutesSpent = Math.round(timeSpent / 60)
   const hasModuleQuiz = ['osh', 'first-aider', 'chain-of-survival'].includes(topic.id)
+
+  // Derived state
+  const difficultyClass = topic.difficulty === 'advanced' ? 'topic-card-advanced' : topic.difficulty === 'intermediate' ? 'topic-card-intermediate' : 'topic-card-beginner'
+  const isComplete = totalSections > 0 && sectionsCompleted >= totalSections
 
   // Translated content
   const topicTitle = tc.getTopicTitle(topic)

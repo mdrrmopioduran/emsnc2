@@ -167,14 +167,14 @@ export function Header() {
             {title}
           </h1>
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] text-muted-foreground overflow-hidden mt-0.5">
+          <nav aria-label="Breadcrumb" className="breadcrumb-enhanced flex items-center gap-1.5 text-[11px] text-muted-foreground overflow-hidden mt-0.5">
             <span className="hidden sm:inline">PIO DURAN EMS NCII</span>
-            <ChevronRight className="hidden sm:inline w-3 h-3 breadcrumb-chevron" />
-            <span className="text-foreground font-medium truncate">{t(sectionTitleKeys[activeSection])}</span>
+            <ChevronRight className="hidden sm:inline w-3.5 h-3.5 breadcrumb-chevron" />
+            <span className="breadcrumb-current text-foreground font-medium truncate">{t(sectionTitleKeys[activeSection])}</span>
             {activeSubSection && subTitleKeys[activeSubSection] && (
               <>
-                <ChevronRight className="w-3 h-3 breadcrumb-chevron" />
-                <span className="truncate">{t(subTitleKeys[activeSubSection])}</span>
+                <ChevronRight className="w-3.5 h-3.5 breadcrumb-chevron" />
+                <span className="truncate breadcrumb-current">{t(subTitleKeys[activeSubSection])}</span>
               </>
             )}
           </nav>

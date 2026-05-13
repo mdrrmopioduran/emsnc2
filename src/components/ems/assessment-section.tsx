@@ -71,6 +71,45 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled
 }
 
+// ==================== ANIMATED SCORE COUNTER ====================
+function AnimatedScoreCounter({ target, scoreColor }: { target: number; scoreColor: string }) {
+  const [displayValue, setDisplayValue] = useState(0)
+
+  useEffect(() => {
+    let start = 0
+    const duration = 1200 // ms
+    const startTime = performance.now()
+
+    function animate(currentTime: number) {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3)
+      const current = Math.round(eased * target)
+      setDisplayValue(current)
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+
+    // Delay slightly to let the ring animation start first
+    const timeout = setTimeout(() => {
+      requestAnimationFrame(animate)
+    }, 300)
+
+    return () => clearTimeout(timeout)
+  }, [target])
+
+  return (
+    <span
+      className="score-count-animate text-2xl sm:text-3xl font-bold leading-none"
+      style={{ color: scoreColor }}
+    >
+      {displayValue}%
+    </span>
+  )
+}
+
 export function QuizEngine() {
   const { addQuizScore } = useAppStore()
   const { toast } = useToast()
@@ -350,6 +389,10 @@ export function QuizEngine() {
       }
     })
     const scorePercent = Math.round((correct / quizQuestions.length) * 100)
+    // Color based on score: green ≥70%, amber 50-69%, red <50%
+    const scoreColor = scorePercent >= 70 ? '#22C55E' : scorePercent >= 50 ? '#F59E0B' : '#EF4444'
+    const scoreLabel = scorePercent >= 70 ? 'PASS' : scorePercent >= 50 ? 'FAIR' : 'NEEDS IMPROVEMENT'
+    const scoreLabelColor = scorePercent >= 70 ? 'bg-green-500' : scorePercent >= 50 ? 'bg-amber-500' : 'bg-red-500'
 
     return (
       <div className="quiz-state-enter space-y-6 overflow-x-hidden w-full max-w-full">
@@ -357,15 +400,13 @@ export function QuizEngine() {
           <CardContent className="p-6 sm:p-8">
             <div
               className="score-ring w-32 h-32 sm:w-40 sm:h-40 mx-auto mb-4"
-              style={{ '--score-pct': scorePercent, '--score-color': scorePercent >= 70 ? '#22C55E' : '#E63946'} as React.CSSProperties}
+              style={{ '--score-pct': scorePercent, '--score-color': scoreColor } as React.CSSProperties}
             >
               <div className="score-ring-inner">
-                <Trophy className={cn('w-8 h-8 sm:w-10 sm:h-10', scorePercent >= 70 ? 'text-yellow-500' : 'text-muted-foreground')} />
-                <span className={cn('text-2xl sm:text-3xl font-bold leading-none', scorePercent >= 70 ? 'text-green-500' : 'text-ems-red')}>
-                  {scorePercent}%
-                </span>
-                <Badge className={cn('mt-0.5 text-[10px]', scorePercent >= 70 ? 'bg-green-500' : 'bg-ems-red')}>
-                  {scorePercent >= 70 ? '✓ PASS' : '✗ NEEDS IMPROVEMENT'}
+                <Trophy className={cn('w-8 h-8 sm:w-10 sm:h-10 score-trophy-animate', scorePercent >= 70 ? 'text-yellow-500' : scorePercent >= 50 ? 'text-amber-500' : 'text-muted-foreground')} />
+                <AnimatedScoreCounter target={scorePercent} scoreColor={scoreColor} />
+                <Badge className={cn('mt-0.5 text-[10px] score-badge-animate', scoreLabelColor)}>
+                  {scorePercent >= 70 ? '✓' : '✗'} {scoreLabel}
                 </Badge>
               </div>
             </div>
@@ -412,21 +453,21 @@ export function QuizEngine() {
             {quizQuestions.map((q, i) => {
               const isCorrect = answers[i] === q.correctAnswer
               return (
-                <div key={q.id} className={cn('p-3 rounded-lg border overflow-hidden', isCorrect ? 'border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800' : 'border-red-200 bg-red-50 dark:bg-red-950/30 dark:border-red-800')}>
+                <div key={q.id} className={cn('p-3 rounded-lg border-l-4 border overflow-hidden', isCorrect ? 'border-l-[#22C55E] border border-green-200 bg-[#F0FDF4] dark:bg-green-950/30 dark:border-green-800' : 'border-l-[#EF4444] border border-red-200 bg-[#FEF2F2] dark:bg-red-950/30 dark:border-red-800')}>
                   <div className="flex items-start gap-2">
                     {isCorrect ? (
-                      <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[#22C55E] flex-shrink-0 mt-0.5" />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                      <XCircle className="w-4 h-4 text-[#EF4444] flex-shrink-0 mt-0.5" />
                     )}
                     <div className="min-w-0">
                       <p className="text-sm font-medium break-words">{q.question}</p>
                       {!isCorrect && (
-                        <p className="text-xs text-red-600 mt-1 break-words">
+                        <p className="text-xs text-[#EF4444] mt-1 break-words">
                           Your answer: {answers[i] !== null ? q.options[answers[i]!] : 'Not answered'}
                         </p>
                       )}
-                      <p className="text-xs text-green-600 mt-0.5 break-words">
+                      <p className="text-xs text-[#22C55E] mt-0.5 break-words">
                         Correct: {q.options[q.correctAnswer]}
                       </p>
                       <p className="text-xs text-muted-foreground mt-1 break-words">{q.explanation}</p>
@@ -449,6 +490,8 @@ export function QuizEngine() {
   const current = quizQuestions[currentIndex]
   const answeredCount = answers.filter((a) => a !== null).length
   const currentCatInfo = categoryIcons[current.category]
+  // Unique key to re-trigger option entrance animation on question change
+  const questionAnimKey = `q-${currentIndex}-${current.id}`
 
   return (
     <div className="content-transition space-y-4 overflow-x-hidden w-full max-w-full">
@@ -488,34 +531,57 @@ export function QuizEngine() {
           </div>
 
           {/* Options */}
-          <div className="space-y-2">
+          <div className="space-y-2" key={questionAnimKey}>
             {current.options.map((option, idx) => {
               const isSelected = selectedAnswer === idx
               const isCorrect = idx === current.correctAnswer
-              let optionClass = 'quiz-option quiz-option-glow border-2 rounded-lg p-3'
-              if (showResult) {
-                if (isCorrect) optionClass += ' correct'
-                else if (isSelected && !isCorrect) optionClass += ' incorrect'
-              } else if (isSelected) {
-                optionClass += ' selected'
-              }
+              const userIsWrong = isSelected && !isCorrect && showResult
+              const showCorrectHighlight = isCorrect && showResult
+              const dimmed = !showResult && selectedAnswer !== null && !isSelected
 
               return (
                 <button
                   key={idx}
-                  className={optionClass}
+                  className={cn(
+                    'quiz-option-enhanced quiz-option-animate rounded-lg p-3 w-full text-left',
+                    dimmed && 'quiz-option-dimmed',
+                    showCorrectHighlight && 'quiz-option-correct',
+                    userIsWrong && 'quiz-option-wrong',
+                    !showResult && isSelected && 'quiz-option-selected',
+                    !showResult && !isSelected && !dimmed && 'hover:border-ems-teal/40'
+                  )}
                   onClick={() => handleSelectAnswer(idx)}
                 >
                   <div className="flex items-center gap-3">
                     <span className={cn(
-                      'w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold flex-shrink-0',
-                      isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-border',
-                      showResult && isCorrect && 'border-green-500 bg-green-500 text-white',
-                      showResult && isSelected && !isCorrect && 'border-ems-red bg-ems-red text-white'
+                      'w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all duration-300',
+                      showCorrectHighlight && 'border-[#22C55E] bg-[#22C55E] text-white',
+                      userIsWrong && 'border-[#EF4444] bg-[#EF4444] text-white',
+                      !showResult && isSelected && 'border-primary bg-primary text-primary-foreground',
+                      !(showCorrectHighlight || userIsWrong || (isSelected && !showResult)) && 'border-border'
                     )}>
                       {String.fromCharCode(65 + idx)}
                     </span>
-                    <span className="text-sm text-left break-words min-w-0">{option}</span>
+                    <span className="text-sm text-left break-words min-w-0 flex-1">{option}</span>
+                    {/* Correct feedback icon */}
+                    {showCorrectHighlight && (
+                      <span className="quiz-feedback-icon text-[#22C55E] flex-shrink-0">
+                        <CheckCircle2 className="w-5 h-5" />
+                      </span>
+                    )}
+                    {/* Incorrect feedback icon */}
+                    {userIsWrong && (
+                      <span className="quiz-feedback-icon text-[#EF4444] flex-shrink-0">
+                        <XCircle className="w-5 h-5" />
+                      </span>
+                    )}
+                    {/* Feedback labels */}
+                    {showCorrectHighlight && (
+                      <span className="quiz-feedback-label text-[10px] font-bold text-[#22C55E] uppercase tracking-wide flex-shrink-0">Correct!</span>
+                    )}
+                    {userIsWrong && (
+                      <span className="quiz-feedback-label text-[10px] font-bold text-[#EF4444] uppercase tracking-wide flex-shrink-0">Incorrect</span>
+                    )}
                   </div>
                 </button>
               )
@@ -525,20 +591,27 @@ export function QuizEngine() {
           {/* Explanation (all modes) */}
           {showResult && (
             <div className={cn(
-              'mt-4 p-3 rounded-lg content-transition',
+              'mt-4 p-3 rounded-lg quiz-explanation-animate',
               selectedAnswer === current.correctAnswer
-                ? 'bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800'
-                : 'bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800'
+                ? 'bg-[#F0FDF4] dark:bg-green-950/30 border-l-4 border-l-[#22C55E] border border-green-200 dark:border-green-800'
+                : 'bg-[#FEF2F2] dark:bg-red-950/30 border-l-4 border-l-[#EF4444] border border-red-200 dark:border-red-800'
             )}>
-              <p className="text-sm font-semibold mb-1">
-                {selectedAnswer === current.correctAnswer ? '✓ Correct!' : '✗ Incorrect'}
-              </p>
+              <div className="flex items-center gap-2 mb-1">
+                {selectedAnswer === current.correctAnswer ? (
+                  <CheckCircle2 className="w-4 h-4 text-[#22C55E] flex-shrink-0" />
+                ) : (
+                  <XCircle className="w-4 h-4 text-[#EF4444] flex-shrink-0" />
+                )}
+                <p className="text-sm font-semibold">
+                  {selectedAnswer === current.correctAnswer ? 'Correct!' : 'Incorrect'}
+                </p>
+              </div>
               {selectedAnswer !== current.correctAnswer && selectedAnswer !== null && (
-                <p className="text-xs text-red-600 dark:text-red-400 mb-1">
+                <p className="text-xs text-[#EF4444] dark:text-red-400 mb-1">
                   Your answer: {current.options[selectedAnswer]}
                 </p>
               )}
-              <p className="text-xs text-green-600 dark:text-green-400 mb-1">
+              <p className="text-xs text-[#22C55E] dark:text-green-400 mb-1">
                 Correct answer: {current.options[current.correctAnswer]}
               </p>
               <p className="text-xs text-foreground/70">{current.explanation}</p>

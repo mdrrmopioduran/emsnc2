@@ -38,6 +38,7 @@ import { BadgeDisplay, XPBar, GoalsTracker } from '@/components/ems/shared-compo
 import { StudyStatsSection } from '@/components/ems/study-stats-section'
 import { FocusTimerSection } from '@/components/ems/focus-timer-section'
 import { ProgressWidget } from '@/components/ems/progress-widget'
+import { AchievementHistory } from '@/components/ems/achievement-history'
 import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts'
 import { ChevronDown } from 'lucide-react'
 
@@ -618,6 +619,9 @@ export function SettingsSection() {
         </CardContent>
       </Card>
 
+      {/* Achievement History */}
+      <AchievementHistory />
+
       {/* Learning Goals */}
       <GoalsTracker />
 
@@ -707,8 +711,8 @@ export function SettingsSection() {
               💡 {t('settings.recommended')}
             </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SettingsGroup>
 
       {/* Preferences — Appearance */}
       <SettingsGroup
@@ -1074,8 +1078,8 @@ export function SettingsSection() {
               }}
             />
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SettingsGroup>
 
       {/* Keyboard Shortcuts */}
       <KeyboardShortcutsPanel expanded={shortcutsExpanded} onToggle={() => setShortcutsExpanded(!shortcutsExpanded)} />

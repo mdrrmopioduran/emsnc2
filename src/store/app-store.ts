@@ -29,6 +29,18 @@ export interface Note {
   updatedAt: string
 }
 
+export type NotificationType = 'achievement' | 'milestone' | 'streak' | 'quiz' | 'focus' | 'general'
+
+export interface AchievementNotification {
+  id: string
+  title: string
+  description: string
+  icon: string
+  xpReward: number
+  type: NotificationType
+  timestamp: number
+}
+
 export interface ProgressData {
   readTopics: string[]
   quizScores: { date: string; score: number; total: number; category: string }[]
@@ -65,6 +77,8 @@ export interface ProgressData {
   studyActivityLog: Record<string, number> // YYYY-MM-DD -> activity count
   // Equipment reviewed
   equipmentReviewed: string[]
+  // Notification history
+  notificationHistory: AchievementNotification[]
 }
 
 export interface AISettings {
@@ -136,6 +150,12 @@ interface AppState {
   deleteNote: (id: string) => void
   addStudyActivity: () => void
   markEquipmentReviewed: (id: string) => void
+  // Notifications
+  notifications: AchievementNotification[]
+  addNotification: (notification: Omit<AchievementNotification, 'id' | 'timestamp'>) => void
+  dismissNotification: (id: string) => void
+  getRecentNotifications: () => AchievementNotification[]
+  clearNotificationHistory: () => void
 
   // Settings
   settings: AppSettings
@@ -175,6 +195,7 @@ const defaultProgress: ProgressData = {
   notes: [],
   studyActivityLog: {},
   equipmentReviewed: [],
+  notificationHistory: [],
 }
 
 const defaultAISettings: AISettings = {
@@ -738,6 +759,49 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ progress: updated })
   },
 
+  notifications: [],
+
+  addNotification: (notification) => {
+    const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7)
+    const full: AchievementNotification = {
+      ...notification,
+      id,
+      timestamp: Date.now(),
+    }
+    // Add to active notification queue (max 5 visible)
+    const current = get().notifications
+    const updated = [full, ...current].slice(0, 5)
+    set({ notifications: updated })
+
+    // Persist to history (max 50)
+    const p = get().progress
+    const history = [full, ...(p.notificationHistory || [])].slice(0, 50)
+    const updatedProgress = { ...p, notificationHistory: history }
+    saveToStorage('ems-progress', updatedProgress)
+    set({ progress: updatedProgress })
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      get().dismissNotification(id)
+    }, 5500)
+  },
+
+  dismissNotification: (id) => {
+    const current = get().notifications
+    set({ notifications: current.filter(n => n.id !== id) })
+  },
+
+  getRecentNotifications: () => {
+    return get().progress.notificationHistory?.slice(0, 5) || []
+  },
+
+  clearNotificationHistory: () => {
+    const p = get().progress
+    const updated = { ...p, notificationHistory: [] }
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
   settings: defaultSettings,
   updateSettings: (partial) => {
     const updated = { ...get().settings, ...partial }
@@ -813,6 +877,7 @@ if (typeof window !== 'undefined') {
     notes: storedProgress.notes || [],
     studyActivityLog: storedProgress.studyActivityLog || {},
     equipmentReviewed: storedProgress.equipmentReviewed || [],
+    notificationHistory: storedProgress.notificationHistory || [],
   }
 
   const migratedSettings: AppSettings = {

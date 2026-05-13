@@ -130,36 +130,36 @@ export function XPBar({ compact = false }: { compact?: boolean }) {
           <Zap className="w-3.5 h-3.5 text-amber-500" />
           <span className="text-xs font-bold text-amber-600 dark:text-amber-400">Lv.{getLevelFromXp(progress.xp)}</span>
         </div>
-        <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
+        <div className="w-24 h-2 rounded-full bg-muted overflow-hidden progress-bar-modern">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-500 progress-bar-success"
             style={{ width: `${xpInfo.progress * 100}%` }}
           />
         </div>
-        <span className="text-[10px] text-muted-foreground">{xpInfo.current}/{xpInfo.needed}</span>
+        <span className="text-caption">{xpInfo.current}/{xpInfo.needed}</span>
       </div>
     )
   }
 
   return (
-    <Card className="border-amber-200 dark:border-amber-800/50 bg-gradient-to-r from-amber-50 to-amber-100/50 dark:from-amber-950/30 dark:to-amber-900/20">
+    <Card className="border-amber-200 dark:border-amber-800/50 bg-gradient-to-r from-amber-50 to-amber-100/50 dark:from-amber-950/30 dark:to-amber-900/20 card-unified">
       <CardContent className="p-3">
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center">
+            <div className="stat-icon-wrap w-8 h-8 rounded-lg" style={{ background: 'rgba(245,158,11,1)' }}>
               <Zap className="w-4 h-4 text-white" />
             </div>
             <div>
-              <p className="text-sm font-bold text-amber-700 dark:text-amber-300">Level {getLevelFromXp(progress.xp)}</p>
-              <p className="text-[10px] text-amber-600/70 dark:text-amber-400/70">{progress.xp} Total XP</p>
+              <p className="text-card-title text-amber-700 dark:text-amber-300">Level {getLevelFromXp(progress.xp)}</p>
+              <p className="text-caption text-amber-600/70 dark:text-amber-400/70">{progress.xp} Total XP</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-xs text-amber-600 dark:text-amber-400">{xpInfo.current}/{xpInfo.needed} XP</p>
-            <p className="text-[10px] text-amber-600/60 dark:text-amber-400/60">to Level {getLevelFromXp(progress.xp) + 1}</p>
+            <p className="text-stat-label text-amber-600 dark:text-amber-400">{xpInfo.current}/{xpInfo.needed} XP</p>
+            <p className="text-caption text-amber-600/60 dark:text-amber-400/60">to Level {getLevelFromXp(progress.xp) + 1}</p>
           </div>
         </div>
-        <Progress value={xpInfo.progress * 100} className="h-2 [&>div]:bg-gradient-to-r [&>div]:from-amber-400 [&>div]:to-amber-500" />
+        <Progress value={xpInfo.progress * 100} className="h-2 [&>div]:bg-gradient-to-r [&>div]:from-amber-400 [&>div]:to-amber-500 progress-bar-modern" />
       </CardContent>
     </Card>
   )
@@ -205,13 +205,13 @@ export function BadgeDisplay() {
           {unlockedBadges.map((badge) => (
             <div
               key={badge.id}
-              className="card-stats flex flex-col items-center p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40"
+              className="stat-card-modern card-stats flex flex-col items-center p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40"
               title={`${badge.title}: ${badge.description}`}
             >
-              <div className="card-stats-icon w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+              <div className="stat-icon-wrap w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
                 <span className="text-xl">{badge.icon}</span>
               </div>
-              <span className="text-[10px] font-medium text-center text-amber-700 dark:text-amber-300 leading-tight mt-1">{badge.title}</span>
+              <span className="text-stat-label text-amber-700 dark:text-amber-300 leading-tight mt-1">{badge.title}</span>
             </div>
           ))}
 

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { SkeletonFlashcard } from '@/components/ui/skeleton-loader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -178,6 +179,12 @@ export function FlashcardSection() {
   const { settings, progress, addXp } = useAppStore()
   const { toast } = useToast()
   const reducedMotion = settings.reducedMotion
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 500)
+    return () => clearTimeout(timeout)
+  }, [])
 
   // Session state
   const [studyMode, setStudyMode] = useState<StudyMode>('browse')
@@ -375,6 +382,37 @@ export function FlashcardSection() {
 
   const catConfig = currentCard ? CATEGORY_CONFIG[currentCard.category] : CATEGORY_CONFIG.general
   const diffConfig = currentCard ? DIFFICULTY_CONFIG[currentCard.difficulty] : DIFFICULTY_CONFIG.easy
+
+  // Skeleton loading state (after all hooks)
+  if (loading) {
+    return (
+      <div className="content-transition space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="skeleton skeleton-heading w-32" />
+          <div className="flex gap-2">
+            <div className="skeleton skeleton-text w-16 h-7 rounded-lg" />
+            <div className="skeleton skeleton-text w-16 h-7 rounded-lg" />
+          </div>
+        </div>
+        <div className="skeleton skeleton-text w-full h-9 rounded-xl" />
+        <div className="flex flex-wrap gap-1.5">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="skeleton w-20 h-7 rounded-full" />
+          ))}
+        </div>
+        <div className="space-y-1">
+          <div className="skeleton skeleton-text w-16" />
+          <div className="skeleton w-full h-2 rounded-full" />
+        </div>
+        <SkeletonFlashcard />
+        <div className="flex items-center justify-center gap-3">
+          <div className="skeleton w-10 h-10 rounded-full" />
+          <div className="skeleton skeleton-text w-16" />
+          <div className="skeleton w-10 h-10 rounded-full" />
+        </div>
+      </div>
+    )
+  }
 
   // ==================== CELEBRATION SCREEN ====================
   if (showCelebration) {

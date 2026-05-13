@@ -15,6 +15,7 @@ import { StartDialog } from '@/components/ems/start-dialog'
 import { FloatingChatButton } from '@/components/ems/ai-assistant'
 import { OfflineIndicator, UpdateBanner, LastSyncDisplay } from '@/components/ems/pwa-components'
 import { AchievementToastWatcher } from '@/components/ems/achievement-toast-watcher'
+import { AchievementNotifications } from '@/components/ems/achievement-notifications'
 import { BookOpen, BookText, Heart, ClipboardCheck, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/hooks/use-translation'
@@ -142,6 +143,7 @@ export default function HomePage() {
       <OfflineIndicator />
       <UpdateBanner />
       <FloatingChatButton />
+      <AchievementNotifications />
       <AchievementToastWatcher />
     </div>
   )

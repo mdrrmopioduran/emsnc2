@@ -1,5 +1,5 @@
 'use client'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { useAppStore, BADGE_DEFINITIONS, getLevelFromXp } from '@/store/app-store'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -22,6 +22,7 @@ import { cn } from '@/lib/utils'
 import { roadmapTopics } from '@/data/roadmap'
 import { StudyStreakCalendar } from '@/components/ems/study-streak-calendar'
 import { StudyCharts } from '@/components/ems/study-charts'
+import { SkeletonStatGrid, SkeletonCard } from '@/components/ui/skeleton-loader'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -412,6 +413,12 @@ function AchievementShowcase({ unlockedIds }: { unlockedIds: string[] }) {
 
 export function StudyStatsSection() {
   const progress = useAppStore((s) => s.progress)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 800)
+    return () => clearTimeout(timeout)
+  }, [])
 
   // Derived stats
   const totalStudyTime = useMemo(() => {
@@ -433,6 +440,27 @@ export function StudyStatsSection() {
 
   const totalBadges = BADGE_DEFINITIONS.length
   const unlockedBadges = progress.badges.length
+
+  // Skeleton loading state
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <div className="skeleton skeleton-heading w-48 mb-3" />
+          <div className="skeleton skeleton-text w-72" />
+        </div>
+        <SkeletonStatGrid />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <SkeletonCard lines={2} />
+          <SkeletonCard lines={2} />
+        </div>
+        <SkeletonCard lines={2} />
+        <SkeletonCard lines={4} />
+        <SkeletonCard lines={3} />
+        <SkeletonCard lines={5} />
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-8">

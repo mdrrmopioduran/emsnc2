@@ -359,6 +359,55 @@
   100% { transform: translateY(-30px) scale(1.3); opacity: 0; }
 }
 
+/* Achievement notification animations */
+@keyframes notificationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes notificationSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    max-height: 200px;
+    margin-bottom: 0;
+  }
+  50% {
+    opacity: 0;
+    transform: translateX(80%) scale(0.95);
+    max-height: 200px;
+    margin-bottom: 0;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+    max-height: 0;
+    margin-bottom: -10px;
+    overflow: hidden;
+  }
+}
+
+.animate-notification-slide-in {
+  animation: notificationSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-notification-slide-out {
+  animation: notificationSlideOut 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reduce-motion .animate-notification-slide-in,
+.reduce-motion .animate-notification-slide-out {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .xp-gain-pop {
   animation: xpGain 0.8s ease-out forwards;
   position: absolute;
@@ -4436,3 +4485,806 @@
     display: none;
   }
 }
+
+/* ============================================
+   §28 Comprehensive Styling System
+   Card System | Progress Bars | Tabs | Buttons
+   Typography | Breadcrumbs | Touch Targets
+   Stat Cards | Contrast | Loading States
+   ============================================ */
+
+/* ── A. Card System Refinement ── */
+
+/* Standard card style with consistent shadow, border, radius, padding */
+.card-unified {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+@media (min-width: 640px) {
+  .card-unified {
+    padding: 1.25rem;
+  }
+}
+.dark .card-unified {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  border-color: color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+/* Card with hover lift effect */
+.card-hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary);
+}
+.dark .card-hover-lift:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Card with 4px left border accent */
+.card-border-left {
+  position: relative;
+  border-left: 4px solid var(--accent-color, var(--ems-teal));
+}
+.card-border-left::before {
+  content: none;
+}
+
+/* Flat card — no shadow, subtle border only */
+.card-flat {
+  box-shadow: none;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--card);
+}
+.dark .card-flat {
+  border-color: var(--border);
+  background: var(--card);
+}
+
+/* ── B. Progress Bar Enhancements ── */
+
+/* Modern progress bar — 10px height, rounded-full, inner track */
+.progress-bar-modern {
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--muted);
+  overflow: hidden;
+  position: relative;
+}
+.progress-bar-modern > div,
+.progress-bar-modern > [role="progressbar"] {
+  height: 6px;
+  margin: 2px 0;
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+}
+.dark .progress-bar-modern {
+  background: var(--muted);
+}
+
+/* Animated fill with left-to-right gradient */
+.progress-bar-animated-fill {
+  background: linear-gradient(90deg, var(--ems-teal), var(--primary), var(--ems-teal));
+  background-size: 200% 100%;
+  animation: progressFillMove 2s linear infinite;
+  transition: width 0.5s ease-out;
+}
+@keyframes progressFillMove {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Green success gradient fill */
+.progress-bar-success {
+  background: linear-gradient(90deg, #22C55E, #4ADE80);
+  transition: width 0.5s ease-out;
+}
+
+/* Amber warning gradient fill */
+.progress-bar-warning {
+  background: linear-gradient(90deg, #F59E0B, #FBBF24);
+  transition: width 0.5s ease-out;
+}
+
+/* Red danger gradient fill */
+.progress-bar-danger {
+  background: linear-gradient(90deg, #EF4444, #F87171);
+  transition: width 0.5s ease-out;
+}
+
+/* Glow effect matching fill color */
+.progress-bar-glow {
+  box-shadow: 0 0 8px rgba(46, 196, 182, 0.4);
+}
+.progress-bar-glow.progress-bar-success {
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+}
+.progress-bar-glow.progress-bar-warning {
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+.progress-bar-glow.progress-bar-danger {
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+.dark .progress-bar-glow {
+  box-shadow: 0 0 12px rgba(46, 196, 182, 0.3);
+}
+.dark .progress-bar-glow.progress-bar-success {
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+}
+.dark .progress-bar-glow.progress-bar-warning {
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+}
+.dark .progress-bar-glow.progress-bar-danger {
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+/* ── C. Tab System Enhancement ── */
+
+/* Tab list container — consistent bottom border */
+[role="tablist"].tabs-list-enhanced {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+/* Active tab — bottom border, font weight, background tint */
+[data-state="active"][role="tab"] {
+  border-bottom: 2px solid var(--primary);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
+  transition: all 0.2s ease;
+}
+
+/* Hover state on inactive tabs */
+[data-state="inactive"][role="tab"]:hover {
+  background: var(--muted);
+  transition: background 0.15s ease;
+}
+
+/* Smooth transition on all tab state changes */
+[role="tab"] {
+  transition: all 0.2s ease;
+}
+
+/* Dark mode tab active state */
+.dark [data-state="active"][role="tab"] {
+  border-bottom-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+/* ── D. Button System Refinement ── */
+
+/* Base unified button */
+.btn-unified {
+  min-height: 40px;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  line-height: 1;
+  font-size: 14px;
+  user-select: none;
+}
+.btn-unified:active {
+  transform: scale(0.97);
+}
+.btn-unified:focus-visible {
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+}
+
+/* Primary button */
+.btn-unified-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn-unified-primary:hover {
+  filter: brightness(0.9);
+}
+
+/* Secondary / outlined button */
+.btn-unified-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+.btn-unified-secondary:hover {
+  background: var(--muted);
+  border-color: var(--primary);
+}
+
+/* Ghost button — bg on hover only */
+.btn-unified-ghost {
+  background: transparent;
+  color: var(--foreground);
+}
+.btn-unified-ghost:hover {
+  background: var(--muted);
+}
+
+/* Success / green button */
+.btn-unified-success {
+  background: #22C55E;
+  color: white;
+}
+.btn-unified-success:hover {
+  background: #16A34A;
+}
+
+/* Danger / red button */
+.btn-unified-danger {
+  background: #EF4444;
+  color: white;
+}
+.btn-unified-danger:hover {
+  background: #DC2626;
+}
+
+/* Dark mode button adjustments */
+.dark .btn-unified-secondary:hover {
+  background: var(--muted);
+  border-color: var(--primary);
+}
+.dark .btn-unified-success {
+  background: #22C55E;
+}
+.dark .btn-unified-success:hover {
+  background: #16A34A;
+}
+.dark .btn-unified-danger {
+  background: #EF4444;
+}
+.dark .btn-unified-danger:hover {
+  background: #DC2626;
+}
+
+/* ── E. Typography Scale ── */
+
+.text-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.text-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.text-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-caption {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+.text-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.text-stat-label {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ── F. Breadcrumb Enhancement ── */
+
+/* Larger, more visible breadcrumb separators */
+.breadcrumb-enhanced .breadcrumb-separator,
+.breadcrumb-enhanced > svg,
+.breadcrumb-enhanced > [data-slot="separator"] {
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+}
+
+/* Better breadcrumb text sizing and contrast */
+.breadcrumb-enhanced {
+  font-size: 14px;
+}
+.breadcrumb-enhanced span {
+  color: color-mix(in srgb, var(--muted-foreground) 70%, transparent);
+}
+.breadcrumb-enhanced .breadcrumb-current {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.dark .breadcrumb-enhanced span {
+  color: color-mix(in srgb, var(--muted-foreground) 70%, transparent);
+}
+
+/* ── G. Touch Target Improvements ── */
+
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-target-sm {
+  min-width: 36px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── H. Stat Card Enhancement ── */
+
+/* Modern stat card with centered content and gradient bg */
+.stat-card-modern {
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 3%, var(--card)), var(--card));
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card-modern:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+.dark .stat-card-modern {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 6%, var(--card)), var(--card));
+  border-color: var(--border);
+}
+.dark .stat-card-modern:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Circular icon container for stat cards */
+.stat-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--primary) 8%, var(--muted));
+  color: var(--primary);
+  margin: 0 auto 0.75rem;
+}
+.dark .stat-icon-wrap {
+  background: color-mix(in srgb, var(--primary) 12%, var(--muted));
+  color: var(--ems-teal);
+}
+
+/* Stat value display */
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+/* Stat label display */
+.stat-label {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ── I. Contrast Fixes ── */
+
+/* Force readable text color */
+.text-high-contrast {
+  color: #4B5563;
+}
+.dark .text-high-contrast {
+  color: #D1D5DB;
+}
+
+/* Badge with guaranteed 4.5:1 contrast */
+.badge-contrast {
+  color: #FFFFFF;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+}
+.badge-contrast.badge-teal { background: #0D9488; }
+.badge-contrast.badge-navy { background: #1E3A5F; }
+.badge-contrast.badge-red { background: #DC2626; }
+.badge-contrast.badge-amber { background: #B45309; }
+.badge-contrast.badge-green { background: #15803D; }
+.badge-contrast.badge-purple { background: #7C3AED; }
+.badge-contrast.badge-gray { background: #4B5563; }
+
+.dark .badge-contrast.badge-teal { background: #2DD4BF; color: #042F2E; }
+.dark .badge-contrast.badge-navy { background: #93C5FD; color: #0C1929; }
+.dark .badge-contrast.badge-red { background: #FCA5A5; color: #450A0A; }
+.dark .badge-contrast.badge-amber { background: #FCD34D; color: #451A03; }
+.dark .badge-contrast.badge-green { background: #86EFAC; color: #052E16; }
+.dark .badge-contrast.badge-purple { background: #C4B5FD; color: #2E1065; }
+.dark .badge-contrast.badge-gray { background: #9CA3AF; color: #111827; }
+
+/* ── J. Loading States / Skeleton ── */
+
+/* Base skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, color-mix(in srgb, var(--muted) 70%, var(--border)) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  border-radius: 0.375rem;
+}
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Skeleton text line */
+.skeleton-text {
+  height: 14px;
+  width: 100%;
+  border-radius: 0.375rem;
+}
+
+/* Skeleton heading */
+.skeleton-heading {
+  height: 20px;
+  width: 60%;
+  border-radius: 0.375rem;
+}
+
+/* Skeleton card — multiple lines */
+.skeleton-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+.skeleton-card .skeleton-line {
+  height: 12px;
+  width: 100%;
+  border-radius: 0.375rem;
+  margin-bottom: 0.5rem;
+}
+.skeleton-card .skeleton-line:last-child {
+  margin-bottom: 0;
+}
+.skeleton-card .skeleton-line.short { width: 40%; }
+.skeleton-card .skeleton-line.medium { width: 75%; }
+.dark .skeleton-card {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+/* Skeleton avatar */
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Skeleton chart placeholder */
+.skeleton-chart {
+  height: 200px;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* ── K. Reduced Motion Support ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar-animated-fill {
+    animation: none;
+    background-size: 100% 100%;
+  }
+  .progress-bar-glow {
+    box-shadow: none;
+  }
+  [data-state="active"][role="tab"] {
+    transition: none;
+  }
+  [role="tab"] {
+    transition: none;
+  }
+  .btn-unified {
+    transition: none;
+  }
+  .btn-unified:active {
+    transform: none;
+  }
+  .card-hover-lift:hover {
+    transform: none;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .stat-card-modern:hover {
+    transform: none;
+  }
+  .skeleton {
+    animation: none;
+    background: var(--muted);
+  }
+  .breadcrumb-enhanced > svg,
+  .breadcrumb-enhanced > [data-slot="separator"] {
+    transition: none;
+  }
+}
+
+/* ── K. Enhanced Quiz Feedback States ── */
+
+/* Option entrance animation */
+@keyframes quizOptionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.quiz-option-animate {
+  animation: quizOptionEnter 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Staggered delays for each option */
+.quiz-option-animate:nth-child(1) { animation-delay: 0ms; }
+.quiz-option-animate:nth-child(2) { animation-delay: 60ms; }
+.quiz-option-animate:nth-child(3) { animation-delay: 120ms; }
+.quiz-option-animate:nth-child(4) { animation-delay: 180ms; }
+
+/* Dimming for non-selected options when one is selected */
+.quiz-option-dimmed {
+  opacity: 0.5;
+  filter: saturate(0.7);
+  transition: all 0.3s ease;
+}
+.quiz-option-dimmed:hover {
+  opacity: 0.7;
+}
+
+/* Feedback icon pop-in */
+@keyframes feedbackIconPop {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+.quiz-feedback-icon {
+  animation: feedbackIconPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 150ms;
+}
+
+/* Feedback label slide-in */
+@keyframes feedbackLabelSlide {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.quiz-feedback-label {
+  animation: feedbackLabelSlide 0.3s ease both;
+  animation-delay: 200ms;
+}
+
+/* ── L. Animated Score Counter ── */
+
+@keyframes scoreCountUp {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.score-count-animate {
+  animation: scoreCountUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 300ms;
+}
+
+/* Score badge pop-in */
+@keyframes scoreBadgePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(4px);
+  }
+  60% {
+    transform: scale(1.1) translateY(-1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.score-badge-animate {
+  animation: scoreBadgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 600ms;
+}
+
+/* Trophy bounce */
+@keyframes trophyBounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  50% { transform: translateY(-3px); }
+  70% { transform: translateY(-5px); }
+}
+.score-trophy-animate {
+  animation: trophyBounce 1s ease both;
+  animation-delay: 200ms;
+}
+
+/* Explanation panel slide-in */
+@keyframes explanationSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 300px;
+  }
+}
+.quiz-explanation-animate {
+  animation: explanationSlide 0.35s ease both;
+  animation-delay: 100ms;
+}
+
+/* ── M. Skeleton Pulse (for loading states) ── */
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Stat card skeleton specific */
+.skeleton-stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.skeleton-stat-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+.skeleton-stat-lines {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Chart bar skeleton */
+.skeleton-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.skeleton-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.skeleton-bar-label {
+  width: 80px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.skeleton-bar-fill {
+  flex: 1;
+  height: 12px;
+  border-radius: 9999px;
+}
+
+/* Flashcard skeleton shape */
+.skeleton-flashcard {
+  width: 100%;
+  max-width: 500px;
+  height: 320px;
+  border-radius: 1rem;
+  border: 2px solid var(--border);
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-flashcard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--muted) 70%, var(--border)) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+.dark .skeleton-flashcard::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--muted) 50%, white) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+/* Reduced motion support for all new animations */
+@media (prefers-reduced-motion: reduce) {
+  .quiz-option-animate {
+    animation: none;
+  }
+  .quiz-feedback-icon,
+  .quiz-feedback-label {
+    animation: none;
+    opacity: 1;
+  }
+  .score-count-animate,
+  .score-badge-animate,
+  .score-trophy-animate {
+    animation: none;
+    opacity: 1;
+  }
+  .quiz-explanation-animate {
+    animation: none;
+  }
+  .skeleton-flashcard::after {
+    animation: none;
+  }
+}
+
+/* End of §28 Comprehensive Styling System */

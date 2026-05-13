@@ -8,6 +8,7 @@ import {
   Trophy, ArrowRight, RotateCcw, Sparkles, Timer
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { SkeletonChallengeIntro } from '@/components/ui/skeleton-loader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -46,6 +47,12 @@ export function DailyChallengeSection() {
   const { progress, completeDailyChallenge } = useAppStore()
   const { toast } = useToast()
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 600)
+    return () => clearTimeout(timeout)
+  }, [])
 
   const today = new Date().toISOString().split('T')[0]
   const isCompletedToday = progress.dailyChallengeCompleted.startsWith(today)
@@ -110,6 +117,15 @@ export function DailyChallengeSection() {
     setAnswers(new Array(dailyQuestions.length).fill(null))
     setChallengeDone(false)
   }, [dailyQuestions.length])
+
+  // Skeleton loading state (after all hooks)
+  if (loading) {
+    return (
+      <div className="content-transition space-y-4 overflow-x-hidden w-full max-w-full">
+        <SkeletonChallengeIntro />
+      </div>
+    )
+  }
 
   // If already completed today, show results screen
   if (isCompletedToday && !started) {

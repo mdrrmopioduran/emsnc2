@@ -258,7 +258,7 @@ export function Sidebar() {
                   <button
                     onClick={() => handleSectionClick(item)}
                     className={cn(
-                      'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+                      'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 touch-target',
                       'hover:translate-x-[2px]',
                       isActive
                         ? 'bg-sidebar-accent text-white sidebar-item-active sidebar-active-glow'
@@ -333,7 +333,7 @@ export function Sidebar() {
                               <button
                                 onClick={() => handleSubClick(item.id, sub.id)}
                                 className={cn(
-                                  'w-full text-left px-3 py-2.5 rounded-md text-[11px] transition-all duration-200 flex items-center gap-2 group min-w-0 sidebar-sub-item-hover',
+                                  'w-full text-left px-3 py-2.5 rounded-md text-[11px] transition-all duration-200 flex items-center gap-2 group min-w-0 sidebar-sub-item-hover touch-target-sm',
                                   isSubActive
                                     ? 'bg-ems-teal/20 text-ems-teal font-semibold sidebar-item-active'
                                     : 'text-sidebar-foreground/45 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground/80'
