@@ -34,6 +34,7 @@ import {
 import { useToast } from '@/hooks/use-toast'
 import { roadmapTopics } from '@/data/roadmap'
 import { BadgeDisplay, XPBar, GoalsTracker } from '@/components/ems/shared-components'
+import { StudyStatsSection } from '@/components/ems/study-stats-section'
 
 // ==================== MILESTONE DEFINITIONS ====================
 const MILESTONE_INFO: Record<string, { label: string; icon: string; color: string }> = {
@@ -316,6 +317,9 @@ export function SettingsSection() {
 
       {/* Badges */}
       <BadgeDisplay />
+
+      {/* Study Statistics Dashboard */}
+      <StudyStatsSection />
 
       {/* Milestones */}
       <Card className="card-modern">
