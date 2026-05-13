@@ -37,6 +37,8 @@ import { BadgeDisplay, XPBar, GoalsTracker } from '@/components/ems/shared-compo
 import { StudyStatsSection } from '@/components/ems/study-stats-section'
 import { FocusTimerSection } from '@/components/ems/focus-timer-section'
 import { ProgressWidget } from '@/components/ems/progress-widget'
+import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts'
+import { ChevronDown } from 'lucide-react'
 
 // ==================== MILESTONE DEFINITIONS ====================
 const MILESTONE_INFO: Record<string, { label: string; icon: string; color: string }> = {
@@ -168,8 +170,157 @@ function PWAInstallCard() {
   )
 }
 
+// ==================== KEYBOARD SHORTCUTS DATA ====================
+type ShortcutCategory = 'navigation' | 'studyTools' | 'general'
+
+interface ShortcutItem {
+  keys: string[]
+  descriptionKey: string
+  category: ShortcutCategory
+}
+
+const SHORTCUTS: ShortcutItem[] = [
+  // Navigation
+  { keys: ['Ctrl', 'K'], descriptionKey: 'shortcuts.openSearch', category: 'navigation' },
+  { keys: ['Esc'], descriptionKey: 'shortcuts.closeDialog', category: 'navigation' },
+  { keys: ['1'], descriptionKey: 'shortcuts.sectionRoadmap', category: 'navigation' },
+  { keys: ['2'], descriptionKey: 'shortcuts.sectionStudy', category: 'navigation' },
+  { keys: ['3'], descriptionKey: 'shortcuts.sectionVisual', category: 'navigation' },
+  { keys: ['4'], descriptionKey: 'shortcuts.sectionAssessment', category: 'navigation' },
+  { keys: ['5'], descriptionKey: 'shortcuts.sectionSettings', category: 'navigation' },
+  { keys: ['H'], descriptionKey: 'shortcuts.toggleSidebar', category: 'navigation' },
+  // Study Tools
+  { keys: ['F'], descriptionKey: 'shortcuts.goToFlashcards', category: 'studyTools' },
+  { keys: ['T'], descriptionKey: 'shortcuts.startFocusTimer', category: 'studyTools' },
+  { keys: ['N'], descriptionKey: 'shortcuts.goToNotes', category: 'studyTools' },
+  { keys: ['Q'], descriptionKey: 'shortcuts.startQuiz', category: 'studyTools' },
+  // General
+  { keys: ['D'], descriptionKey: 'shortcuts.toggleTheme', category: 'general' },
+  { keys: ['?'], descriptionKey: 'shortcuts.showShortcuts', category: 'general' },
+]
+
+const CATEGORY_CONFIG: Record<ShortcutCategory, { labelKey: string; color: string; bgColor: string; borderColor: string }> = {
+  navigation: {
+    labelKey: 'shortcuts.navigation',
+    color: 'text-teal-700 dark:text-teal-300',
+    bgColor: 'bg-teal-50 dark:bg-teal-950/30',
+    borderColor: 'border-teal-200 dark:border-teal-800',
+  },
+  studyTools: {
+    labelKey: 'shortcuts.studyTools',
+    color: 'text-amber-700 dark:text-amber-300',
+    bgColor: 'bg-amber-50 dark:bg-amber-950/30',
+    borderColor: 'border-amber-200 dark:border-amber-800',
+  },
+  general: {
+    labelKey: 'shortcuts.general',
+    color: 'text-slate-600 dark:text-slate-400',
+    bgColor: 'bg-slate-50 dark:bg-slate-900/30',
+    borderColor: 'border-slate-200 dark:border-slate-700',
+  },
+}
+
+/** Keyboard key badge component */
+function Kbd({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd className="inline-flex items-center px-2 py-1 rounded bg-muted border border-border text-xs font-mono shadow-sm min-w-[28px] justify-center">
+      {children}
+    </kbd>
+  )
+}
+
+/** Keyboard Shortcuts Panel — collapsible card showing all shortcuts */
+function KeyboardShortcutsPanel({ expanded, onToggle }: { expanded: boolean; onToggle: () => void }) {
+  const { t } = useTranslation()
+
+  const categories: ShortcutCategory[] = ['navigation', 'studyTools', 'general']
+
+  return (
+    <Card className="card-modern card-elevated" data-shortcuts-panel>
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between p-4 sm:p-5 text-left hover:bg-muted/20 rounded-t-lg transition-colors"
+        aria-expanded={expanded}
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-lg">⌨️</span>
+          <CardTitle className="text-sm font-semibold">{t('shortcuts.title')}</CardTitle>
+        </div>
+        <ChevronDown
+          className={cn(
+            'w-4 h-4 text-muted-foreground transition-transform duration-200',
+            expanded ? 'rotate-0' : '-rotate-90'
+          )}
+        />
+      </button>
+
+      {expanded && (
+        <CardContent className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
+          <p className="text-xs text-muted-foreground mb-4">
+            {t('shortcuts.subtitle')}
+          </p>
+
+          <div className="space-y-5">
+            {categories.map((category) => {
+              const config = CATEGORY_CONFIG[category]
+              const items = SHORTCUTS.filter((s) => s.category === category)
+
+              return (
+                <div key={category}>
+                  {/* Category header */}
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Badge
+                      variant="outline"
+                      className={cn('text-[10px] font-semibold px-2 py-0.5 border', config.borderColor, config.color, config.bgColor)}
+                    >
+                      {t(config.labelKey as Parameters<typeof t>[0])}
+                    </Badge>
+                    <div className="flex-1 h-px bg-border" />
+                    <span className="text-[10px] text-muted-foreground">{items.length}</span>
+                  </div>
+
+                  {/* Shortcut rows */}
+                  <div className="space-y-1.5">
+                    {items.map((item) => (
+                      <div
+                        key={item.descriptionKey}
+                        className="flex items-center justify-between gap-3 px-3 py-2 rounded-lg hover:bg-muted/40 transition-colors"
+                      >
+                        <span className="text-xs text-foreground/80">
+                          {t(item.descriptionKey as Parameters<typeof t>[0])}
+                        </span>
+                        <div className="flex items-center gap-1 flex-shrink-0">
+                          {item.keys.map((key, i) => (
+                            <React.Fragment key={i}>
+                              {i > 0 && <span className="text-[10px] text-muted-foreground font-mono">+</span>}
+                              <Kbd>{key}</Kbd>
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Footer hint */}
+          <div className="mt-4 pt-3 border-t border-border/50">
+            <p className="text-[10px] text-muted-foreground text-center">
+              💡 {t('shortcuts.subtitle')} — <Kbd>?</Kbd> {t('shortcuts.showShortcuts').toLowerCase()}
+            </p>
+          </div>
+        </CardContent>
+      )}
+    </Card>
+  )
+}
+
 export function SettingsSection() {
   const { settings, updateSettings, progress, resetProgress, setLearningMode, setDailyGoalMinutes } = useAppStore()
+  const [shortcutsExpanded, setShortcutsExpanded] = React.useState(true)
+  useKeyboardShortcuts()
   const { toast } = useToast()
   const { t } = useTranslation()
 
@@ -829,6 +980,9 @@ export function SettingsSection() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Keyboard Shortcuts */}
+      <KeyboardShortcutsPanel expanded={shortcutsExpanded} onToggle={() => setShortcutsExpanded(!shortcutsExpanded)} />
 
       {/* PWA Install */}
       <PWAInstallCard />

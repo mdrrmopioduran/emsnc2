@@ -61,6 +61,10 @@ export interface ProgressData {
   dailyChallengeStreak: number
   // Notes
   notes: Note[]
+  // Study activity log for streak calendar
+  studyActivityLog: Record<string, number> // YYYY-MM-DD -> activity count
+  // Equipment reviewed
+  equipmentReviewed: string[]
 }
 
 export interface AISettings {
@@ -130,6 +134,8 @@ interface AppState {
   addNote: (note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) => void
   updateNote: (id: string, updates: Partial<Pick<Note, 'title' | 'content' | 'category' | 'color'>>) => void
   deleteNote: (id: string) => void
+  addStudyActivity: () => void
+  markEquipmentReviewed: (id: string) => void
 
   // Settings
   settings: AppSettings
@@ -165,6 +171,8 @@ const defaultProgress: ProgressData = {
   dailyChallengeCompleted: '',
   dailyChallengeStreak: 0,
   notes: [],
+  studyActivityLog: {},
+  equipmentReviewed: [],
 }
 
 const defaultAISettings: AISettings = {
@@ -339,6 +347,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
     if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
 
+    // Track study activity
+    const log = { ...updated.studyActivityLog }
+    log[today] = (log[today] || 0) + 1
+    updated.studyActivityLog = log
+
     saveToStorage('ems-progress', updated)
     set({ progress: updated })
   },
@@ -364,6 +377,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
     if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
 
+    // Track study activity
+    const quizLog = { ...updated.studyActivityLog }
+    quizLog[today] = (quizLog[today] || 0) + 1
+    updated.studyActivityLog = quizLog
+
     saveToStorage('ems-progress', updated)
     set({ progress: updated })
   },
@@ -387,6 +405,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     const { newBadges, newMilestones } = checkAndUnlockBadges(updated)
     if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
     if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
+
+    // Track study activity
+    const simLog = { ...updated.studyActivityLog }
+    simLog[today] = (simLog[today] || 0) + 1
+    updated.studyActivityLog = simLog
 
     saveToStorage('ems-progress', updated)
     set({ progress: updated })
@@ -616,6 +639,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
     if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
 
+    // Track study activity
+    const focusLog = { ...updated.studyActivityLog }
+    focusLog[today] = (focusLog[today] || 0) + 1
+    updated.studyActivityLog = focusLog
+
     saveToStorage('ems-progress', updated)
     set({ progress: updated })
   },
@@ -644,6 +672,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     const { newBadges, newMilestones } = checkAndUnlockBadges(updated)
     if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
     if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
+
+    // Track study activity
+    const dcLog = { ...updated.studyActivityLog }
+    dcLog[today] = (dcLog[today] || 0) + 1
+    updated.studyActivityLog = dcLog
 
     saveToStorage('ems-progress', updated)
     set({ progress: updated })
@@ -676,6 +709,29 @@ export const useAppStore = create<AppState>((set, get) => ({
   deleteNote: (id) => {
     const p = get().progress
     const updated = { ...p, notes: p.notes.filter(n => n.id !== id) }
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
+  addStudyActivity: () => {
+    const p = get().progress
+    const today = new Date().toISOString().split('T')[0]
+    const log = { ...p.studyActivityLog }
+    log[today] = (log[today] || 0) + 1
+    const updated = { ...p, studyActivityLog: log }
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
+  markEquipmentReviewed: (id) => {
+    const p = get().progress
+    if (p.equipmentReviewed.includes(id)) return
+    const updated = {
+      ...p,
+      equipmentReviewed: [...p.equipmentReviewed, id],
+      xp: p.xp + 5,
+      level: getLevelFromXp(p.xp + 5),
+    }
     saveToStorage('ems-progress', updated)
     set({ progress: updated })
   },
@@ -732,6 +788,8 @@ if (typeof window !== 'undefined') {
     dailyChallengeCompleted: storedProgress.dailyChallengeCompleted || '',
     dailyChallengeStreak: storedProgress.dailyChallengeStreak || 0,
     notes: storedProgress.notes || [],
+    studyActivityLog: storedProgress.studyActivityLog || {},
+    equipmentReviewed: storedProgress.equipmentReviewed || [],
   }
 
   const migratedSettings: AppSettings = {

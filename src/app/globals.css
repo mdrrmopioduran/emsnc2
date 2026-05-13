@@ -2320,6 +2320,517 @@
   animation: quizStateIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* ============================================
+   Round 3: Styling Polish & New Utilities
+   ============================================ */
+
+/* ── 17. Card System Enhancements ── */
+
+/* Elevated card with animated shadow on hover */
+.card-elevated {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.card-elevated:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12),
+              0 6px 20px rgba(0, 0, 0, 0.06);
+}
+.dark .card-elevated {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.dark .card-elevated:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4),
+              0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Gradient border card (pseudo-element approach) */
+.card-gradient-border {
+  position: relative;
+  background: var(--card);
+  border-radius: 12px;
+}
+.card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #2EC4B6, #1E3A5F, #E63946, #F4A261);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-gradient-border:hover::before {
+  opacity: 1;
+}
+.card-gradient-border > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glass card variant */
+.card-glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease;
+}
+.card-glass:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+.dark .card-glass {
+  background: rgba(26, 39, 54, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.dark .card-glass:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Stats dashboard card (icon + value layout) */
+.card-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s ease;
+  text-align: center;
+}
+.card-stats:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: var(--ems-teal);
+}
+.dark .card-stats:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+.card-stats-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(46, 196, 182, 0.1), rgba(30, 58, 95, 0.08));
+  color: var(--ems-teal);
+  flex-shrink: 0;
+}
+.dark .card-stats-icon {
+  background: linear-gradient(135deg, rgba(46, 196, 182, 0.15), rgba(74, 144, 217, 0.12));
+}
+.card-stats-value {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--foreground);
+}
+.card-stats-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── 18. Button System Enhancements ── */
+
+/* Teal button with animated glow */
+.btn-glow-teal {
+  background: var(--ems-teal);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(46, 196, 182, 0.25),
+              0 0 0 0 rgba(46, 196, 182, 0);
+  position: relative;
+  overflow: hidden;
+}
+.btn-glow-teal:hover {
+  box-shadow: 0 4px 20px rgba(46, 196, 182, 0.4),
+              0 0 0 4px rgba(46, 196, 182, 0.1);
+  transform: translateY(-1px);
+}
+.btn-glow-teal:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(46, 196, 182, 0.25);
+}
+
+/* Ghost button with subtle hover (bg only, no border) */
+.btn-ghost-subtle {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-ghost-subtle:hover {
+  background: var(--muted);
+}
+.btn-ghost-subtle:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+.dark .btn-ghost-subtle:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Circular floating icon button */
+.btn-icon-float {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--card);
+  color: var(--foreground);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08),
+              0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-icon-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.06);
+  color: var(--ems-teal);
+}
+.btn-icon-float:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.dark .btn-icon-float {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25),
+              0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.dark .btn-icon-float:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
+              0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ── 19. Typography Hierarchy ── */
+
+/* Gradient text utility (teal → emerald) */
+.text-gradient {
+  background: linear-gradient(135deg, #2EC4B6, #10B981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section heading with bottom accent line */
+.heading-section {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  position: relative;
+  padding-bottom: 10px;
+}
+.heading-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2EC4B6, #1E3A5F);
+}
+
+/* Small label / descriptor text */
+.text-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── 20. Tab Styling Enhancements ── */
+
+/* Active tab with bottom border indicator */
+[data-state="active"][role="tab"] {
+  position: relative;
+}
+[data-state="active"][role="tab"]::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 1px 1px 0 0;
+  background: var(--ems-teal);
+  box-shadow: 0 0 8px rgba(46, 196, 182, 0.3);
+  animation: tabIndicatorIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes tabIndicatorIn {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+.dark [data-state="active"][role="tab"]::after {
+  box-shadow: 0 0 8px rgba(46, 196, 182, 0.2);
+}
+
+/* Smooth background transition for all tab triggers */
+[role="tab"] {
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ── 21. Progress Indicator Enhancements ── */
+
+/* Progress bar with animated glow */
+.progress-glow {
+  position: relative;
+  overflow: hidden;
+}
+.progress-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(46, 196, 182, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: progressGlow 2.5s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes progressGlow {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+.progress-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Progress bar with animated diagonal stripes */
+.progress-striped {
+  position: relative;
+  overflow: hidden;
+}
+.progress-striped::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 20px 20px;
+  animation: progressStripes 1s linear infinite;
+}
+@keyframes progressStripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 0; }
+}
+
+/* ── 22. Empty State ── */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  gap: 12px;
+}
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  margin-bottom: 4px;
+}
+.empty-state-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.empty-state-description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+/* ── 23. Content Transitions ── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInLeftAnim {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.slide-in-left {
+  animation: slideInLeftAnim 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scaleInAnim {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.scale-in {
+  animation: scaleInAnim 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ── 24. Tooltip Enhancements ── */
+
+/* Tooltip with small arrow at top */
+[role="tooltip"] {
+  position: relative;
+}
+[data-side="top"][role="tooltip"]::before,
+[data-side="bottom"][role="tooltip"]::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--popover);
+  border: 1px solid var(--border);
+  z-index: -1;
+}
+[data-side="top"][role="tooltip"]::before {
+  bottom: -5px;
+  border-top: none;
+  border-left: none;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 0 0 3px 0;
+}
+[data-side="bottom"][role="tooltip"]::after {
+  top: -5px;
+  border-bottom: none;
+  border-right: none;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 3px 0 0 0;
+}
+
+/* ── 25. Modern Scrollbar Improvements ── */
+
+/* Thin modern scrollbar with hover-to-show behavior */
+.scrollbar-modern {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(108, 117, 125, 0.2) transparent;
+}
+.scrollbar-modern::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-modern::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-modern::-webkit-scrollbar-thumb {
+  background: rgba(108, 117, 125, 0.15);
+  border-radius: 3px;
+  transition: background 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+.scrollbar-modern:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+  background: rgba(108, 117, 125, 0.35);
+}
+.scrollbar-modern::-webkit-scrollbar-thumb:hover {
+  background: rgba(108, 117, 125, 0.55);
+}
+.dark .scrollbar-modern {
+  scrollbar-color: rgba(173, 181, 189, 0.15) transparent;
+}
+.dark .scrollbar-modern::-webkit-scrollbar-thumb {
+  background: rgba(173, 181, 189, 0.1);
+}
+.dark .scrollbar-modern:hover::-webkit-scrollbar-thumb {
+  background: rgba(173, 181, 189, 0.3);
+}
+.dark .scrollbar-modern::-webkit-scrollbar-thumb:hover {
+  background: rgba(173, 181, 189, 0.5);
+}
+
+/* ── 26. Sidebar Sub-item Hover Enhancement ── */
+.sidebar-sub-item-hover {
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.sidebar-sub-item-hover:hover {
+  transform: translateX(3px);
+}
+
+/* ── 27. Badge Count Pill Enhancement ── */
+.badge-count-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.badge-count-pill .badge-count-text {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FCD34D;
+}
+
 /* ── Reduced Motion: All new animations ── */
 @media (prefers-reduced-motion: reduce) {
   .quiz-option-glow:hover {
@@ -2366,5 +2877,48 @@
   }
   .parallax-card {
     transition: none;
+  }
+  /* Round 3: new animations */
+  .card-elevated,
+  .card-gradient-border,
+  .card-glass,
+  .card-stats,
+  .btn-glow-teal,
+  .btn-icon-float,
+  .sidebar-sub-item-hover {
+    transition: none;
+  }
+  .card-elevated:hover,
+  .card-stats:hover {
+    transform: none;
+  }
+  .btn-glow-teal:hover,
+  .btn-icon-float:hover {
+    transform: none;
+  }
+  .card-gradient-border::before {
+    transition: none;
+  }
+  .fade-in-up,
+  .slide-in-left,
+  .scale-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  [data-state="active"][role="tab"]::after {
+    animation: none;
+    transform: none;
+  }
+  .progress-glow::before {
+    animation: none;
+    display: none;
+  }
+  .progress-striped::after {
+    animation: none;
+    display: none;
+  }
+  .sidebar-sub-item-hover:hover {
+    transform: none;
   }
 }

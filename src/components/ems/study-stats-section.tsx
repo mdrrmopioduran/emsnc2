@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { roadmapTopics } from '@/data/roadmap'
+import { StudyStreakCalendar } from '@/components/ems/study-streak-calendar'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -578,6 +579,9 @@ export function StudyStatsSection() {
           />
         </CardContent>
       </Card>
+
+      {/* ── Study Streak Calendar ──────────────────────────────────────── */}
+      <StudyStreakCalendar />
 
       {/* ── Achievement Showcase ──────────────────────────────────────── */}
       <Card className="card-enhanced-hover border-0 shadow-sm bg-white/80 dark:bg-white/5 backdrop-blur-sm">

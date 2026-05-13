@@ -130,7 +130,7 @@ export function XPBar({ compact = false }: { compact?: boolean }) {
           <Zap className="w-3.5 h-3.5 text-amber-500" />
           <span className="text-xs font-bold text-amber-600 dark:text-amber-400">Lv.{getLevelFromXp(progress.xp)}</span>
         </div>
-        <div className="w-20 h-1.5 rounded-full bg-muted overflow-hidden">
+        <div className="w-24 h-2 rounded-full bg-muted overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-500"
             style={{ width: `${xpInfo.progress * 100}%` }}
@@ -205,11 +205,13 @@ export function BadgeDisplay() {
           {unlockedBadges.map((badge) => (
             <div
               key={badge.id}
-              className="flex flex-col items-center p-2 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 hover:shadow-sm transition-shadow"
+              className="card-stats flex flex-col items-center p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40"
               title={`${badge.title}: ${badge.description}`}
             >
-              <span className="text-2xl mb-1">{badge.icon}</span>
-              <span className="text-[10px] font-medium text-center text-amber-700 dark:text-amber-300 leading-tight">{badge.title}</span>
+              <div className="card-stats-icon w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+                <span className="text-xl">{badge.icon}</span>
+              </div>
+              <span className="text-[10px] font-medium text-center text-amber-700 dark:text-amber-300 leading-tight mt-1">{badge.title}</span>
             </div>
           ))}
 

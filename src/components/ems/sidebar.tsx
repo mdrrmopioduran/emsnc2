@@ -203,9 +203,9 @@ export function Sidebar() {
             </span>
           </div>
           {/* Badge count pill */}
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/20" title={`${badgeCount} of ${totalBadges} badges earned`}>
+          <div className="badge-count-pill" title={`${badgeCount} of ${totalBadges} badges earned`}>
             <Trophy className="w-3 h-3 text-amber-400" />
-            <span className="text-[10px] font-bold text-amber-300">{badgeCount}/{totalBadges}</span>
+            <span className="badge-count-text">{badgeCount}/{totalBadges}</span>
           </div>
           <button
             className="md:hidden p-1 rounded hover:bg-sidebar-accent"
@@ -233,7 +233,7 @@ export function Sidebar() {
               {progress.xp} XP
             </span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-sidebar-border/50 overflow-hidden progress-bar-animated xp-shimmer-bar">
+          <div className="w-full h-2.5 rounded-full bg-sidebar-border/50 overflow-hidden progress-bar-animated xp-shimmer-bar">
             <div
               className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-700"
               style={{ width: `${xpInfo.progress * 100}%` }}
@@ -273,7 +273,10 @@ export function Sidebar() {
                     )}>
                       {item.icon}
                     </span>
-                    <span className="flex-1 text-left font-bold text-amber-400">{t(item.labelKey)}</span>
+                    <span className={cn(
+                      'flex-1 text-left font-semibold transition-colors duration-200',
+                      isActive ? 'text-amber-300' : 'text-sidebar-foreground/60'
+                    )}>{t(item.labelKey)}</span>
                     {sectionPct > 0 && (
                       <span className={cn(
                         'text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[32px] text-center',
@@ -330,7 +333,7 @@ export function Sidebar() {
                               <button
                                 onClick={() => handleSubClick(item.id, sub.id)}
                                 className={cn(
-                                  'w-full text-left px-3 py-2.5 rounded-md text-[11px] transition-all duration-200 flex items-center gap-2 group min-w-0',
+                                  'w-full text-left px-3 py-2.5 rounded-md text-[11px] transition-all duration-200 flex items-center gap-2 group min-w-0 sidebar-sub-item-hover',
                                   isSubActive
                                     ? 'bg-ems-teal/20 text-ems-teal font-semibold sidebar-item-active'
                                     : 'text-sidebar-foreground/45 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground/80'

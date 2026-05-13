@@ -8,12 +8,15 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { useAppStore } from '@/store/app-store'
+import { useTranslation } from '@/hooks/use-translation'
 import {
   ZoomIn, ZoomOut, Eye, EyeOff, Info, Heart, Wind, Activity,
   Download, Maximize2, X, Filter, Move, RotateCcw, MousePointer2,
   ChevronRight, Sparkles, Wrench, Search, ChevronLeft, XCircle,
-  Scan, ImageIcon, LayoutGrid, Brain
+  Scan, ImageIcon, LayoutGrid, Brain, CheckCircle2, AlertTriangle,
+  ClipboardList, ArrowRight, Shield, Ruler, Weight, Gauge
 } from 'lucide-react'
 
 // ==================== ANATOMY DIAGRAMS ====================
@@ -1085,6 +1088,9 @@ interface EquipmentItem {
   image: string
   category: string
   color: string
+  specifications?: Record<string, string>
+  whenToUse?: string[]
+  safetyNotes?: string[]
 }
 
 const equipmentData: EquipmentItem[] = [
@@ -1096,6 +1102,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p1_img1.png',
     category: 'Transport',
     color: '#6366F1',
+    specifications: { Weight: '32-40 kg', Dimensions: '188 × 64 cm (unfolded)', 'Load Capacity': '159 kg (350 lbs)', Material: 'Aluminum alloy frame, vinyl cover', Certification: 'EN 1865 / FDA', 'Power Source': 'Manual hydraulic lift' },
+    whenToUse: ['Patient transport from scene to ambulance', 'Inter-facility transfers', 'Mass casualty incidents (MCI)', 'Non-ambulatory patients at any scene', 'Bariatric patients (use bariatric stretcher)'],
+    safetyNotes: ['Always secure patient with straps at chest, waist, and legs', 'Raise side rails during transport', 'Verify weight limit before loading', 'Lock wheels when loading/unloading', 'Never leave patient unattended on stretcher'],
   },
   {
     id: 'bvm',
@@ -1105,6 +1114,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p1_img2.png',
     category: 'Airway',
     color: '#3B82F6',
+    specifications: { Capacity: 'Adult: 1600 mL, Pediatric: 500 mL', 'Flow Rate': 'Delivers ~600 mL per squeeze (adult)', Material: 'Silicone bag, clear mask', 'Size Options': 'Adult, Child, Infant', Certification: 'ISO 10651-4', 'Response Time': 'Immediate ventilation' },
+    whenToUse: ['Cardiac arrest (CPR ventilation)', 'Respiratory arrest / failure', 'Apnea of any cause', 'During RSI/intubation preparation', 'Hypoventilation with SpO₂ < 90%', 'Pre-oxygenation before airway procedures'],
+    safetyNotes: ['Ensure proper mask seal (C-E technique)', 'Do NOT over-ventilate (watch for gastric distension)', 'Use OPA/NPA to maintain airway patency', 'Connect to supplemental oxygen at 15 L/min', 'Squeeze at 10-12 breaths/min (adult)', 'Watch for chest rise — if absent, reposition'],
   },
   {
     id: 'aed',
@@ -1114,6 +1126,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p1_img3.png',
     category: 'Cardiac',
     color: '#EF4444',
+    specifications: { Weight: '1.5-3.5 kg', Accuracy: '> 95% rhythm sensitivity', 'Power Source': 'Lithium battery (3-5 year shelf life)', Lifespan: 'Battery: 3-5 years, Pads: 2-3 years', Certification: 'FDA / MDR / DOH approved', 'Shock Energy': '150-360 Joules biphasic' },
+    whenToUse: ['Witnessed or unwitnessed cardiac arrest', 'VF (Ventricular Fibrillation) rhythm', 'Pulseless VT (Ventricular Tachycardia)', 'Unresponsive patient with no normal breathing', 'When patient is pulseless and apneic', 'As soon as AED arrives at cardiac arrest scene'],
+    safetyNotes: ['Ensure NO one is touching patient during analysis/shock', 'Remove medication patches and dry the chest', 'Do NOT use on wet surfaces — dry first', 'Place pads at least 2.5 cm away from pacemakers', 'Remove metallic jewelry from chest area', 'Always resume CPR immediately after shock delivery'],
   },
   {
     id: 'c-collar',
@@ -1123,6 +1138,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p2_img1.png',
     category: 'Immobilization',
     color: '#EC4899',
+    specifications: { Material: 'Plastic shell with foam padding', 'Size Options': '4 sizes: Tall, Regular, Short, No-Neck', Dimensions: 'Fits neck circumference 9-22 inches', Weight: '~180 g', Certification: 'ANSI/NASPE, CE Marked', Lifespan: 'Single-use (disposable) or reusable' },
+    whenToUse: ['Mechanism of injury suggestive of cervical spine trauma', 'Fall from height (> 6 feet / 2 meters)', 'Motor vehicle collision (especially frontal impact)', 'Diving injury / shallow water incident', 'Unconscious trauma patient', 'Patient complaining of neck pain after trauma', 'Penetrating injury near neck/throat'],
+    safetyNotes: ['Always measure using 3-finger technique for sizing', 'Never force collar on — if resistance, select larger size', 'Check distal neurovascular status after application', 'Remove ONLY when cleared by hospital X-ray', 'Combination with backboard provides full spinal immobilization', 'Reassess fit after any patient movement'],
   },
   {
     id: 'spine-board',
@@ -1132,6 +1150,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p2_img2.png',
     category: 'Immobilization',
     color: '#F59E0B',
+    specifications: { Dimensions: '183 × 41 × 5 cm', Weight: '6-8 kg (plastic), 7-9 kg (wood)', 'Load Capacity': 'Up to 227 kg (500 lbs)', Material: 'HDPE plastic or plywood with runners', Certification: 'EN 1865', Lifespan: 'Reusable, inspect for cracks before each use' },
+    whenToUse: ['Suspected spinal cord injury', 'Multi-system trauma with MOI', 'Unconscious trauma patient', 'Penetrating trauma near spine', 'Patient extrication from vehicle/water', 'Mass casualty incident patient packaging', 'Lower extremity fracture with spinal concern'],
+    safetyNotes: ['Use log-roll technique to place patient on board', 'Secure with straps: chest, waist, thighs, legs', 'Apply head immobilizer device (blocks/tape)', 'Pad voids under head, knees, and arch of back', 'Never leave patient on backboard > 2 hours (pressure injury risk)', 'Inspect board for cracks/warps before each use'],
   },
   {
     id: 'suction-unit',
@@ -1141,6 +1162,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p2_img3.png',
     category: 'Airway',
     color: '#8B5CF6',
+    specifications: { Weight: '3-5 kg (portable unit)', 'Flow Rate': '30+ L/min vacuum flow', 'Suction Pressure': '300-500 mmHg', 'Power Source': 'Rechargeable battery + DC/AC', Capacity: '1000 mL collection canister', Certification: 'ISO 10079-1' },
+    whenToUse: ['Visible blood, vomit, or secretions in airway', 'Before and during intubation attempt', 'Trauma patient with facial/oral bleeding', 'Active seizure with excessive oral secretions', 'Near-drowning with foamy airway secretions', 'Any patient unable to manage own secretions'],
+    safetyNotes: ['Always test suction before approaching patient', 'Do NOT suction for more than 15 seconds at a time (adult)', 'Do NOT insert catheter beyond base of tongue', 'Use rigid catheter (Yankauer) for oral suctioning', 'Use soft catheter for nasopharyngeal suctioning', 'Clean and disinfect after every use'],
   },
   {
     id: 'pulse-oximeter',
@@ -1150,6 +1174,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p2_img4.png',
     category: 'Monitoring',
     color: '#10B981',
+    specifications: { Accuracy: '±2% for SpO₂ 70-100%', 'Range': 'SpO₂: 0-100%, Pulse: 25-250 bpm', 'Response Time': '5-10 seconds to reading', 'Power Source': 'AAA batteries or rechargeable', Weight: '50-60 g', Certification: 'FDA Class II, CE Marked' },
+    whenToUse: ['Every patient assessment (routine vital signs)', 'Respiratory distress or failure', 'COPD and asthma exacerbations', 'Carbon monoxide poisoning (note: SpO₂ may be falsely normal)', 'During oxygen therapy to titrate flow', 'Shock assessment (tissue perfusion indicator)'],
+    safetyNotes: ['Cannot detect CO poisoning — use co-oximetry', 'Cold extremities, nail polish, poor perfusion → unreliable', 'Place on finger with best perfusion (check multiple sites)', 'Do NOT rely solely on SpO₂ — assess clinical picture', 'Motion artifact causes false low readings', 'Hypothermic patients may show falsely low readings'],
   },
   {
     id: 'oxygen-tank',
@@ -1159,6 +1186,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p2_img5.png',
     category: 'Respiratory',
     color: '#06B6D4',
+    specifications: { Capacity: 'D: 350 L, E: 625 L, M: 3000 L', 'Flow Rate': '1-15 L/min (adjustable via regulator)', Weight: 'D: 5.4 kg, E: 6.8 kg, M: 16 kg', 'Power Source': 'Compressed medical O₂ gas', Material: 'Aluminum or steel cylinder', Certification: 'DOT / DOH approved, hydrostatically tested' },
+    whenToUse: ['Hypoxia (SpO₂ < 94%)', 'Respiratory distress / failure', 'Chest pain (suspected MI)', 'Carbon monoxide poisoning', 'Major trauma / shock', 'CPR (connect to BVM at 15 L/min)', 'Anaphylaxis with respiratory compromise'],
+    safetyNotes: ['NO smoking or open flames near O₂ equipment', 'Secure tank upright during transport', 'Check gauge pressure — minimum 500 psi for transport', 'Use non-petroleum-based lubricants only', 'Crack valve briefly before attaching regulator (debris removal)', 'Do NOT use on COPD patients at high flow without medical order'],
   },
   {
     id: 'cardiac-monitor',
@@ -1168,6 +1198,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p3_img1.png',
     category: 'Monitoring',
     color: '#14B8A6',
+    specifications: { 'Range': 'ECG: 15-300 bpm, SpO₂: 0-100%, NIBP: 40-270 mmHg', Accuracy: 'ECG diagnostic quality, SpO₂ ±2%', 'Response Time': '< 8 seconds for full vital signs', 'Power Source': 'Rechargeable lithium-ion battery (3-4 hours)', Weight: '3-5 kg (portable unit)', Certification: 'FDA Class II / CE / IEC 60601' },
+    whenToUse: ['Chest pain / suspected acute coronary syndrome', 'Cardiac arrest (rhythm analysis)', 'Dysrhythmia detection and monitoring', 'Shock or hemodynamic instability', 'Drug overdose monitoring', 'Inter-facility transfer of critical patients', 'Pre-hospital 12-lead ECG acquisition'],
+    safetyNotes: ['Ensure good electrode contact — clean/dry skin first', 'Place limb electrodes on flat muscle areas (avoid bones)', 'Minimize motion artifact during transport', 'Always verify monitor alarm settings are appropriate', 'Document rhythm strips for hospital handover', 'Do NOT rely solely on monitor — assess patient clinically'],
   },
   {
     id: 'ventilator',
@@ -1177,6 +1210,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p3_img2.png',
     category: 'Respiratory',
     color: '#0891B2',
+    specifications: { 'Flow Rate': 'Up to 180 L/min peak flow', 'Range': 'Tidal volume: 50-1200 mL, Rate: 1-60 breaths/min', 'Power Source': 'Internal battery + external O₂/air', Accuracy: 'Tidal volume ±10%', Weight: '3-7 kg (transport ventilator)', Certification: 'FDA Class II / IEC 60601-2-12' },
+    whenToUse: ['Endotracheal intubated patients during transport', 'Respiratory failure not responding to BVM', 'ARDS with specific ventilator settings', 'ICU patient inter-facility transfer', 'Prolonged resuscitation requiring consistent ventilation', 'Neuromuscular disease with respiratory failure'],
+    safetyNotes: ['Always verify ventilator settings match clinical needs', 'Monitor peak pressures and adjust for compliance', 'Have BVM as backup — ventilators can malfunction', 'Confirm ET tube position before connecting ventilator', 'Watch for patient-ventilator dyssynchrony', 'Check alarm settings before every transport'],
   },
   {
     id: 'iv-set',
@@ -1186,6 +1222,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p3_img3.png',
     category: 'Circulatory',
     color: '#6366F1',
+    specifications: { 'Flow Rate': 'Macro: 10-20 gtts/mL, Micro: 60 gtts/mL', Capacity: 'Standard 10-15 drops/mL drip chamber', Material: 'PVC tubing, ABS spike, roller clamp', 'Size Options': 'Macro-drip, Micro-drip, blood administration set', Certification: 'ISO 8536-4', Lifespan: 'Single-use, discard after 24-72 hours' },
+    whenToUse: ['Hypovolemic shock (fluid resuscitation)', 'Dehydration requiring IV fluids', 'Medication administration (IV push, infusion)', 'Blood product transfusion', 'Maintaining open IV access for emergencies', 'Cardiac arrest (IO preferred, IV acceptable)'],
+    safetyNotes: ['Check fluid type, expiration date, and clarity before use', 'Prime tubing to remove all air bubbles', 'Use aseptic technique during IV insertion', 'Monitor for infiltration (swelling, pain at site)', 'Calculate drip rate accurately for medication dosing', 'Never use visibly contaminated or expired fluids'],
   },
   {
     id: 'blood-pressure-cuff',
@@ -1195,6 +1234,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p3_img4.png',
     category: 'Monitoring',
     color: '#EF4444',
+    specifications: { Accuracy: '±3 mmHg (aneroid), ±5 mmHg (digital)', 'Range': '0-300 mmHg', 'Size Options': 'Small, Regular, Large, Thigh (cuff must match arm)', Weight: 'Aneroid: ~300 g, Digital: ~400 g', Certification: 'ISO 81060-1', Material: 'Nylon cuff, latex/neoprene bladder, gauge' },
+    whenToUse: ['Every patient assessment (baseline vital sign)', 'Shock / hypotension screening', 'Suspected internal bleeding assessment', 'Hypertensive emergency monitoring', 'Drug overdose vital sign tracking', 'Serial monitoring during transport'],
+    safetyNotes: ['Cuff must cover 80% of upper arm circumference', 'Patient arm should be at heart level', 'Do NOT take BP on arm with AV fistula or mastectomy side', 'Wait 1-2 minutes between repeated measurements', 'Check cuff calibration regularly (aneroid)', 'Irregular rhythms may cause inaccurate readings'],
   },
   {
     id: 'ems-backpack',
@@ -1204,6 +1246,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p3_img5.png',
     category: 'Transport',
     color: '#DC2626',
+    specifications: { Capacity: '35-50 liters, multiple compartments', Weight: 'Empty: 2-3 kg, Loaded: 10-15 kg', Dimensions: '55 × 30 × 28 cm (typical)', Material: '1000D nylon, waterproof coating, MOLLE webbing', Certification: 'No specific certification required', Lifespan: '5+ years with proper maintenance' },
+    whenToUse: ['First response at any emergency scene', 'Mass casualty incidents (individual packs)', 'Remote/wilderness EMS response', 'Technical rescue operations', 'Community first responder deployment', 'Quick access to critical equipment before ambulance arrival'],
+    safetyNotes: ['Restock immediately after every call', 'Check medication expiration dates monthly', 'Organize contents by body system for rapid access', 'Waterproof critical medications and electronics', 'Label all compartments for consistency', 'Conduct daily equipment checks per protocol'],
   },
   {
     id: 'glucometer',
@@ -1213,6 +1258,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p4_img1.png',
     category: 'Diagnostics',
     color: '#F97316',
+    specifications: { Accuracy: '±15% at concentrations > 75 mg/dL', 'Range': '20-600 mg/dL', 'Response Time': '5-10 seconds per test', 'Power Source': '2x AAA batteries', Weight: '~50 g', Certification: 'ISO 15197:2013, FDA Class II' },
+    whenToUse: ['Altered mental status of unknown cause', 'Seizure (rule out hypoglycemia)', 'Diabetic patient with any complaint', 'Suspected stroke assessment', 'Unconscious patient with no obvious cause', 'Before administering dextrose or glucagon'],
+    safetyNotes: ['Always wear gloves when handling blood samples', 'Use only manufacturer-approved test strips', 'Clean fingertip with alcohol and let dry before lancing', 'Do NOT use expired test strips', 'Correlation with lab glucose: results may vary ±15%', 'Document blood glucose before and after treatment'],
   },
   {
     id: 'stethoscope',
@@ -1222,6 +1270,9 @@ const equipmentData: EquipmentItem[] = [
     image: '/equipment/equipment_p4_img2.png',
     category: 'Diagnostics',
     color: '#7C3AED',
+    specifications: { Material: 'Stainless steel chest piece, latex-free tubing', 'Size Options': 'Adult (standard), Pediatric (smaller bell)', Weight: '150-200 g', Certification: 'No specific medical certification', Accuracy: 'Depends on user skill and ambient noise', Lifespan: '5-10 years with proper care' },
+    whenToUse: ['Blood pressure measurement with manual cuff', 'Lung auscultation (wheezes, crackles, absent breath sounds)', 'Heart auscultation (murmurs, rate, rhythm)', 'Bowel sound assessment in abdominal complaints', 'Confirming ETT placement (bilateral breath sounds)', 'Cardiac arrest — confirm pulselessness'],
+    safetyNotes: ['Clean earpieces and chest piece between patients', 'Use diaphragm for high-pitched sounds (normal breath sounds)', 'Use bell for low-pitched sounds (heart murmurs, bowel bruits)', 'Minimize ambient noise for accurate auscultation', 'Report findings using standard terminology', 'Stethoscope does NOT replace SpO₂ monitoring'],
   },
 ]
 
@@ -1229,8 +1280,11 @@ const equipmentCategories = ['All', 'Airway', 'Cardiac', 'Circulatory', 'Diagnos
 
 function EquipmentGallery() {
   const [selectedItem, setSelectedItem] = useState<EquipmentItem | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
   const [filterCategory, setFilterCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+  const { t } = useTranslation()
+  const { progress, markEquipmentReviewed } = useAppStore()
 
   const filteredItems = equipmentData.filter(item => {
     const matchesCategory = filterCategory === 'All' || item.category === filterCategory
@@ -1239,6 +1293,26 @@ function EquipmentGallery() {
       item.shortName.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
+
+  const handleCardClick = (item: EquipmentItem) => {
+    setSelectedItem(item)
+    setSheetOpen(true)
+  }
+
+  const navigateEquipment = (direction: 'prev' | 'next') => {
+    if (!selectedItem) return
+    const idx = equipmentData.findIndex(e => e.id === selectedItem.id)
+    const nextIdx = direction === 'next'
+      ? (idx + 1) % equipmentData.length
+      : (idx - 1 + equipmentData.length) % equipmentData.length
+    setSelectedItem(equipmentData[nextIdx])
+  }
+
+  const relatedEquipment = selectedItem
+    ? equipmentData.filter(e => e.category === selectedItem.category && e.id !== selectedItem.id).slice(0, 5)
+    : []
+
+  const isReviewed = selectedItem ? progress.equipmentReviewed.includes(selectedItem.id) : false
 
   return (
     <div className="space-y-4 overflow-hidden w-full min-w-0">
@@ -1280,54 +1354,63 @@ function EquipmentGallery() {
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 max-w-full min-w-0">
-        {filteredItems.map((item, idx) => (
-          <Card
-            key={item.id}
-            className={cn(
-              'group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg border-border/50 hover:border-primary/30',
-              selectedItem?.id === item.id && 'ring-2 ring-primary/40 border-primary/50'
-            )}
-            onClick={() => setSelectedItem(selectedItem?.id === item.id ? null : item)}
-            style={{ animationDelay: `${idx * 50}ms` }}
-          >
-            <CardContent className="p-0">
-              {/* Image container */}
-              <div
-                className="relative aspect-square overflow-hidden bg-gradient-to-br from-muted/40 to-muted/10 flex items-center justify-center p-2 sm:p-3 min-w-0"
-                style={{
-                  background: `linear-gradient(135deg, ${item.color}0A, ${item.color}04)`
-                }}
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  loading="lazy"
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 max-w-full max-h-full drop-shadow-sm"
-                />
-                {/* Category badge */}
+        {filteredItems.map((item, idx) => {
+          const reviewed = progress.equipmentReviewed.includes(item.id)
+          return (
+            <Card
+              key={item.id}
+              className={cn(
+                'group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg border-border/50 hover:border-primary/30',
+                selectedItem?.id === item.id && 'ring-2 ring-primary/40 border-primary/50'
+              )}
+              onClick={() => handleCardClick(item)}
+              style={{ animationDelay: `${idx * 50}ms` }}
+            >
+              <CardContent className="p-0">
+                {/* Image container */}
                 <div
-                  className="absolute top-1.5 right-1.5 px-2 py-0.5 rounded-full text-[9px] font-semibold text-white shadow-sm backdrop-blur-sm"
-                  style={{ backgroundColor: `${item.color}CC` }}
+                  className="relative aspect-square overflow-hidden bg-gradient-to-br from-muted/40 to-muted/10 flex items-center justify-center p-2 sm:p-3 min-w-0"
+                  style={{
+                    background: `linear-gradient(135deg, ${item.color}0A, ${item.color}04)`
+                  }}
                 >
-                  {item.category}
-                </div>
-              </div>
-              {/* Text content */}
-              <div className="p-2.5 space-y-1">
-                <div className="flex items-start gap-1.5">
-                  <div
-                    className="w-2 h-2 rounded-full mt-1 flex-shrink-0 ring-1 ring-inset"
-                    style={{ backgroundColor: item.color, '--tw-ring-color': `${item.color}40` } as React.CSSProperties}
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    loading="lazy"
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 max-w-full max-h-full drop-shadow-sm"
                   />
-                  <h4 className="text-xs sm:text-sm font-semibold leading-tight line-clamp-2 break-words">{item.name}</h4>
+                  {/* Category badge */}
+                  <div
+                    className="absolute top-1.5 right-1.5 px-2 py-0.5 rounded-full text-[9px] font-semibold text-white shadow-sm backdrop-blur-sm"
+                    style={{ backgroundColor: `${item.color}CC` }}
+                  >
+                    {item.category}
+                  </div>
+                  {/* Reviewed checkmark */}
+                  {reviewed && (
+                    <div className="absolute top-1.5 left-1.5 bg-emerald-500 rounded-full p-0.5 shadow-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                    </div>
+                  )}
                 </div>
-                <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-2 break-words">
-                  {item.purpose}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                {/* Text content */}
+                <div className="p-2.5 space-y-1">
+                  <div className="flex items-start gap-1.5">
+                    <div
+                      className="w-2 h-2 rounded-full mt-1 flex-shrink-0 ring-1 ring-inset"
+                      style={{ backgroundColor: item.color, '--tw-ring-color': `${item.color}40` } as React.CSSProperties}
+                    />
+                    <h4 className="text-xs sm:text-sm font-semibold leading-tight line-clamp-2 break-words">{item.name}</h4>
+                  </div>
+                  <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-2 break-words">
+                    {item.purpose}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )
+        })}
       </div>
 
       {/* Empty state */}
@@ -1341,105 +1424,209 @@ function EquipmentGallery() {
         </div>
       )}
 
-      {/* Detail Panel */}
-      {selectedItem && (
-        <Card className="border-primary/20 overflow-hidden animate-in fade-in-0 slide-in-from-bottom-3 duration-300">
-          {/* Color header bar */}
-          <div
-            className="h-2"
-            style={{ background: `linear-gradient(90deg, ${selectedItem.color}, ${selectedItem.color}88)` }}
-          />
-          <CardContent className="p-4 sm:p-6">
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              {/* Equipment image — larger */}
+      {/* ===== Equipment Detail Sheet ===== */}
+      <Sheet open={sheetOpen} onOpenChange={(open) => { setSheetOpen(open); if (!open) setSelectedItem(null) }}>
+        <SheetContent side="right" className="sm:max-w-lg w-full p-0 overflow-y-auto">
+          {selectedItem && (
+            <div className="flex flex-col">
+              {/* Color bar at top */}
               <div
-                className="w-full sm:w-52 sm:h-52 aspect-square rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center p-3 sm:p-4 border border-border/30"
-                style={{
-                  background: `linear-gradient(135deg, ${selectedItem.color}10, ${selectedItem.color}05)`
-                }}
-              >
-                <img
-                  src={selectedItem.image}
-                  alt={selectedItem.name}
-                  loading="lazy"
-                  className="w-full h-full object-contain max-w-full drop-shadow-md"
-                />
-              </div>
-              {/* Details */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <div
-                        className="w-3 h-3 rounded-full flex-shrink-0 ring-2 ring-offset-1 ring-offset-background"
-                        style={{ backgroundColor: selectedItem.color, '--tw-ring-color': `${selectedItem.color}40` } as React.CSSProperties}
-                      />
-                      <Badge
-                        variant="secondary"
-                        className="text-[10px] px-2.5 py-0.5 font-semibold"
-                        style={{
-                          backgroundColor: `${selectedItem.color}15`,
-                          color: selectedItem.color,
-                          borderColor: `${selectedItem.color}30`
-                        }}
-                      >
-                        {selectedItem.category}
-                      </Badge>
-                    </div>
-                    <h3 className="font-bold text-base sm:text-lg leading-tight break-words">{selectedItem.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{selectedItem.shortName}</p>
-                  </div>
-                  <button
-                    className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors"
-                    onClick={() => setSelectedItem(null)}
-                  >
-                    <XCircle className="w-5 h-5 text-muted-foreground" />
-                  </button>
-                </div>
+                className="h-2 flex-shrink-0"
+                style={{ background: `linear-gradient(90deg, ${selectedItem.color}, ${selectedItem.color}88)` }}
+              />
+
+              {/* Equipment image */}
+              <div className="flex-shrink-0">
                 <div
-                  className="p-3.5 rounded-xl border mt-1"
+                  className="mx-4 mt-4 rounded-xl overflow-hidden flex items-center justify-center p-5 border border-border/30 aspect-[4/3]"
                   style={{
-                    backgroundColor: `${selectedItem.color}06`,
-                    borderColor: `${selectedItem.color}20`,
+                    background: `linear-gradient(135deg, ${selectedItem.color}10, ${selectedItem.color}05)`
                   }}
                 >
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: selectedItem.color }} />
-                    <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: selectedItem.color }}>Purpose & Usage</p>
-                  </div>
-                  <p className="text-sm leading-relaxed break-words">{selectedItem.purpose}</p>
+                  <img
+                    src={selectedItem.image}
+                    alt={selectedItem.name}
+                    className="w-full h-full object-contain max-w-full drop-shadow-lg"
+                  />
                 </div>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 px-4 pb-6 space-y-4 mt-4">
+                {/* Name & Category */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div
+                      className="w-3 h-3 rounded-full flex-shrink-0 ring-2 ring-offset-1 ring-offset-background"
+                      style={{ backgroundColor: selectedItem.color, '--tw-ring-color': `${selectedItem.color}40` } as React.CSSProperties}
+                    />
+                    <Badge
+                      variant="secondary"
+                      className="text-[10px] px-2.5 py-0.5 font-semibold"
+                      style={{
+                        backgroundColor: `${selectedItem.color}15`,
+                        color: selectedItem.color,
+                        borderColor: `${selectedItem.color}30`
+                      }}
+                    >
+                      {selectedItem.category}
+                    </Badge>
+                    {isReviewed && (
+                      <Badge variant="secondary" className="text-[10px] px-2.5 py-0.5 font-semibold bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                        <CheckCircle2 className="w-3 h-3 mr-1" />
+                        {t('equip.reviewed' as any)}
+                      </Badge>
+                    )}
+                  </div>
+                  <SheetTitle className="font-bold text-lg sm:text-xl leading-tight break-words">
+                    {selectedItem.name}
+                  </SheetTitle>
+                  <SheetDescription className="mt-1 text-sm leading-relaxed break-words">
+                    {selectedItem.purpose}
+                  </SheetDescription>
+                </div>
+
+                {/* Specifications Grid */}
+                {selectedItem.specifications && Object.keys(selectedItem.specifications).length > 0 && (
+                  <div>
+                    <h4 className="heading-section text-sm font-semibold flex items-center gap-2 mb-3">
+                      <Ruler className="w-4 h-4" style={{ color: selectedItem.color }} />
+                      {t('equip.specifications' as any)}
+                    </h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      {Object.entries(selectedItem.specifications).map(([key, value]) => (
+                        <div
+                          key={key}
+                          className="rounded-lg border p-2.5"
+                          style={{
+                            backgroundColor: `${selectedItem.color}05`,
+                            borderColor: `${selectedItem.color}15`,
+                          }}
+                        >
+                          <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-0.5">{key}</p>
+                          <p className="text-xs font-medium leading-snug break-words">{value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* When to Use */}
+                {selectedItem.whenToUse && selectedItem.whenToUse.length > 0 && (
+                  <div>
+                    <h4 className="heading-section text-sm font-semibold flex items-center gap-2 mb-3">
+                      <ClipboardList className="w-4 h-4 text-teal-500" />
+                      {t('equip.whenToUse' as any)}
+                    </h4>
+                    <ul className="space-y-1.5">
+                      {selectedItem.whenToUse.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm">
+                          <ArrowRight className="w-3.5 h-3.5 mt-0.5 text-teal-500 flex-shrink-0" />
+                          <span className="leading-relaxed break-words">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Safety Notes */}
+                {selectedItem.safetyNotes && selectedItem.safetyNotes.length > 0 && (
+                  <div>
+                    <h4 className="heading-section text-sm font-semibold flex items-center gap-2 mb-3">
+                      <AlertTriangle className="w-4 h-4 text-amber-500" />
+                      {t('equip.safetyNotes' as any)}
+                    </h4>
+                    <div className="space-y-1.5">
+                      {selectedItem.safetyNotes.map((note, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-2 text-sm rounded-lg border p-2.5 bg-amber-500/5 border-amber-500/15"
+                        >
+                          <Shield className="w-3.5 h-3.5 mt-0.5 text-amber-500 flex-shrink-0" />
+                          <span className="leading-relaxed break-words">{note}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Mark as Reviewed Button */}
+                <button
+                  className={cn(
+                    'w-full py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2',
+                    isReviewed
+                      ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 cursor-default'
+                      : 'btn-glow-teal text-white cursor-pointer'
+                  )}
+                  onClick={() => {
+                    if (!isReviewed && selectedItem) {
+                      markEquipmentReviewed(selectedItem.id)
+                    }
+                  }}
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  {isReviewed ? t('equip.reviewed' as any) : t('equip.markReviewed' as any)}
+                </button>
+
+                {/* Related Equipment */}
+                {relatedEquipment.length > 0 && (
+                  <div>
+                    <h4 className="heading-section text-sm font-semibold flex items-center gap-2 mb-3">
+                      <Wrench className="w-4 h-4 text-muted-foreground" />
+                      {t('equip.relatedEquipment' as any)}
+                    </h4>
+                    <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                      {relatedEquipment.map((related) => (
+                        <button
+                          key={related.id}
+                          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-muted/30 hover:bg-muted/60 transition-all text-left min-w-0 max-w-[180px]"
+                          onClick={() => setSelectedItem(related)}
+                        >
+                          <div
+                            className="w-8 h-8 rounded-md overflow-hidden flex-shrink-0 flex items-center justify-center p-1"
+                            style={{ backgroundColor: `${related.color}10` }}
+                          >
+                            <img
+                              src={related.image}
+                              alt={related.shortName}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[11px] font-semibold leading-tight truncate">{related.shortName}</p>
+                            <p className="text-[9px] text-muted-foreground truncate">{related.category}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Navigation */}
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/30">
+                <div className="flex items-center justify-between pt-3 border-t border-border/30">
                   <button
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
-                    onClick={() => {
-                      const idx = equipmentData.findIndex(e => e.id === selectedItem.id)
-                      const prev = equipmentData[(idx - 1 + equipmentData.length) % equipmentData.length]
-                      setSelectedItem(prev)
-                    }}
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 py-1.5 px-3 rounded-lg hover:bg-muted/50"
+                    onClick={() => navigateEquipment('prev')}
                   >
-                    <ChevronLeft className="w-3 h-3" /> Previous
+                    <ChevronLeft className="w-3 h-3" />
+                    {t('equip.previous' as any)}
                   </button>
                   <span className="text-[10px] text-muted-foreground font-medium tabular-nums">
                     {equipmentData.findIndex(e => e.id === selectedItem.id) + 1} / {equipmentData.length}
                   </span>
                   <button
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
-                    onClick={() => {
-                      const idx = equipmentData.findIndex(e => e.id === selectedItem.id)
-                      const next = equipmentData[(idx + 1) % equipmentData.length]
-                      setSelectedItem(next)
-                    }}
+                    className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 py-1.5 px-3 rounded-lg hover:bg-muted/50"
+                    onClick={() => navigateEquipment('next')}
                   >
-                    Next <ChevronRight className="w-3 h-3" />
+                    {t('equip.next' as any)}
+                    <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      )}
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   )
 }
