@@ -178,8 +178,9 @@ export function Sidebar() {
         className={cn(
           'fixed top-0 left-0 z-50 h-full w-[270px] flex flex-col sidebar-transition',
           'bg-sidebar text-sidebar-foreground sidebar-gradient-overlay',
+          'border-r border-sidebar-border/30',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
-          'md:translate-x-0 md:z-30'
+          'md:relative md:translate-x-0 md:z-30 md:flex-shrink-0'
         )}
         role="navigation"
         aria-label="Main navigation"

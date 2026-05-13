@@ -136,7 +136,7 @@ export function Header() {
   return (
     <div className="flex-shrink-0 z-20 no-print" role="banner">
       <header className={cn(
-        'flex items-center gap-2 md:gap-3 px-3 md:px-6 h-14 bg-card/80 backdrop-blur-md border-b-0 header-gradient-border transition-shadow duration-300',
+        'flex items-center gap-2 md:gap-3 px-3 md:px-5 h-14 bg-card/80 backdrop-blur-md border-b-0 header-gradient-border transition-shadow duration-300',
         scrolled && 'header-scrolled'
       )}>
         {/* Mobile menu toggle */}

@@ -885,3 +885,38 @@ The PIO DURAN EMS NCII Reviewer is a comprehensive EMS study platform with:
 6. **Medium**: Standardize icon library to single style (filled vs outlined)
 7. **Low**: Performance audit for animations on low-end mobile devices
 8. **Low**: Add haptic feedback to mobile bottom navigation
+
+---
+Task ID: 10
+Agent: Main Agent
+Task: Fix sidebar-to-content spacing gap
+
+Work Log:
+- User reported excessive space between sidebar and main content area
+- Analyzed uploaded screenshot with VLM — confirmed visible gap between sidebar background and content background
+- Identified root cause: sidebar used `fixed` positioning with `w-[270px]` while content area used `md:ml-[270px]` margin-left, creating potential gap due to fixed positioning not participating in flex layout
+- Changed sidebar positioning strategy:
+  - Desktop (md+): sidebar now uses `md:relative md:flex-shrink-0` to participate in flex layout naturally — eliminates any possible gap
+  - Mobile (<md): sidebar remains `fixed` with slide-in/out overlay behavior (unchanged)
+- Added `border-r border-sidebar-border/30` to sidebar for clean visual separation
+- Removed `md:ml-[270px]` from content area — no longer needed since sidebar is a flex child
+- Reduced content area horizontal padding from `md:px-6` (24px) to `md:px-5` (20px) for tighter, more cohesive layout
+- Updated header padding from `md:px-6` to `md:px-5` to match content area
+- Updated footer padding from `md:px-6` to `md:px-5` to match
+
+### Verification Results:
+- VLM before/after comparison confirmed: BEFORE had actual empty background space, AFTER has flush sidebar-to-content alignment
+- `bun run lint` passes with 0 errors
+- Dev server compiles and returns HTTP 200
+
+### Files Modified:
+- `src/app/page.tsx` — Removed `md:ml-[270px]` from content div, reduced padding `md:px-6` → `md:px-5`
+- `src/components/ems/sidebar.tsx` — Added `md:relative md:flex-shrink-0`, removed `md:translate-x-0`, added `border-r border-sidebar-border/30`
+- `src/components/ems/header.tsx` — Updated padding `md:px-6` → `md:px-5`
+
+Stage Summary:
+- Sidebar and content area are now flush with no visible gap between backgrounds
+- Layout uses proper flex model on desktop instead of fixed+margin approach
+- Mobile sidebar behavior unchanged (fixed overlay)
+- Subtle border added for visual separation
+- Content padding slightly reduced for more compact feel

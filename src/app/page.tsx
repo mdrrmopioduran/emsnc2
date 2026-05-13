@@ -92,11 +92,11 @@ function SectionContent() {
 export default function HomePage() {
   return (
     <div className="h-screen flex bg-background overflow-hidden">
-      {/* Sidebar */}
+      {/* Sidebar — flex child on desktop, fixed overlay on mobile */}
       <Sidebar />
 
-      {/* Main area */}
-      <div className="flex-1 md:ml-[270px] flex flex-col h-screen overflow-hidden min-w-0">
+      {/* Main area — no margin-left needed, sidebar is a flex child on desktop */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden min-w-0">
         {/* Header — always visible at top */}
         <Header />
 
@@ -104,14 +104,14 @@ export default function HomePage() {
         <main className="flex-1 overflow-y-auto overflow-x-hidden" role="main">
           <div className="main-content-wrapper min-h-full flex flex-col">
             {/* Content */}
-            <div className="flex-1 px-3 sm:px-4 md:px-6 pt-4 md:pt-6 pb-20 md:pb-6">
+            <div className="flex-1 px-3 sm:px-4 md:px-5 pt-4 md:pt-6 pb-20 md:pb-6">
               <div className="max-w-4xl mx-auto w-full">
                 <SectionContent />
               </div>
             </div>
 
             {/* Footer — sticks to bottom when content is short, scrolls with content when long */}
-            <footer className="px-4 md:px-6 py-3 border-t border-border bg-card text-center" role="contentinfo">
+            <footer className="px-4 md:px-5 py-3 border-t border-border bg-card text-center" role="contentinfo">
               <div className="flex items-center justify-center gap-3">
                 {/* Secret admin button — the copyright symbol before PIO DURAN */}
                 <button
