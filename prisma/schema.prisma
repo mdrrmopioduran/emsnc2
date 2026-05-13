@@ -1,0 +1,192 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Legacy models (kept for compatibility)
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================
+// EMS NCII Admin-Manageable Data Models
+// ============================================================
+
+// --- Roadmap Topics ---
+model RoadmapTopic {
+  id               String   @id @default(cuid())
+  order            Int      @default(0)
+  icon             String   @default("")
+  title            String
+  badge            String   @default("")
+  badgeClass       String   @default("")
+  shortDescription String   @default("")
+  content          String   @default("")
+  keyPoints        String   @default("[]")   // JSON array of strings
+  category         String   @default("foundation")
+  categoryColor    String   @default("#2EC4B6")
+  difficulty       String   @default("beginner")
+  estimatedMinutes Int      @default(5)
+  xpReward         Int      @default(10)
+  outcomes         String   @default("[]")   // JSON array of strings
+  whatYoullLearn   String   @default("[]")   // JSON array of strings
+  quickNotes       String   @default("{}")   // JSON object
+  sections         String   @default("[]")   // JSON array of objects
+  isCritical       Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// --- Quiz Questions ---
+model Question {
+  id            Int    @id @default(autoincrement())
+  question      String
+  options       String @default("[]")  // JSON array of strings
+  correctAnswer Int    @default(0)
+  explanation   String @default("")
+  category      String @default("BLS/CPR")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// --- Acronyms ---
+model Acronym {
+  id         String   @id @default(cuid())
+  acronym    String
+  fullTerm   String
+  definition String   @default("")
+  category   String   @default("general")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// --- Definitions ---
+model Definition {
+  id         String   @id @default(cuid())
+  term       String
+  definition String
+  example    String   @default("")
+  category   String   @default("general")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// --- Drugs ---
+model Drug {
+  id               String   @id @default(cuid())
+  genericName      String
+  brandNames       String   @default("[]")  // JSON array
+  drugClass        String   @default("")
+  indications      String   @default("[]")  // JSON array
+  contraindications String  @default("[]")  // JSON array
+  adultDose        String   @default("")
+  pediatricDose    String   @default("")
+  route            String   @default("")
+  sideEffects      String   @default("[]")  // JSON array
+  specialNotes     String   @default("")
+  scope            String   @default("Both")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// --- Competency Modules ---
+model CompetencyModule {
+  id                   String   @id @default(cuid())
+  title                String
+  shortTitle           String   @default("")
+  description          String   @default("")
+  icon                 String   @default("")
+  color                String   @default("#2EC4B6")
+  category             String   @default("")
+  reviewerNotes        String   @default("")
+  procedures           String   @default("[]")  // JSON array of {title, steps[]}
+  visualIllustrations  String   @default("[]")  // JSON array of {title, description}
+  keyPoints            String   @default("[]")  // JSON array of strings
+  assessorQuestions    String   @default("[]")  // JSON array of strings
+  memorizationTips     String   @default("[]")  // JSON array of strings
+  flashcards           String   @default("[]")  // JSON array of {front, back}
+  miniQuiz             String   @default("[]")  // JSON array of {question, options[], correctAnswer, explanation}
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+// --- Practice Scenarios ---
+model Scenario {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @default("")
+  category    String   @default("")
+  startStepId String   @default("")
+  steps       String   @default("{}")  // JSON Record<string, ScenarioStep>
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// --- Emergency Scenarios ---
+model EmergencyScenario {
+  id             String   @id @default(cuid())
+  title          String
+  subtitle       String   @default("")
+  description    String   @default("")
+  category       String   @default("")
+  difficulty     String   @default("beginner")
+  duration       String   @default("")
+  color          String   @default("#2EC4B6")
+  icon           String   @default("")
+  tags           String   @default("[]")      // JSON array
+  objectives     String   @default("[]")      // JSON array
+  initialVitals  String   @default("{}")      // JSON object
+  startStepId    String   @default("")
+  steps          String   @default("{}")      // JSON Record<string, ScenarioStep>
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// --- Assessment Scenes ---
+model AssessmentScene {
+  id        String   @id @default(cuid())
+  title     String
+  overview  String   @default("")
+  steps     String   @default("[]")  // JSON array of {id, description, isCritical, notes}
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --- Roleplay Scenarios ---
+model RoleplayScenario {
+  id                String   @id @default(cuid())
+  title             String
+  subtitle          String   @default("")
+  difficulty        String   @default("Beginner")
+  duration          Int      @default(15)
+  patients          String   @default("")
+  skills            String   @default("[]")  // JSON array
+  color             String   @default("#2EC4B6")
+  icon              String   @default("")
+  description       String   @default("")
+  patientDescription String  @default("")
+  phases            String   @default("[]")  // JSON array of ScenarioPhase
+  teamRoles         String   @default("[]")  // JSON array
+  vitalSigns        String   @default("[]")  // JSON array
+  glossary          String   @default("[]")  // JSON array
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

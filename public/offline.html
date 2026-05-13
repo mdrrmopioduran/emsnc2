@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2EC4B6" />
+  <title>PIO DURAN EMS NCII - Offline</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1E3A5F 0%, #0f2744 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      background: #fff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(46, 196, 182, 0.3);
+    }
+    .logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #2EC4B6;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .offline-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .message {
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 16px;
+    }
+    .message strong { color: #fff; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(230, 57, 70, 0.15);
+      border: 1px solid rgba(230, 57, 70, 0.3);
+      border-radius: 20px;
+      font-size: 12px;
+      color: #E63946;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #E63946;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .feature-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .cached-note {
+      background: rgba(46, 196, 182, 0.1);
+      border: 1px solid rgba(46, 196, 182, 0.2);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 16px 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.7);
+    }
+    .cached-note .highlight { color: #2EC4B6; font-weight: 600; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: #2EC4B6;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #25a89c;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(46, 196, 182, 0.4);
+    }
+    .btn:active { transform: translateY(0); }
+    @media (max-width: 400px) {
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="/pio-duran-ems-logo.png" alt="PIO DURAN EMS NCII Logo" />
+    </div>
+    <h1>PIO DURAN EMS NCII</h1>
+    <p class="subtitle">EMS Reviewer</p>
+
+    <div class="offline-icon">📡</div>
+
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      No Internet Connection
+    </div>
+
+    <p class="message">
+      You are currently offline.<br />
+      <strong>Continue learning with cached materials.</strong>
+    </p>
+
+    <div class="cached-note">
+      💡 <span class="highlight">Cached content available:</span> Lessons, acronyms, quizzes, emergency scenarios, and equipment guides are saved for offline review.
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">📖</span>
+        <span>Study materials &amp; acronyms</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🧠</span>
+        <span>Quizzes &amp; self-assessment</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📊</span>
+        <span>Progress saved locally</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🗺️</span>
+        <span>Learning roadmap</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🏥</span>
+        <span>Equipment gallery</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🚑</span>
+        <span>Emergency simulations</span>
+      </div>
+    </div>
+
+    <a href="/" class="btn">🔄 Try Reconnecting</a>
+  </div>
+
+  <script>
+    // Auto-retry: check connection every 10 seconds
+    setInterval(function() {
+      fetch('/', { method: 'HEAD', cache: 'no-store' })
+        .then(function() { window.location.reload(); })
+        .catch(function() {});
+    }, 10000);
+  </script>
+</body>
+</html>

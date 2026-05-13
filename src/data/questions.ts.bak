@@ -1,0 +1,3401 @@
+export interface Question {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  category:
+    | "OSH"
+    | "First Aid"
+    | "BLS/CPR"
+    | "Patient Assessment"
+    | "Trauma"
+    | "Medical Emergencies"
+    | "AMATS"
+    | "Legal/Ethical"
+    | "Drugs"
+    | "TESDA Standards";
+}
+
+export const questions: Question[] = [
+  {
+    id: 1,
+    question: 'What is the correct compression-to-ventilation ratio',
+    options: [
+      '15:2',
+      '30:2',
+      '30:1',
+      '50:2'
+    ],
+    correctAnswer: 1,
+    explanation: 'The standard adult CPR ratio for a single',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 2,
+    question: 'When operating an AED, after the device analyzes',
+    options: [
+      'Immediately press the',
+      'Resume chest',
+      'Ensure no one is',
+      'Remove the AED'
+    ],
+    correctAnswer: 2,
+    explanation: 'Before delivering a shock, the rescuer',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 3,
+    question: 'What is the recommended depth of chest',
+    options: [
+      '1 to 2 inches',
+      'At least 2 inches (5',
+      '3 to 4 inches',
+      '0.5 inches'
+    ],
+    correctAnswer: 1,
+    explanation: 'AHA guidelines recommend at least 2',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 4,
+    question: 'What is the correct compression rate for CPR?',
+    options: [
+      '60-80 compressions',
+      '80-100 compressions',
+      '100-120',
+      '140-160'
+    ],
+    correctAnswer: 2,
+    explanation: 'The recommended compression rate is',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 5,
+    question: 'What is the compression-to-ventilation ratio for',
+    options: [
+      '15:2',
+      '30:2',
+      '30:1',
+      '50:2'
+    ],
+    correctAnswer: 1,
+    explanation: 'For two-rescuer adult CPR, the ratio',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 6,
+    question: 'What is the compression-to-ventilation ratio for',
+    options: [
+      '30:2',
+      '15:2',
+      '30:1',
+      '5:1'
+    ],
+    correctAnswer: 1,
+    explanation: 'For two-rescuer CPR on a child, the',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 7,
+    question: 'During CPR, what is the maximum allowable',
+    options: [
+      '30 seconds',
+      '20 seconds',
+      '10 seconds',
+      '60 seconds'
+    ],
+    correctAnswer: 2,
+    explanation: 'Interruptions to chest compressions',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 8,
+    question: 'After placing AED pads on a patient, what is the',
+    options: [
+      'Delivers a shock',
+      'Analyzes the heart',
+      'Charges the capacitor',
+      'Records the ECG'
+    ],
+    correctAnswer: 1,
+    explanation: 'Once pads are placed, the AED',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 9,
+    question: 'Which heart rhythm is most commonly associated',
+    options: [
+      'Asystole',
+      'Ventricular fibrillation',
+      'Pulseless electrical',
+      'Sinus bradycardia'
+    ],
+    correctAnswer: 1,
+    explanation: 'Ventricular fibrillation (VF) is the most',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 10,
+    question: 'What is the correct hand placement for chest',
+    options: [
+      'Upper third of the',
+      'Lower half of the',
+      'Over the xiphoid',
+      'Left side of the chest'
+    ],
+    correctAnswer: 1,
+    explanation: 'Compressions should be performed on',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 11,
+    question: 'What should the rescuer allow during chest',
+    options: [
+      'Full chest recoil',
+      'Partial chest recoil',
+      'No recoil is needed',
+      'Recoil only every 5'
+    ],
+    correctAnswer: 0,
+    explanation: 'Full chest recoil between compressions',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 12,
+    question: 'For an infant, what technique is used for chest',
+    options: [
+      'Two hands',
+      'One hand',
+      'Two fingers (thumb',
+      'Heel of one hand'
+    ],
+    correctAnswer: 2,
+    explanation: 'For infant CPR, two fingers are placed on',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 13,
+    question: 'When should the AED be used on a pediatric',
+    options: [
+      'Only if the child is',
+      'When pediatric pads',
+      'Never on pediatric',
+      'Only with a physician'
+    ],
+    correctAnswer: 1,
+    explanation: 'AEDs can be used on pediatric patients',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 14,
+    question: 'What is the first action when checking for breathing and pulse in an unresponsive patient?',
+    options: [
+      'Check for breathing only, then check pulse separately',
+      'Simultaneously check for breathing and pulse for no more than 10 seconds',
+      'Check breathing only',
+      'Check pupils first'
+    ],
+    correctAnswer: 1,
+    explanation: 'Current AHA guidelines recommend simultaneously checking for breathing and pulse for no more than 10 seconds to minimize delays in starting CPR.',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 15,
+    question: 'How long should the rescuer take to check for',
+    options: [
+      'At least 30 seconds',
+      '5-10 seconds',
+      '1-2 seconds',
+      '60 seconds'
+    ],
+    correctAnswer: 1,
+    explanation: 'Assessment of breathing and pulse',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 16,
+    question: 'What is the appropriate ventilation volume for an',
+    options: [
+      '500-600 mL per',
+      '200-300 mL per',
+      '1000-1200 mL per',
+      '100 mL per breath'
+    ],
+    correctAnswer: 0,
+    explanation: 'Each breath should be about 500-600 mL',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 17,
+    question: 'What complication can result from excessive',
+    options: [
+      'Improved',
+      'Gastric inflation and',
+      'Increased cardiac',
+      'Better chest recoil'
+    ],
+    correctAnswer: 1,
+    explanation: 'Excessive ventilation can cause gastric',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 18,
+    question: 'What does the \'CAB\' sequence in BLS stand for?',
+    options: [
+      'Circulation, Airway,',
+      'Compress, Assess,',
+      'Check Airway,',
+      'Cardiac, Assessment,'
+    ],
+    correctAnswer: 0,
+    explanation: 'CAB stands for Circulation, Airway,',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 19,
+    question: 'If a patient is unresponsive but breathing normally',
+    options: [
+      'Begin chest',
+      'Place the patient in',
+      'Apply the AED',
+      'Perform rescue'
+    ],
+    correctAnswer: 1,
+    explanation: 'An unresponsive patient with normal',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 20,
+    question: 'After an AED delivers a shock, what is the',
+    options: [
+      'Check for a pulse',
+      'Resume chest',
+      'Remove the AED',
+      'Wait for the AED to'
+    ],
+    correctAnswer: 1,
+    explanation: 'After a shock is delivered, resume chest',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 21,
+    question: 'What is the correct jaw-thrust maneuver technique',
+    options: [
+      'Tilt the head back',
+      'Place fingers behind',
+      'Push down on the',
+      'Turn the head to the'
+    ],
+    correctAnswer: 1,
+    explanation: 'The jaw-thrust maneuver involves placing',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 22,
+    question: 'What device is used to provide supplemental',
+    options: [
+      'Nasopharyngeal',
+      'Bag-valve-mask',
+      'Oropharyngeal airway',
+      'Chest decompression'
+    ],
+    correctAnswer: 1,
+    explanation: 'A bag-valve-mask (BVM) is the primary',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 23,
+    question: 'When using a Bag-Valve-Mask (BVM), what is the',
+    options: [
+      '1-2 liters per minute',
+      '10-15 liters per',
+      '5-6 liters per minute',
+      '25-30 liters per'
+    ],
+    correctAnswer: 1,
+    explanation: 'The BVM should be connected to',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 24,
+    question: 'Which of the following is a non-shockable rhythm?',
+    options: [
+      'Ventricular fibrillation',
+      'Ventricular',
+      'Pulseless electrical',
+      'Both A and B'
+    ],
+    correctAnswer: 2,
+    explanation: 'Pulseless electrical activity (PEA) is a',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 25,
+    question: 'What is the purpose of the head-tilt/chin-lift',
+    options: [
+      'To check for injuries',
+      'To open the airway of',
+      'To perform chest',
+      'To deliver rescue'
+    ],
+    correctAnswer: 1,
+    explanation: 'The head-tilt/chin-lift maneuver opens the',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 26,
+    question: 'What is the primary purpose of inspecting life',
+    options: [
+      'To comply with',
+      'To ensure all devices',
+      'To determine the',
+      'To assign equipment'
+    ],
+    correctAnswer: 1,
+    explanation: 'Equipment inspection ensures that all life',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 27,
+    question: 'What should an EMS provider do if a portable',
+    options: [
+      'Ignore it and proceed',
+      'Document the failure',
+      'Wait until end of shift',
+      'Use it anyway and'
+    ],
+    correctAnswer: 1,
+    explanation: 'Any equipment malfunction must be',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 28,
+    question: 'When should the rescuer switch from compression-only CPR to conventional CPR (with rescue breaths)?',
+    options: [
+      'After 2 minutes of compressions',
+      'When an AED becomes available',
+      'When a second rescuer arrives and can provide effective rescue breaths',
+      'Never switch from compression-only CPR'
+    ],
+    correctAnswer: 2,
+    explanation: 'When a second trained rescuer arrives who can provide effective rescue breaths, switch from compression-only CPR to conventional CPR with a 30:2 ratio.',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 29,
+    question: 'How should oxygen cylinders be stored?',
+    options: [
+      'Lying flat on the floor',
+      'Upright and secured',
+      'Near heat sources for',
+      'In direct sunlight'
+    ],
+    correctAnswer: 1,
+    explanation: 'Oxygen cylinders must be stored upright',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 30,
+    question: 'What is the function of a pulse oximeter?',
+    options: [
+      'Measures blood',
+      'Measures oxygen',
+      'Measures blood',
+      'Measures carbon'
+    ],
+    correctAnswer: 1,
+    explanation: 'A pulse oximeter non-invasively',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 31,
+    question: 'What is the normal SpO2 reading for a healthy',
+    options: [
+      '80-90%',
+      '94-100%',
+      '70-80%',
+      '50-60%'
+    ],
+    correctAnswer: 1,
+    explanation: 'A normal SpO2 reading for a healthy adult',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 32,
+    question: 'What component of a Bag-Valve-Mask prevents',
+    options: [
+      'The reservoir bag',
+      'The one-way valve',
+      'The oxygen tubing',
+      'The pop-off valve'
+    ],
+    correctAnswer: 1,
+    explanation: 'The one-way valve in the BVM directs',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 33,
+    question: 'What is the purpose of the pop-off valve on a',
+    options: [
+      'To increase',
+      'To release excessive',
+      'To deliver more',
+      'To keep the mask'
+    ],
+    correctAnswer: 1,
+    explanation: 'The pop-off (pressure relief) valve vents',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 34,
+    question: 'Which suction catheter is most appropriate for',
+    options: [
+      '6 Fr',
+      '8 Fr',
+      '14 Fr',
+      '4 Fr'
+    ],
+    correctAnswer: 2,
+    explanation: 'A 14 Fr rigid suction catheter (Yankauer)',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 35,
+    question: 'What should be checked on an oxygen regulator',
+    options: [
+      'The color of the',
+      'The pressure gauge',
+      'The manufacturing',
+      'The serial number'
+    ],
+    correctAnswer: 1,
+    explanation: 'The pressure gauge must show adequate',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 36,
+    question: 'What is the purpose of a non-rebreather mask?',
+    options: [
+      'To deliver low-flow',
+      'To deliver high-',
+      'To deliver medication',
+      'To measure oxygen'
+    ],
+    correctAnswer: 1,
+    explanation: 'A non-rebreather mask with a reservoir',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 37,
+    question: 'At what flow rate should a nasal cannula typically',
+    options: [
+      '10-15 L/min',
+      '1-6 L/min',
+      '8-10 L/min',
+      '15-20 L/min'
+    ],
+    correctAnswer: 1,
+    explanation: 'A nasal cannula is typically set at 1-6',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 38,
+    question: 'What percentage of oxygen does a simple face',
+    options: [
+      '24-28%',
+      '40-60%',
+      '80-90%',
+      '100%'
+    ],
+    correctAnswer: 1,
+    explanation: 'A simple face mask at 6-10 L/min delivers',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 39,
+    question: 'What is the minimum number of AED pads that',
+    options: [
+      'One set',
+      'Two sets (adult and',
+      'Five sets',
+      'None required'
+    ],
+    correctAnswer: 1,
+    explanation: 'Ambulances should carry at least two sets',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 40,
+    question: 'What is the purpose of a cervical collar in the EMS',
+    options: [
+      'To treat neck pain',
+      'To immobilize the',
+      'To support the head',
+      'To keep the patient'
+    ],
+    correctAnswer: 1,
+    explanation: 'A cervical collar immobilizes the cervical',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 41,
+    question: 'What is the function of a Kendrick Extrication',
+    options: [
+      'To transport a',
+      'To immobilize a',
+      'To deliver oxygen',
+      'To measure vital'
+    ],
+    correctAnswer: 1,
+    explanation: 'The KED is a vest-type device designed',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 42,
+    question: 'How often should ambulance equipment be',
+    options: [
+      'Weekly only',
+      'At the beginning of',
+      'Monthly only',
+      'Only after each call'
+    ],
+    correctAnswer: 1,
+    explanation: 'Equipment must be checked at the',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 43,
+    question: 'What does the acronym \'PASS\' stand for when',
+    options: [
+      'Pull, Aim, Squeeze,',
+      'Point, Activate,',
+      'Pull, Adjust, Squeeze,',
+      'Push, Aim, Squeeze,'
+    ],
+    correctAnswer: 0,
+    explanation: 'PASS stands for Pull the pin, Aim at the',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 44,
+    question: 'What is the purpose of a cervical immobilization',
+    options: [
+      'To secure the',
+      'To prevent lateral',
+      'To elevate the',
+      'To measure cervical'
+    ],
+    correctAnswer: 1,
+    explanation: 'A CID (head immobilizer) prevents lateral',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 45,
+    question: 'Which equipment documentation must be',
+    options: [
+      'Only purchase',
+      'Equipment check',
+      'Only the',
+      'No documentation is'
+    ],
+    correctAnswer: 1,
+    explanation: 'EMS providers must maintain equipment',
+    category: 'BLS/CPR',
+  },
+  {
+    id: 46,
+    question: 'What is the first priority when arriving at a motor',
+    options: [
+      'Immediately remove',
+      'Establish scene',
+      'Administer oxygen to',
+      'Contact the receiving'
+    ],
+    correctAnswer: 1,
+    explanation: 'Scene safety is always the first priority.',
+    category: 'Trauma',
+  },
+  {
+    id: 47,
+    question: 'Which device is most appropriate for cervical spine',
+    options: [
+      'Soft cervical collar',
+      'Rigid cervical collar',
+      'Cervical traction',
+      'Pelvic binder'
+    ],
+    correctAnswer: 1,
+    explanation: 'A rigid cervical collar provides necessary',
+    category: 'Trauma',
+  },
+  {
+    id: 48,
+    question: 'What is the purpose of the rapid extrication',
+    options: [
+      'To quickly move a',
+      'To save time on all',
+      'To avoid using',
+      'To practice teamwork'
+    ],
+    correctAnswer: 0,
+    explanation: 'Rapid extrication is used when the',
+    category: 'Trauma',
+  },
+  {
+    id: 49,
+    question: 'When should a patient be extricated using a long',
+    options: [
+      'Only for patients with',
+      'When spinal injury is',
+      'For all patients',
+      'Only for unconscious'
+    ],
+    correctAnswer: 1,
+    explanation: 'A long spine board is used for extrication',
+    category: 'Trauma',
+  },
+  {
+    id: 50,
+    question: 'What is the correct technique for log-rolling a',
+    options: [
+      'One rescuer pulls the',
+      'Multiple rescuers',
+      'The patient rolls',
+      'Only the torso is'
+    ],
+    correctAnswer: 1,
+    explanation: 'Log-rolling requires multiple rescuers to',
+    category: 'Trauma',
+  },
+  {
+    id: 51,
+    question: 'What is the minimum number of rescuers',
+    options: [
+      'One',
+      'Two',
+      'Three',
+      'Five'
+    ],
+    correctAnswer: 2,
+    explanation: 'At least three rescuers are needed: one at',
+    category: 'Trauma',
+  },
+  {
+    id: 52,
+    question: 'What hazard should be assessed first at a vehicle',
+    options: [
+      'Vehicle color',
+      'Traffic and oncoming',
+      'Patient\'s insurance',
+      'Weather forecast'
+    ],
+    correctAnswer: 1,
+    explanation: 'Traffic and oncoming vehicles pose an',
+    category: 'Trauma',
+  },
+  {
+    id: 53,
+    question: 'What does the term \'golden hour\' refer to in trauma',
+    options: [
+      'The first 60 minutes',
+      'The shift change',
+      'The time of day with',
+      'The duration of'
+    ],
+    correctAnswer: 0,
+    explanation: 'The golden hour refers to the critical first',
+    category: 'Trauma',
+  },
+  {
+    id: 54,
+    question: 'Which of the following is a late sign of hemorrhagic shock?',
+    options: [
+      'Anxiety and restlessness',
+      'Hypotension',
+      'Tachycardia',
+      'Pale, cool, clammy skin'
+    ],
+    correctAnswer: 1,
+    explanation: 'Hypotension is a late sign of hemorrhagic shock. The body compensates initially with tachycardia and vasoconstriction, maintaining blood pressure until significant blood volume is lost.',
+    category: 'Trauma',
+  },
+  {
+    id: 55,
+    question: 'What type of vehicle hazard requires immediate',
+    options: [
+      'A flat tire',
+      'Leaking fuel with risk',
+      'A broken windshield',
+      'An open door'
+    ],
+    correctAnswer: 1,
+    explanation: 'Leaking fuel with a risk of fire is a life-',
+    category: 'Trauma',
+  },
+  {
+    id: 56,
+    question: 'What is the purpose of stabilizing a vehicle before',
+    options: [
+      'To make the vehicle',
+      'To prevent the',
+      'To access the trunk',
+      'To turn off the engine'
+    ],
+    correctAnswer: 1,
+    explanation: 'Vehicle stabilization prevents unexpected',
+    category: 'Trauma',
+  },
+  {
+    id: 57,
+    question: 'When using a stair chair, the patient should be',
+    options: [
+      'Facing backward',
+      'Facing forward in a',
+      'Lying flat',
+      'Standing upright'
+    ],
+    correctAnswer: 1,
+    explanation: 'A stair chair is designed for a seated',
+    category: 'Trauma',
+  },
+  {
+    id: 58,
+    question: 'What is the primary concern when extricating a',
+    options: [
+      'Getting the patient',
+      'Maintaining spinal',
+      'Finding the patient\'s',
+      'Swimming speed'
+    ],
+    correctAnswer: 1,
+    explanation: 'When extricating from water, spinal',
+    category: 'Trauma',
+  },
+  {
+    id: 59,
+    question: 'What is the recommended method for moving a',
+    options: [
+      'Log-roll the patient',
+      'Use a scoop stretcher',
+      'Have the patient walk',
+      'Drag the patient by'
+    ],
+    correctAnswer: 1,
+    explanation: 'A scoop stretcher minimizes movement of',
+    category: 'Trauma',
+  },
+  {
+    id: 60,
+    question: 'What PPE should rescuers wear during vehicle',
+    options: [
+      'Only gloves',
+      'Full PPE including',
+      'Casual clothing',
+      'Only a reflective vest'
+    ],
+    correctAnswer: 1,
+    explanation: 'Full PPE including helmet, eye protection,',
+    category: 'Trauma',
+  },
+  {
+    id: 61,
+    question: 'What is the correct position for the rescuer at the',
+    options: [
+      'Standing beside the',
+      'Kneeling behind the',
+      'Sitting on the',
+      'Holding the patient\'s'
+    ],
+    correctAnswer: 1,
+    explanation: 'The rescuer kneels behind the patient\'s',
+    category: 'Trauma',
+  },
+  {
+    id: 62,
+    question: 'When is it acceptable to remove a motorcycle',
+    options: [
+      'Never',
+      'When it interferes',
+      'Always, immediately',
+      'Only if the patient'
+    ],
+    correctAnswer: 1,
+    explanation: 'A helmet should be removed when it',
+    category: 'Trauma',
+  },
+  {
+    id: 63,
+    question: 'What is the recommended technique for removing',
+    options: [
+      'One rescuer pulls it',
+      'Two-rescuer',
+      'Cut the helmet off',
+      'Leave it on'
+    ],
+    correctAnswer: 1,
+    explanation: 'A two-rescuer technique ensures spinal',
+    category: 'Trauma',
+  },
+  {
+    id: 64,
+    question: 'What is a basket stretcher (Stokes litter) primarily',
+    options: [
+      'Hospital transport',
+      'Moving patients over',
+      'Wheelchair transport',
+      'Stretching exercises'
+    ],
+    correctAnswer: 1,
+    explanation: 'A basket stretcher is designed for moving',
+    category: 'Trauma',
+  },
+  {
+    id: 65,
+    question: 'What is the first step in the extrication process?',
+    options: [
+      'Cutting the roof of the',
+      'Assessing the scene',
+      'Removing the patient',
+      'Starting an IV line'
+    ],
+    correctAnswer: 1,
+    explanation: 'Scene assessment and safety must be',
+    category: 'Trauma',
+  },
+  {
+    id: 66,
+    question: 'Which type of glass should be managed before',
+    options: [
+      'Only the windshield',
+      'All broken or unstable',
+      'No glass',
+      'Only the rear window'
+    ],
+    correctAnswer: 1,
+    explanation: 'All broken or unstable glass must be',
+    category: 'Trauma',
+  },
+  {
+    id: 67,
+    question: 'What is the function of a spring-loaded center',
+    options: [
+      'To measure tire',
+      'To break vehicle',
+      'To open the hood',
+      'To check the battery'
+    ],
+    correctAnswer: 1,
+    explanation: 'A spring-loaded center punch is used to',
+    category: 'Trauma',
+  },
+  {
+    id: 68,
+    question: 'What is the correct body mechanics principle when',
+    options: [
+      'Bend at the waist and',
+      'Keep the back',
+      'Twist the torso while',
+      'Lift with arms'
+    ],
+    correctAnswer: 1,
+    explanation: 'Proper body mechanics require keeping',
+    category: 'Trauma',
+  },
+  {
+    id: 69,
+    question: 'What is the purpose of the \'power grip\' when',
+    options: [
+      'To look professional',
+      'To maximize grip',
+      'To carry with one',
+      'To reduce weight'
+    ],
+    correctAnswer: 1,
+    explanation: 'The power grip involves gripping the',
+    category: 'Trauma',
+  },
+  {
+    id: 70,
+    question: 'How many rescuers are minimally required to',
+    options: [
+      'One',
+      'Two',
+      'Four',
+      'Six'
+    ],
+    correctAnswer: 1,
+    explanation: 'At minimum, two rescuers are required to',
+    category: 'Trauma',
+  },
+  {
+    id: 71,
+    question: 'In ambulance dispatch protocols, what does',
+    options: [
+      'Distributing medical',
+      'Assigning the',
+      'Allocating budget for',
+      'Dividing patient care'
+    ],
+    correctAnswer: 1,
+    explanation: 'Resource allocation involves assigning',
+    category: 'AMATS',
+  },
+  {
+    id: 72,
+    question: 'What is the primary purpose of a dispatch protocol',
+    options: [
+      'To reduce the',
+      'To ensure timely and',
+      'To eliminate the need',
+      'To track fuel'
+    ],
+    correctAnswer: 1,
+    explanation: 'Dispatch protocols standardize the',
+    category: 'AMATS',
+  },
+  {
+    id: 73,
+    question: 'What does the acronym \'START\' stand for in',
+    options: [
+      'Simple Triage And',
+      'Systematic Tracking',
+      'Standard Treatment',
+      'Speed, Triage,'
+    ],
+    correctAnswer: 0,
+    explanation: 'START stands for Simple Triage And',
+    category: 'AMATS',
+  },
+  {
+    id: 74,
+    question: 'What is the purpose of mutual aid agreements',
+    options: [
+      'To compete with each',
+      'To provide assistance',
+      'To share employee',
+      'To reduce the'
+    ],
+    correctAnswer: 1,
+    explanation: 'Mutual aid agreements allow agencies to',
+    category: 'AMATS',
+  },
+  {
+    id: 75,
+    question: 'What is the meaning of \'response time\' in EMS?',
+    options: [
+      'The time taken to',
+      'The interval from',
+      'The time spent on',
+      'The duration of'
+    ],
+    correctAnswer: 1,
+    explanation: 'Response time is measured from the',
+    category: 'AMATS',
+  },
+  {
+    id: 76,
+    question: 'What information should be obtained during',
+    options: [
+      'Only the caller\'s',
+      'Location, nature of',
+      'Only the address',
+      'The weather'
+    ],
+    correctAnswer: 1,
+    explanation: 'Call intake must capture location, nature',
+    category: 'AMATS',
+  },
+  {
+    id: 77,
+    question: 'What is the role of the EMS dispatcher?',
+    options: [
+      'To treat patients at the scene',
+      'To receive emergency calls, determine priority, and dispatch appropriate resources',
+      'To drive the ambulance',
+      'To perform surgery'
+    ],
+    correctAnswer: 1,
+    explanation: 'The EMS dispatcher receives emergency calls, determines the priority of the call, and dispatches the appropriate ambulance and crew to the scene.',
+    category: 'AMATS',
+  },
+  {
+    id: 78,
+    question: 'What is a \'standing order\' in EMS?',
+    options: [
+      'A permanent',
+      'A preauthorized',
+      'An order to remain on',
+      'A shift schedule order'
+    ],
+    correctAnswer: 1,
+    explanation: 'Standing orders are preauthorized',
+    category: 'AMATS',
+  },
+  {
+    id: 79,
+    question: 'What is the purpose of an after-action review',
+    options: [
+      'To assign blame to',
+      'To evaluate',
+      'To celebrate',
+      'To complete'
+    ],
+    correctAnswer: 1,
+    explanation: 'An AAR is a structured review process to',
+    category: 'AMATS',
+  },
+  {
+    id: 80,
+    question: 'What is the difference between BLS and ALS',
+    options: [
+      'BLS units are faster',
+      'BLS provides basic',
+      'ALS units cannot',
+      'There is no difference'
+    ],
+    correctAnswer: 1,
+    explanation: 'BLS units provide basic interventions',
+    category: 'AMATS',
+  },
+  {
+    id: 81,
+    question: 'What is the role of the incident commander at an',
+    options: [
+      'To treat the most',
+      'To oversee all',
+      'To transport patients',
+      'To communicate with'
+    ],
+    correctAnswer: 1,
+    explanation: 'The incident commander has overall',
+    category: 'AMATS',
+  },
+  {
+    id: 82,
+    question: 'What does the term \'staging\' mean in EMS',
+    options: [
+      'Preparing for a',
+      'Holding units at a',
+      'Parking at the',
+      'Returning to the'
+    ],
+    correctAnswer: 1,
+    explanation: 'Staging refers to holding ambulances and',
+    category: 'AMATS',
+  },
+  {
+    id: 83,
+    question: 'What is the function of a treatment sector in an',
+    options: [
+      'To triage patients',
+      'To provide medical',
+      'To transport patients',
+      'To communicate with'
+    ],
+    correctAnswer: 1,
+    explanation: 'The treatment sector provides medical',
+    category: 'AMATS',
+  },
+  {
+    id: 84,
+    question: 'What is the recommended staffing minimum for a',
+    options: [
+      'One EMT',
+      'Two EMTs',
+      'Three paramedics',
+      'One physician'
+    ],
+    correctAnswer: 1,
+    explanation: 'A BLS ambulance requires at minimum',
+    category: 'AMATS',
+  },
+  {
+    id: 85,
+    question: 'What is the meaning of \'turnaround time\' in EMS?',
+    options: [
+      'The time to turn the',
+      'The time from arrival',
+      'The time spent',
+      'The shift duration'
+    ],
+    correctAnswer: 1,
+    explanation: 'Turnaround time is the interval from',
+    category: 'AMATS',
+  },
+  {
+    id: 86,
+    question: 'What is a \'mass casualty incident\' (MCI)?',
+    options: [
+      'An incident with one',
+      'An event where the',
+      'A routine ambulance',
+      'A hospital code blue'
+    ],
+    correctAnswer: 1,
+    explanation: 'An MCI is any event where the number',
+    category: 'AMATS',
+  },
+  {
+    id: 87,
+    question: 'What priority level is typically assigned to a patient',
+    options: [
+      'Priority 3 (non-urgent)',
+      'Priority 1',
+      'Priority 4 (scheduled)',
+      'No priority assigned'
+    ],
+    correctAnswer: 1,
+    explanation: 'Priority 1 indicates a life-threatening',
+    category: 'AMATS',
+  },
+  {
+    id: 88,
+    question: 'What is the purpose of a pre-arrival instruction',
+    options: [
+      'To keep the caller',
+      'To provide the caller',
+      'To collect payment',
+      'To determine the'
+    ],
+    correctAnswer: 1,
+    explanation: 'Pre-arrival instructions (PAI) guide callers',
+    category: 'AMATS',
+  },
+  {
+    id: 89,
+    question: 'What document outlines the scope of practice for',
+    options: [
+      'The ambulance',
+      'The TESDA Training',
+      'The hospital',
+      'The driver\'s license'
+    ],
+    correctAnswer: 1,
+    explanation: 'The scope of practice is defined by the',
+    category: 'AMATS',
+  },
+  {
+    id: 90,
+    question: 'What is the purpose of quality improvement (QI) in',
+    options: [
+      'To punish providers',
+      'To continuously',
+      'To increase the',
+      'To reduce staff'
+    ],
+    correctAnswer: 1,
+    explanation: 'QI programs systematically evaluate care',
+    category: 'AMATS',
+  },
+  {
+    id: 91,
+    question: 'When communicating via radio with a hospital,',
+    options: [
+      'Speak as quickly as',
+      'Use clear, concise,',
+      'Use slang and jargon',
+      'Speak in the local'
+    ],
+    correctAnswer: 1,
+    explanation: 'Radio communication must use clear,',
+    category: 'AMATS',
+  },
+  {
+    id: 92,
+    question: 'What information must be included in the patient care report (PCR)?',
+    options: [
+      'Only the patient\'s name and address',
+      'Patient assessment, treatment provided, changes in condition, and all communications',
+      'Only the vital signs',
+      'Only the destination'
+    ],
+    correctAnswer: 1,
+    explanation: 'A PCR must comprehensively document patient assessment findings, interventions, patient response, and all relevant communications to serve as a legal and medical record.',
+    category: 'AMATS',
+  },
+  {
+    id: 93,
+    question: 'What does the acronym \'SBAR\' stand for in',
+    options: [
+      'Situation,',
+      'Symptoms,',
+      'Standard, Basic,',
+      'Systolic, Blood,'
+    ],
+    correctAnswer: 0,
+    explanation: 'SBAR is a structured communication',
+    category: 'AMATS',
+  },
+  {
+    id: 94,
+    question: 'What is the primary reason for using standardized',
+    options: [
+      'To make',
+      'To ensure clear and',
+      'To keep information',
+      'To reduce the need'
+    ],
+    correctAnswer: 1,
+    explanation: 'Standardized codes ensure consistent,',
+    category: 'AMATS',
+  },
+  {
+    id: 95,
+    question: 'When communicating with a confused or agitated',
+    options: [
+      'Speak loudly and',
+      'Use a calm,',
+      'Ignore the patient',
+      'Use medical jargon to'
+    ],
+    correctAnswer: 1,
+    explanation: 'A calm, reassuring tone with simple',
+    category: 'AMATS',
+  },
+  {
+    id: 96,
+    question: 'What information must be included in the patient',
+    options: [
+      'Only the patient\'s',
+      'Patient assessment,',
+      'Only the vital signs',
+      'Only the transport'
+    ],
+    correctAnswer: 1,
+    explanation: 'A PCR must comprehensively document',
+    category: 'AMATS',
+  },
+  {
+    id: 97,
+    question: 'What is the purpose of a verbal handoff report',
+    options: [
+      'To delay patient care',
+      'To communicate',
+      'To avoid writing a',
+      'To socialize with'
+    ],
+    correctAnswer: 1,
+    explanation: 'A verbal handoff communicates essential',
+    category: 'AMATS',
+  },
+  {
+    id: 98,
+    question: 'Which of the following is an example of a closed-',
+    options: [
+      'Giving an order',
+      'Repeating back the',
+      'Ignoring the',
+      'Writing notes without'
+    ],
+    correctAnswer: 1,
+    explanation: 'Closed-loop communication involves the',
+    category: 'AMATS',
+  },
+  {
+    id: 99,
+    question: 'What is the HIPAA regulation regarding patient',
+    options: [
+      'No restrictions apply',
+      'Only the minimum',
+      'All patient details',
+      'HIPAA does not apply'
+    ],
+    correctAnswer: 1,
+    explanation: 'HIPAA requires that only the minimum',
+    category: 'AMATS',
+  },
+  {
+    id: 100,
+    question: 'When should an EMS provider use the term \'copy\'',
+    options: [
+      'To request a',
+      'To confirm that a',
+      'To end the radio',
+      'To request a repeat'
+    ],
+    correctAnswer: 1,
+    explanation: '\'Copy\' is used to confirm that the',
+    category: 'AMATS',
+  },
+  {
+    id: 101,
+    question: 'What is the proper procedure if radio',
+    options: [
+      'Continue speaking',
+      'Stop, identify',
+      'Hang up and call',
+      'Switch to a personal'
+    ],
+    correctAnswer: 1,
+    explanation: 'If interrupted, the provider should stop, re-',
+    category: 'AMATS',
+  },
+  {
+    id: 102,
+    question: 'What is the \'10-code\' system used for in some',
+    options: [
+      'Medical diagnosis',
+      'Brief standardized',
+      'Patient billing codes',
+      'Equipment inventory'
+    ],
+    correctAnswer: 1,
+    explanation: '10-codes are standardized numeric codes',
+    category: 'AMATS',
+  },
+  {
+    id: 103,
+    question: 'Why is plain language preferred over 10-codes in',
+    options: [
+      'It is shorter',
+      'It reduces',
+      'It sounds less',
+      '10-codes are no'
+    ],
+    correctAnswer: 1,
+    explanation: 'Plain language is preferred because 10-',
+    category: 'AMATS',
+  },
+  {
+    id: 104,
+    question: 'What is the purpose of documenting all radio',
+    options: [
+      'To fill space in the',
+      'To create a legal',
+      'To test the radio',
+      'To count the number'
+    ],
+    correctAnswer: 1,
+    explanation: 'Documenting all radio communications',
+    category: 'AMATS',
+  },
+  {
+    id: 105,
+    question: 'When giving a patient report, what should be',
+    options: [
+      'Only whether the',
+      'Level of',
+      'The patient\'s mood',
+      'Whether the patient is'
+    ],
+    correctAnswer: 1,
+    explanation: 'Mental status should be reported using a',
+    category: 'AMATS',
+  },
+  {
+    id: 106,
+    question: 'What does AVPU stand for in patient',
+    options: [
+      'Airway, Ventilation,',
+      'Alert, Verbal, Pain,',
+      'Assessment, Vital',
+      'Airway, Voice, Pulse,'
+    ],
+    correctAnswer: 1,
+    explanation: 'AVPU is a simplified mental status',
+    category: 'AMATS',
+  },
+  {
+    id: 107,
+    question: 'How should an EMS provider communicate with a',
+    options: [
+      'Use the same',
+      'Use age-appropriate',
+      'Ignore the child and',
+      'Use medical jargon to'
+    ],
+    correctAnswer: 1,
+    explanation: 'Pediatric communication requires age-',
+    category: 'AMATS',
+  },
+  {
+    id: 108,
+    question: 'What is the purpose of a \'patch\' call in EMS radio',
+    options: [
+      'To repair the radio',
+      'To connect with a',
+      'To change radio',
+      'To test the antenna'
+    ],
+    correctAnswer: 1,
+    explanation: 'A patch call connects the EMS provider',
+    category: 'AMATS',
+  },
+  {
+    id: 109,
+    question: 'What is \'off-line medical direction\' in EMS?',
+    options: [
+      'Physician is not',
+      'Standing orders and',
+      'No medical oversight',
+      'Communication by'
+    ],
+    correctAnswer: 1,
+    explanation: 'Off-line (indirect) medical direction refers',
+    category: 'AMATS',
+  },
+  {
+    id: 110,
+    question: 'What should an EMS provider do if they disagree',
+    options: [
+      'Ignore the order',
+      'Clarify the order',
+      'Follow the order',
+      'File a lawsuit'
+    ],
+    correctAnswer: 1,
+    explanation: 'Providers should respectfully clarify the',
+    category: 'AMATS',
+  },
+  {
+    id: 111,
+    question: 'In a mass casualty incident, which triage category',
+    options: [
+      'Green (Minor)',
+      'Yellow (Delayed)',
+      'Red (Immediate)',
+      'Black'
+    ],
+    correctAnswer: 2,
+    explanation: 'Red-tagged patients have life-threatening',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 112,
+    question: 'What is the primary purpose of hazard assessment',
+    options: [
+      'To determine the cost',
+      'To identify potential',
+      'To write a report for',
+      'To identify witnesses'
+    ],
+    correctAnswer: 1,
+    explanation: 'Hazard assessment identifies risks such',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 113,
+    question: 'What does the \'I\' in the Incident Command System',
+    options: [
+      'Infection',
+      'Incident',
+      'Intervention',
+      'Inspection'
+    ],
+    correctAnswer: 1,
+    explanation: 'ICS stands for Incident Command System',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 114,
+    question: 'What is the first step in the START triage process?',
+    options: [
+      'Treat all injuries',
+      'Assess all patients for',
+      'Start IV lines',
+      'Transport the most'
+    ],
+    correctAnswer: 1,
+    explanation: 'The first step in START triage is to',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 115,
+    question: 'In START triage, what is the respiratory rate',
+    options: [
+      'Less than 10 breaths',
+      'Greater than 30',
+      '12-20 breaths per',
+      'Exactly 16 breaths'
+    ],
+    correctAnswer: 1,
+    explanation: 'In START triage, a respiratory rate',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 116,
+    question: 'What color tag is assigned to patients with minor',
+    options: [
+      'Red',
+      'Yellow',
+      'Green',
+      'Black'
+    ],
+    correctAnswer: 2,
+    explanation: 'Green tags are assigned to walking',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 117,
+    question: 'What does a black triage tag indicate?',
+    options: [
+      'Patient needs',
+      'Patient is deceased',
+      'Patient has minor',
+      'Patient is the first to'
+    ],
+    correctAnswer: 1,
+    explanation: 'A black tag indicates the patient is',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 118,
+    question: 'What is the purpose of establishing a command',
+    options: [
+      'To provide',
+      'To centralize',
+      'To park ambulances',
+      'To treat patients'
+    ],
+    correctAnswer: 1,
+    explanation: 'A command post centralizes incident',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 119,
+    question: 'What is the role of the triage officer at an MCI?',
+    options: [
+      'To treat patients',
+      'To rapidly assess and',
+      'To drive ambulances',
+      'To communicate with'
+    ],
+    correctAnswer: 1,
+    explanation: 'The triage officer rapidly assesses each',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 120,
+    question: 'What is scene control in EMS?',
+    options: [
+      'Controlling the',
+      'Managing access to',
+      'Controlling the',
+      'Controlling the radio'
+    ],
+    correctAnswer: 1,
+    explanation: 'Scene control involves managing who',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 121,
+    question: 'What is the \'warm zone\' in a hazardous materials',
+    options: [
+      'The area completely',
+      'The area where',
+      'The area of maximum',
+      'The hospital'
+    ],
+    correctAnswer: 1,
+    explanation: 'The warm zone is the contamination',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 122,
+    question: 'What is the \'cold zone\' in a hazardous materials',
+    options: [
+      'The area of maximum',
+      'The safe area where',
+      'The decontamination',
+      'The area inside the'
+    ],
+    correctAnswer: 1,
+    explanation: 'The cold zone is the safe area free from',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 123,
+    question: 'What is the \'hot zone\' in a hazardous materials',
+    options: [
+      'The area with warm',
+      'The area of maximum',
+      'The hospital zone',
+      'The patient waiting'
+    ],
+    correctAnswer: 1,
+    explanation: 'The hot zone is the contaminated area',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 124,
+    question: 'When should an EMS provider enter a hazardous',
+    options: [
+      'Whenever they feel it',
+      'Only with appropriate',
+      'Only during daylight',
+      'Never under any'
+    ],
+    correctAnswer: 1,
+    explanation: 'Entry into the hot zone requires',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 125,
+    question: 'What is the primary goal of scene size-up?',
+    options: [
+      'To determine patient',
+      'To identify hazards,',
+      'To start treatment',
+      'To locate valuables'
+    ],
+    correctAnswer: 1,
+    explanation: 'Scene size-up rapidly identifies hazards,',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 126,
+    question: 'What principle guides the order of patient treatment',
+    options: [
+      'First come, first',
+      'Treat the greatest',
+      'Treat the most',
+      'Treat children first'
+    ],
+    correctAnswer: 1,
+    explanation: 'MCI triage prioritizes treating the greatest',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 127,
+    question: 'What is the function of a staging area during an',
+    options: [
+      'To treat patients',
+      'To hold incoming',
+      'To decontaminate',
+      'To discharge patients'
+    ],
+    correctAnswer: 1,
+    explanation: 'The staging area holds arriving units and',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 128,
+    question: 'What is the function of a staging area during an MCI?',
+    options: [
+      'To treat patients',
+      'To hold incoming resources until they are assigned to a specific task',
+      'To decontaminate patients',
+      'To repair vehicles'
+    ],
+    correctAnswer: 1,
+    explanation: 'The staging area holds arriving units and resources in an organized manner until the incident commander assigns them to specific tasks or sectors.',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 129,
+    question: 'In the JumpSTART pediatric triage system, what is',
+    options: [
+      'Check blood pressure',
+      'Assess if the child',
+      'Start an IV',
+      'Check pupil response'
+    ],
+    correctAnswer: 1,
+    explanation: 'Similar to START, JumpSTART begins by',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 130,
+    question: 'What is the purpose of an incident action plan',
+    options: [
+      'To document the',
+      'To outline the',
+      'To order food for',
+      'To assign parking'
+    ],
+    correctAnswer: 1,
+    explanation: 'An IAP documents the incident objectives,',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 131,
+    question: 'What is the minimum PPE required for EMS',
+    options: [
+      'No PPE is required',
+      'Gloves, eye',
+      'Full hazmat suit',
+      'Only a helmet'
+    ],
+    correctAnswer: 1,
+    explanation: 'Minimum PPE at a crash scene includes',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 132,
+    question: 'What should an EMS provider do if they discover a',
+    options: [
+      'Attempt to disarm or',
+      'Immediately evacuate',
+      'Ignore it and continue',
+      'Take a photograph'
+    ],
+    correctAnswer: 1,
+    explanation: 'If a secondary hazard is discovered,',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 133,
+    question: 'What does \'size-up\' involve in emergency scene',
+    options: [
+      'Only counting the',
+      'Rapid visual',
+      'Measuring the scene',
+      'Interviewing all'
+    ],
+    correctAnswer: 1,
+    explanation: 'Size-up is a rapid visual assessment that',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 134,
+    question: 'What is the role of law enforcement at an EMS',
+    options: [
+      'To provide medical',
+      'To ensure scene',
+      'To drive the',
+      'To perform triage'
+    ],
+    correctAnswer: 1,
+    explanation: 'Law enforcement provides scene safety,',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 135,
+    question: 'What is the principle of \'doing the most good for',
+    options: [
+      'Routine patient care',
+      'Mass casualty',
+      'Hospital',
+      'Ambulance'
+    ],
+    correctAnswer: 1,
+    explanation: 'This principle guides MCI triage',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 136,
+    question: 'What is the normal resting heart rate range for a',
+    options: [
+      '40-60 bpm',
+      '60-100 bpm',
+      '100-120 bpm',
+      '120-140 bpm'
+    ],
+    correctAnswer: 1,
+    explanation: 'The normal resting heart rate for a healthy',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 137,
+    question: 'What does the mnemonic \'SAMPLE\' stand for?',
+    options: [
+      'Signs/Symptoms,',
+      'Size, Age, Medical',
+      'Scene safety,',
+      'Systolic, Airway,'
+    ],
+    correctAnswer: 0,
+    explanation: 'SAMPLE is a medical history mnemonic:',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 138,
+    question: 'What is the normal blood pressure range for a',
+    options: [
+      '80/40 to 90/50 mmHg',
+      '90/60 to 120/80',
+      '140/90 to 160/100',
+      '160/100 to 180/120'
+    ],
+    correctAnswer: 1,
+    explanation: 'Normal adult blood pressure is',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 139,
+    question: 'What is the normal respiratory rate for a healthy',
+    options: [
+      '6-10 breaths per',
+      '12-20 breaths per',
+      '25-35 breaths per',
+      '35-45 breaths per'
+    ],
+    correctAnswer: 1,
+    explanation: 'The normal respiratory rate for a healthy',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 140,
+    question: 'What does the \'P\' in the OPQRST mnemonic stand',
+    options: [
+      'Position',
+      'Provocation',
+      'Pulse',
+      'Pressure'
+    ],
+    correctAnswer: 1,
+    explanation: 'In OPQRST (pain assessment), P stands',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 141,
+    question: 'What does the \'Q\' in OPQRST stand for?',
+    options: [
+      'Quick',
+      'Quality',
+      'Quantity',
+      'Quadrant'
+    ],
+    correctAnswer: 1,
+    explanation: 'Q stands for Quality — asking the patient',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 142,
+    question: 'What does the \'R\' in OPQRST stand for?',
+    options: [
+      'Respiration',
+      'Radiation',
+      'Rate',
+      'Reaction'
+    ],
+    correctAnswer: 1,
+    explanation: 'R stands for Radiation — asking whether',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 143,
+    question: 'What does the \'S\' in OPQRST stand for?',
+    options: [
+      'Signs',
+      'Severity',
+      'Symptoms',
+      'Skin'
+    ],
+    correctAnswer: 1,
+    explanation: 'S stands for Severity — asking the patient',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 144,
+    question: 'What does the \'T\' in OPQRST stand for?',
+    options: [
+      'Treatment',
+      'Time',
+      'Temperature',
+      'Tenderness'
+    ],
+    correctAnswer: 1,
+    explanation: 'T stands for Time — asking when the',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 145,
+    question: 'What is the first step in patient assessment?',
+    options: [
+      'Check vital signs',
+      'Scene size-up and',
+      'Administer',
+      'Start an IV'
+    ],
+    correctAnswer: 1,
+    explanation: 'Patient assessment begins with scene',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 146,
+    question: 'What is the correct technique for measuring blood',
+    options: [
+      'Inflate the cuff to 200',
+      'Inflate 30 mmHg',
+      'Inflate to 100 mmHg',
+      'Do not use a'
+    ],
+    correctAnswer: 1,
+    explanation: 'Proper technique involves inflating the',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 147,
+    question: 'What is a normal pupillary response to light?',
+    options: [
+      'Dilation',
+      'Constriction (both',
+      'No change',
+      'One pupil constricts,'
+    ],
+    correctAnswer: 1,
+    explanation: 'Normal pupils constrict equally and briskly',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 148,
+    question: 'What does PEARL stand for in neurological',
+    options: [
+      'Pulse, Eyes, Airway,',
+      'Pupils Equal And',
+      'Pain, Ears, Airway,',
+      'Pressure, Eyes,'
+    ],
+    correctAnswer: 1,
+    explanation: 'PEARL stands for Pupils Equal And',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 149,
+    question: 'What is the Glasgow Coma Scale (GCS) score',
+    options: [
+      '0-10',
+      '3-15',
+      '1-20',
+      '5-25'
+    ],
+    correctAnswer: 1,
+    explanation: 'The GCS ranges from 3 (worst) to 15',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 150,
+    question: 'A GCS score of 8 or below indicates what?',
+    options: [
+      'Mild head injury',
+      'Severe head injury',
+      'No injury',
+      'Moderate headache'
+    ],
+    correctAnswer: 1,
+    explanation: 'A GCS of 8 or below indicates severe',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 151,
+    question: 'What are the three components of the Glasgow',
+    options: [
+      'Heart rate, blood',
+      'Eye opening, verbal',
+      'Pupil size, reflexes,',
+      'Pain, temperature,'
+    ],
+    correctAnswer: 1,
+    explanation: 'GCS assesses three components: Eye',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 152,
+    question: 'What is the medical term for difficulty breathing?',
+    options: [
+      'Dyspnea',
+      'Apnea',
+      'Bradypnea',
+      'Orthopnea'
+    ],
+    correctAnswer: 0,
+    explanation: 'Dyspnea is the medical term for difficulty',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 153,
+    question: 'What is the normal body temperature range for a',
+    options: [
+      '35.0-35.5°C',
+      '36.1-37.2°C',
+      '38.0-39.0°C',
+      '40.0-41.0°C'
+    ],
+    correctAnswer: 1,
+    explanation: 'Normal body temperature is 36.1-37.2°C',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 154,
+    question: 'What is the correct site for checking a pulse in an',
+    options: [
+      'Radial pulse',
+      'Carotid pulse',
+      'Pedal pulse',
+      'Temporal pulse'
+    ],
+    correctAnswer: 1,
+    explanation: 'The carotid pulse is the preferred site for',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 155,
+    question: 'What does \'tidaling\' in a chest drainage system',
+    options: [
+      'System malfunction',
+      'Normal function with',
+      'Air leak',
+      'Infection'
+    ],
+    correctAnswer: 1,
+    explanation: 'Tidaling (fluctuation of fluid level with',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 156,
+    question: 'What is the correct position for a patient in',
+    options: [
+      'Prone position',
+      'Supine with legs',
+      'Sitting upright',
+      'Trendelenburg only'
+    ],
+    correctAnswer: 1,
+    explanation: 'A patient in anaphylactic shock should be',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 157,
+    question: 'What is the first-line medication for anaphylaxis?',
+    options: [
+      'Aspirin',
+      'Epinephrine',
+      'Nitroglycerin',
+      'Metoprolol'
+    ],
+    correctAnswer: 1,
+    explanation: 'Epinephrine is the first-line treatment for',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 158,
+    question: 'What is the appropriate dose of epinephrine for',
+    options: [
+      '0.01 mg IV',
+      '0.3-0.5 mg IM',
+      '1 mg IV push',
+      '5 mg IM'
+    ],
+    correctAnswer: 1,
+    explanation: 'The standard adult dose for anaphylaxis',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 159,
+    question: 'What is a key sign of inadequate breathing?',
+    options: [
+      'Equal chest rise',
+      'Shallow or irregular',
+      'Normal skin color',
+      'Clear speech'
+    ],
+    correctAnswer: 1,
+    explanation: 'Shallow or irregular chest movement',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 160,
+    question: 'What is the correct method for opening the airway',
+    options: [
+      'Jaw thrust',
+      'Head-tilt/chin-lift',
+      'Neck extension only',
+      'Finger sweep'
+    ],
+    correctAnswer: 1,
+    explanation: 'The head-tilt/chin-lift is the standard',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 161,
+    question: 'What is an oropharyngeal airway (OPA) used for?',
+    options: [
+      'To deliver oxygen',
+      'To maintain airway',
+      'To suction secretions',
+      'To measure oxygen'
+    ],
+    correctAnswer: 1,
+    explanation: 'An OPA keeps the tongue away from the',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 162,
+    question: 'What is a nasopharyngeal airway (NPA) used for?',
+    options: [
+      'Only for nasal',
+      'To maintain airway',
+      'To deliver nasal',
+      'To check nasal'
+    ],
+    correctAnswer: 1,
+    explanation: 'An NPA maintains airway patency and',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 163,
+    question: 'What is a contraindication for nasopharyngeal',
+    options: [
+      'Patient is awake and',
+      'Suspected basilar',
+      'Patient has a fever',
+      'Patient is over 50'
+    ],
+    correctAnswer: 1,
+    explanation: 'Suspected basilar skull fracture is a',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 164,
+    question: 'What is the correct size for an oropharyngeal',
+    options: [
+      'Measure from the',
+      'Measure from the',
+      'Measure from the',
+      'Any size will work'
+    ],
+    correctAnswer: 1,
+    explanation: 'The correct OPA size is measured from',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 165,
+    question: 'What does capillary refill time assess?',
+    options: [
+      'Lung function',
+      'Peripheral perfusion',
+      'Kidney function',
+      'Brain function'
+    ],
+    correctAnswer: 1,
+    explanation: 'Capillary refill time assesses peripheral',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 166,
+    question: 'Which position is most appropriate for transporting',
+    options: [
+      'Supine position',
+      'Prone position',
+      'Semi-Fowler\'s',
+      'Trendelenburg'
+    ],
+    correctAnswer: 2,
+    explanation: 'Semi-Fowler\'s position (head elevated 30-',
+    category: 'AMATS',
+  },
+  {
+    id: 167,
+    question: 'When transporting a patient with a suspected',
+    options: [
+      'Stair chair',
+      'Long spine board',
+      'Scoop stretcher only',
+      'Wheeled stretcher'
+    ],
+    correctAnswer: 1,
+    explanation: 'A long spine board provides full spinal',
+    category: 'AMATS',
+  },
+  {
+    id: 168,
+    question: 'What is the Trendelenburg position used for?',
+    options: [
+      'To treat head injuries',
+      'To increase venous',
+      'To improve breathing',
+      'To reduce nausea'
+    ],
+    correctAnswer: 1,
+    explanation: 'The Trendelenburg position (feet elevated',
+    category: 'AMATS',
+  },
+  {
+    id: 169,
+    question: 'What is the shock position (modified',
+    options: [
+      'Head elevated, feet',
+      'Supine with legs',
+      'Prone position',
+      'Lateral recumbent'
+    ],
+    correctAnswer: 1,
+    explanation: 'The shock position involves placing the',
+    category: 'AMATS',
+  },
+  {
+    id: 170,
+    question: 'What is the recovery position?',
+    options: [
+      'Supine with arms at',
+      'Lateral recumbent',
+      'Prone with head to',
+      'Sitting upright'
+    ],
+    correctAnswer: 1,
+    explanation: 'The recovery position (lateral recumbent)',
+    category: 'AMATS',
+  },
+  {
+    id: 171,
+    question: 'When should a patient be placed in a left lateral',
+    options: [
+      'For all patients',
+      'For pregnant patients',
+      'For patients with arm',
+      'For patients with eye'
+    ],
+    correctAnswer: 1,
+    explanation: 'Pregnant patients in the third trimester',
+    category: 'AMATS',
+  },
+  {
+    id: 172,
+    question: 'What is the purpose of strapping a patient to the',
+    options: [
+      'To restrain the patient',
+      'To secure the patient',
+      'To keep the patient',
+      'To restrict breathing'
+    ],
+    correctAnswer: 1,
+    explanation: 'Stretcher straps secure the patient to',
+    category: 'AMATS',
+  },
+  {
+    id: 173,
+    question: 'What is the correct procedure for loading a',
+    options: [
+      'One person pushes',
+      'At least two rescuers:',
+      'The patient loads the',
+      'Only the driver loads'
+    ],
+    correctAnswer: 1,
+    explanation: 'At least two rescuers are required — one',
+    category: 'AMATS',
+  },
+  {
+    id: 174,
+    question: 'How should a patient with chest pain be positioned',
+    options: [
+      'Prone',
+      'Semi-Fowler\'s or',
+      'Trendelenburg',
+      'Head down'
+    ],
+    correctAnswer: 1,
+    explanation: 'Patients with chest pain should be placed',
+    category: 'AMATS',
+  },
+  {
+    id: 175,
+    question: 'What is the proper position for a patient with',
+    options: [
+      'No specific position',
+      'Supine with cervical',
+      'Sitting upright',
+      'Side-lying without'
+    ],
+    correctAnswer: 1,
+    explanation: 'A suspected neck injury requires cervical',
+    category: 'AMATS',
+  },
+  {
+    id: 176,
+    question: 'What monitoring should be performed during',
+    options: [
+      'No monitoring is',
+      'Continuous',
+      'Only checking once',
+      'Only at the end of'
+    ],
+    correctAnswer: 1,
+    explanation: 'Continuous monitoring during transport',
+    category: 'AMATS',
+  },
+  {
+    id: 177,
+    question: 'What is the purpose of a transport checklist?',
+    options: [
+      'To delay transport',
+      'To ensure all',
+      'To count the number',
+      'To record fuel levels'
+    ],
+    correctAnswer: 1,
+    explanation: 'A transport checklist ensures all',
+    category: 'AMATS',
+  },
+  {
+    id: 178,
+    question: 'What is the correct technique for moving a',
+    options: [
+      'Feet first with the',
+      'Head first',
+      'Sideways',
+      'Carried by one'
+    ],
+    correctAnswer: 0,
+    explanation: 'When descending stairs, the stretcher',
+    category: 'AMATS',
+  },
+  {
+    id: 179,
+    question: 'What is the maximum weight capacity of a',
+    options: [
+      '150 kg',
+      'Approximately 225-',
+      '100 kg',
+      '50 kg'
+    ],
+    correctAnswer: 1,
+    explanation: 'Standard EMS stretchers typically have a',
+    category: 'AMATS',
+  },
+  {
+    id: 180,
+    question: 'What is a bariatric stretcher?',
+    options: [
+      'A stretcher for',
+      'A stretcher designed',
+      'A stretcher for',
+      'A stretcher for'
+    ],
+    correctAnswer: 1,
+    explanation: 'A bariatric stretcher is specifically',
+    category: 'AMATS',
+  },
+  {
+    id: 181,
+    question: 'What should be done before moving a patient to a',
+    options: [
+      'Just push the',
+      'Communicate with',
+      'Leave the patient on',
+      'Transfer without any'
+    ],
+    correctAnswer: 1,
+    explanation: 'Before transferring, communicate with',
+    category: 'AMATS',
+  },
+  {
+    id: 182,
+    question: 'What is the purpose of a patient care report during',
+    options: [
+      'To keep the provider',
+      'To document all',
+      'To bill the patient only',
+      'To record the'
+    ],
+    correctAnswer: 1,
+    explanation: 'The PCR documents the complete record',
+    category: 'AMATS',
+  },
+  {
+    id: 183,
+    question: 'What is the function of a stair chair in patient',
+    options: [
+      'To transport patients',
+      'To replace the',
+      'To transport patients',
+      'To perform physical'
+    ],
+    correctAnswer: 0,
+    explanation: 'A stair chair is specifically designed to',
+    category: 'AMATS',
+  },
+  {
+    id: 184,
+    question: 'When is a non-emergency transport indicated?',
+    options: [
+      'When the patient has',
+      'When a patient needs',
+      'When no ambulance',
+      'Never'
+    ],
+    correctAnswer: 1,
+    explanation: 'Non-emergency transport is for patients',
+    category: 'AMATS',
+  },
+  {
+    id: 185,
+    question: 'What should be done immediately after completing',
+    options: [
+      'Go home immediately',
+      'Clean and restock the',
+      'Wait for the next shift',
+      'Only refuel the'
+    ],
+    correctAnswer: 1,
+    explanation: 'After transport, the ambulance must be',
+    category: 'AMATS',
+  },
+  {
+    id: 186,
+    question: 'When driving an ambulance under emergency',
+    options: [
+      'Arriving as fast as',
+      'Driving safely and',
+      'Using the siren',
+      'Overtaking all'
+    ],
+    correctAnswer: 1,
+    explanation: 'The paramount rule in emergency driving',
+    category: 'AMATS',
+  },
+  {
+    id: 187,
+    question: 'What is the purpose of using lights and siren during',
+    options: [
+      'To show authority',
+      'To alert other drivers',
+      'To clear traffic for fun',
+      'To test the equipment'
+    ],
+    correctAnswer: 1,
+    explanation: 'Lights and siren are used to request the',
+    category: 'AMATS',
+  },
+  {
+    id: 188,
+    question: 'When approaching an intersection with a red light',
+    options: [
+      'Proceed through',
+      'Come to a complete',
+      'Speed up to beat the',
+      'Turn off the siren'
+    ],
+    correctAnswer: 1,
+    explanation: 'At a red light or stop sign, the ambulance',
+    category: 'AMATS',
+  },
+  {
+    id: 189,
+    question: 'What is \'due regard\' in the context of emergency',
+    options: [
+      'Ignoring all traffic',
+      'Driving with',
+      'Driving at maximum',
+      'Following the'
+    ],
+    correctAnswer: 1,
+    explanation: 'Due regard means operating the',
+    category: 'AMATS',
+  },
+  {
+    id: 190,
+    question: 'What should the ambulance driver do when',
+    options: [
+      'Force the vehicle off',
+      'Slow down or stop',
+      'Honk continuously',
+      'Call the police on the'
+    ],
+    correctAnswer: 1,
+    explanation: 'If a vehicle does not yield, the ambulance',
+    category: 'AMATS',
+  },
+  {
+    id: 191,
+    question: 'What is the recommended following distance when',
+    options: [
+      '1 second',
+      '3-4 seconds behind',
+      '10 seconds',
+      'Tailgate the vehicle'
+    ],
+    correctAnswer: 1,
+    explanation: 'A following distance of 3-4 seconds',
+    category: 'AMATS',
+  },
+  {
+    id: 192,
+    question: 'What is the effect of wet road conditions on',
+    options: [
+      'No effect',
+      'Braking distance',
+      'Braking distance',
+      'Only affects speed,'
+    ],
+    correctAnswer: 1,
+    explanation: 'Wet roads reduce tire traction,',
+    category: 'AMATS',
+  },
+  {
+    id: 193,
+    question: 'What should the ambulance driver do before',
+    options: [
+      'Just look in the',
+      'Use a spotter and',
+      'Back up as fast as',
+      'Honk the horn'
+    ],
+    correctAnswer: 1,
+    explanation: 'Before backing up, the driver should use',
+    category: 'AMATS',
+  },
+  {
+    id: 194,
+    question: 'What is the purpose of a daily vehicle inspection',
+    options: [
+      'To create paperwork',
+      'To identify',
+      'To count the number',
+      'To record fuel costs'
+    ],
+    correctAnswer: 1,
+    explanation: 'A daily vehicle inspection identifies',
+    category: 'AMATS',
+  },
+  {
+    id: 195,
+    question: 'When should the ambulance driver use emergency',
+    options: [
+      'When arriving at a',
+      'When parked at a',
+      'Never',
+      'Only at night'
+    ],
+    correctAnswer: 1,
+    explanation: 'Emergency lights without siren are used',
+    category: 'AMATS',
+  },
+  {
+    id: 196,
+    question: 'What is the purpose of the ambulance governor',
+    options: [
+      'To prevent the',
+      'To increase engine',
+      'To reduce fuel',
+      'To play music in the'
+    ],
+    correctAnswer: 0,
+    explanation: 'A governor limits the maximum speed of',
+    category: 'AMATS',
+  },
+  {
+    id: 197,
+    question: 'What should the ambulance driver do if the vehicle',
+    options: [
+      'Brake hard and steer',
+      'Steer in the direction',
+      'Accelerate to regain',
+      'Turn off the engine'
+    ],
+    correctAnswer: 1,
+    explanation: 'When skidding, steer in the direction the',
+    category: 'AMATS',
+  },
+  {
+    id: 198,
+    question: 'What is the safest position for the ambulance when',
+    options: [
+      'Facing oncoming',
+      'Angled slightly to',
+      'Parked on the',
+      'Parked in the middle'
+    ],
+    correctAnswer: 1,
+    explanation: 'The ambulance should be angled slightly',
+    category: 'AMATS',
+  },
+  {
+    id: 199,
+    question: 'What is the meaning of \'code 3\' response?',
+    options: [
+      'Routine response',
+      'Emergency response',
+      'Return to station',
+      'Cancel the call'
+    ],
+    correctAnswer: 1,
+    explanation: 'Code 3 indicates an emergency response',
+    category: 'AMATS',
+  },
+  {
+    id: 200,
+    question: 'What is the meaning of \'code 2\' response?',
+    options: [
+      'Emergency response',
+      'Urgent response',
+      'Cancel the call',
+      'Mass casualty'
+    ],
+    correctAnswer: 1,
+    explanation: 'Code 2 indicates an urgent but non-life-',
+    category: 'AMATS',
+  },
+  {
+    id: 201,
+    question: 'What is the most effective method for preventing',
+    options: [
+      'Wearing gloves only',
+      'Proper hand hygiene',
+      'Using antibiotics',
+      'Avoiding all patient'
+    ],
+    correctAnswer: 1,
+    explanation: 'Hand hygiene is the single most effective',
+    category: 'OSH',
+  },
+  {
+    id: 202,
+    question: 'Which type of precautions should be taken for a',
+    options: [
+      'Contact precautions',
+      'Airborne precautions',
+      'No precautions',
+      'Droplet precautions'
+    ],
+    correctAnswer: 1,
+    explanation: 'Tuberculosis is transmitted via airborne',
+    category: 'OSH',
+  },
+  {
+    id: 203,
+    question: 'What is the minimum time recommended for',
+    options: [
+      '5 seconds',
+      '20 seconds',
+      '2 minutes',
+      '10 minutes'
+    ],
+    correctAnswer: 1,
+    explanation: 'The WHO and CDC recommend',
+    category: 'OSH',
+  },
+  {
+    id: 204,
+    question: 'When should alcohol-based hand rub NOT be',
+    options: [
+      'Before patient contact',
+      'When hands are',
+      'After removing gloves',
+      'Before eating'
+    ],
+    correctAnswer: 1,
+    explanation: 'Alcohol-based hand rub is not effective',
+    category: 'OSH',
+  },
+  {
+    id: 205,
+    question: 'What is Standard Precautions?',
+    options: [
+      'Precautions used',
+      'Infection control',
+      'Precautions only for',
+      'Precautions only'
+    ],
+    correctAnswer: 1,
+    explanation: 'Standard Precautions are applied to ALL',
+    category: 'OSH',
+  },
+  {
+    id: 206,
+    question: 'What PPE is required for contact with blood or',
+    options: [
+      'Only a mask',
+      'Gloves at minimum;',
+      'Only a gown',
+      'No PPE is required'
+    ],
+    correctAnswer: 1,
+    explanation: 'Gloves are the minimum PPE for',
+    category: 'OSH',
+  },
+  {
+    id: 207,
+    question: 'What is the correct sequence for removing PPE?',
+    options: [
+      'Gloves, gown, mask,',
+      'Gloves first, then eye',
+      'Mask first, then',
+      'Any order is'
+    ],
+    correctAnswer: 1,
+    explanation: 'The correct removal sequence minimizes',
+    category: 'OSH',
+  },
+  {
+    id: 208,
+    question: 'What should be done with needles after use?',
+    options: [
+      'Recap the needle and',
+      'Dispose immediately',
+      'Leave on the patient\'s',
+      'Bend the needle and'
+    ],
+    correctAnswer: 1,
+    explanation: 'Used needles must be placed directly in a',
+    category: 'OSH',
+  },
+  {
+    id: 209,
+    question: 'What is a needlestick injury?',
+    options: [
+      'A cut from a scalpel',
+      'An accidental',
+      'A burn injury',
+      'A muscle strain'
+    ],
+    correctAnswer: 1,
+    explanation: 'A needlestick injury is a percutaneous',
+    category: 'OSH',
+  },
+  {
+    id: 210,
+    question: 'What is the first action after a needlestick injury?',
+    options: [
+      'Continue working',
+      'Wash the wound with',
+      'Apply a bandage and',
+      'Squeeze the wound'
+    ],
+    correctAnswer: 1,
+    explanation: 'After a needlestick, wash the wound with',
+    category: 'OSH',
+  },
+  {
+    id: 211,
+    question: 'What are the three major bloodborne pathogens of',
+    options: [
+      'Influenza, common',
+      'Hepatitis B, Hepatitis',
+      'Tuberculosis, malaria,',
+      'E. coli, Salmonella,'
+    ],
+    correctAnswer: 1,
+    explanation: 'The three major bloodborne pathogens of',
+    category: 'OSH',
+  },
+  {
+    id: 212,
+    question: 'What is the purpose of an exposure control plan?',
+    options: [
+      'To eliminate all',
+      'To outline procedures',
+      'To punish employees',
+      'To reduce the'
+    ],
+    correctAnswer: 1,
+    explanation: 'An exposure control plan details',
+    category: 'OSH',
+  },
+  {
+    id: 213,
+    question: 'What type of mask is required for droplet',
+    options: [
+      'N95 respirator',
+      'Surgical mask',
+      'Full-face respirator',
+      'No mask needed'
+    ],
+    correctAnswer: 1,
+    explanation: 'Droplet precautions require a standard',
+    category: 'OSH',
+  },
+  {
+    id: 214,
+    question: 'How should biohazardous waste be disposed of?',
+    options: [
+      'In the regular trash',
+      'In designated',
+      'By flushing down the',
+      'By burning in the'
+    ],
+    correctAnswer: 1,
+    explanation: 'Biohazardous waste must be disposed of',
+    category: 'OSH',
+  },
+  {
+    id: 215,
+    question: 'What is the incubation period?',
+    options: [
+      'The time from',
+      'The time from',
+      'The duration of the',
+      'The recovery period'
+    ],
+    correctAnswer: 0,
+    explanation: 'The incubation period is the interval',
+    category: 'OSH',
+  },
+  {
+    id: 216,
+    question: 'When encountering a patient displaying aggressive',
+    options: [
+      'Physically restrain the',
+      'Ensure personal',
+      'Shout at the patient to',
+      'Ignore the behavior'
+    ],
+    correctAnswer: 1,
+    explanation: 'The provider must first ensure personal',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 217,
+    question: 'What is de-escalation?',
+    options: [
+      'Using physical force',
+      'Verbal and non-',
+      'Ignoring the patient',
+      'Calling the police'
+    ],
+    correctAnswer: 1,
+    explanation: 'De-escalation uses calm communication,',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 218,
+    question: 'Which communication technique is most effective',
+    options: [
+      'Arguing with the',
+      'Active listening and',
+      'Threatening the',
+      'Walking away without'
+    ],
+    correctAnswer: 1,
+    explanation: 'Active listening and empathy help validate',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 219,
+    question: 'When is physical restraint of a patient justified?',
+    options: [
+      'Whenever the',
+      'When the patient',
+      'For all psychiatric',
+      'Only for elderly'
+    ],
+    correctAnswer: 1,
+    explanation: 'Physical restraint is justified only when',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 220,
+    question: 'What is the appropriate documentation when',
+    options: [
+      'No documentation',
+      'Document the reason',
+      'Only the patient\'s',
+      'Only the time of'
+    ],
+    correctAnswer: 1,
+    explanation: 'Complete documentation includes the',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 221,
+    question: 'What is the legal concept of \'implied consent\' in',
+    options: [
+      'Patient verbally',
+      'Consent assumed for',
+      'Consent from a minor',
+      'Consent given in'
+    ],
+    correctAnswer: 1,
+    explanation: 'Implied consent allows EMS providers to',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 222,
+    question: 'What is \'expressed consent\'?',
+    options: [
+      'Consent implied by',
+      'Verbal or written',
+      'Consent from a family',
+      'Consent from a police'
+    ],
+    correctAnswer: 1,
+    explanation: 'Expressed consent is explicitly given by a',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 223,
+    question: 'What should an EMS provider do if a competent',
+    options: [
+      'Treat the patient',
+      'Respect the refusal,',
+      'Call the police to',
+      'Restrain the patient'
+    ],
+    correctAnswer: 1,
+    explanation: 'Competent adults have the right to refuse',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 224,
+    question: 'What is the correct first aid for a minor superficial',
+    options: [
+      'Apply butter or oil',
+      'Cool the burn with',
+      'Apply ice directly',
+      'Pop any blisters'
+    ],
+    correctAnswer: 1,
+    explanation: 'Cooling with running cool water for at',
+    category: 'First Aid',
+  },
+  {
+    id: 225,
+    question: 'In managing epistaxis (nosebleed), which action is',
+    options: [
+      'Tilt the head',
+      'Pinch the soft part of',
+      'Lie the patient flat on',
+      'Insert tissue deep into'
+    ],
+    correctAnswer: 1,
+    explanation: 'Pinching the soft nose while leaning',
+    category: 'First Aid',
+  },
+  {
+    id: 226,
+    question: 'What is the correct first aid for a choking adult who',
+    options: [
+      'Give water',
+      'Perform abdominal',
+      'Slap the back while',
+      'Wait for the object to'
+    ],
+    correctAnswer: 1,
+    explanation: 'Abdominal thrusts (Heimlich maneuver)',
+    category: 'First Aid',
+  },
+  {
+    id: 227,
+    question: 'What is the correct first aid for a suspected',
+    options: [
+      'Attempt to realign the',
+      'Immobilize the injured',
+      'Apply a tight bandage',
+      'Massage the area'
+    ],
+    correctAnswer: 1,
+    explanation: 'Suspected fractures should be',
+    category: 'First Aid',
+  },
+  {
+    id: 228,
+    question: 'What is the correct management for a snake bite?',
+    options: [
+      'Apply a tourniquet',
+      'Keep the patient calm',
+      'Suck out the venom',
+      'Apply ice directly to'
+    ],
+    correctAnswer: 1,
+    explanation: 'Keep the patient calm and still to slow',
+    category: 'First Aid',
+  },
+  {
+    id: 229,
+    question: 'What is the RICE method for treating sprains?',
+    options: [
+      'Rest, Ice,',
+      'Rest, Immobilize,',
+      'Run, Ice, Carry,',
+      'Rest, Inspect,'
+    ],
+    correctAnswer: 0,
+    explanation: 'RICE stands for Rest, Ice, Compression,',
+    category: 'First Aid',
+  },
+  {
+    id: 230,
+    question: 'What is the correct management for an impaled',
+    options: [
+      'Remove the object',
+      'Stabilize the object in',
+      'Push the object',
+      'Cut the object short'
+    ],
+    correctAnswer: 1,
+    explanation: 'Impaled objects should be stabilized in',
+    category: 'First Aid',
+  },
+  {
+    id: 231,
+    question: 'What is the correct first aid for a seizure?',
+    options: [
+      'Restrain the patient',
+      'Protect the patient',
+      'Hold the patient down',
+      'Pour water on the'
+    ],
+    correctAnswer: 1,
+    explanation: 'During a seizure, protect the patient from',
+    category: 'First Aid',
+  },
+  {
+    id: 232,
+    question: 'What is the correct first aid for a dog bite?',
+    options: [
+      'Apply a tourniquet',
+      'Wash the wound with',
+      'Ignore the bite',
+      'Apply butter to the'
+    ],
+    correctAnswer: 1,
+    explanation: 'Dog bites should be washed with soap',
+    category: 'First Aid',
+  },
+  {
+    id: 233,
+    question: 'What is the correct management for a chemical',
+    options: [
+      'Apply a bandage',
+      'Flush with copious',
+      'Apply butter',
+      'Rub the area'
+    ],
+    correctAnswer: 1,
+    explanation: 'Chemical burns require immediate and',
+    category: 'First Aid',
+  },
+  {
+    id: 234,
+    question: 'What is the correct first aid for an insect sting?',
+    options: [
+      'Squeeze the sting',
+      'Remove the stinger',
+      'Apply heat',
+      'Ignore it'
+    ],
+    correctAnswer: 1,
+    explanation: 'Scrape the stinger away (not squeeze),',
+    category: 'First Aid',
+  },
+  {
+    id: 235,
+    question: 'What are the signs of a closed fracture?',
+    options: [
+      'Bone protruding through the skin',
+      'Swelling, deformity, pain, and crepitus without an open wound',
+      'No pain or swelling',
+      'Bleeding only'
+    ],
+    correctAnswer: 1,
+    explanation: 'A closed fracture presents with swelling, deformity, pain, tenderness, and crepitus at the injury site without the bone protruding through the skin.',
+    category: 'Trauma',
+  },
+  {
+    id: 236,
+    question: 'What is an open fracture?',
+    options: [
+      'A fracture with no',
+      'A fracture where the',
+      'A dislocated joint',
+      'A muscle tear'
+    ],
+    correctAnswer: 1,
+    explanation: 'An open (compound) fracture involves a',
+    category: 'First Aid',
+  },
+  {
+    id: 237,
+    question: 'What is the primary goal of maintaining high patient',
+    options: [
+      'To receive awards',
+      'To ensure quality',
+      'To complete',
+      'To compete with'
+    ],
+    correctAnswer: 1,
+    explanation: 'High patient service standards ensure',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 238,
+    question: 'What is patient confidentiality?',
+    options: [
+      'Sharing patient',
+      'Protecting patient',
+      'Discussing patients',
+      'Telling family'
+    ],
+    correctAnswer: 1,
+    explanation: 'Patient confidentiality means protecting',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 239,
+    question: 'What is informed consent?',
+    options: [
+      'Consent obtained',
+      'Permission given',
+      'Consent from a minor',
+      'Consent without any'
+    ],
+    correctAnswer: 1,
+    explanation: 'Informed consent requires that the patient',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 240,
+    question: 'What is the patient\'s bill of rights?',
+    options: [
+      'A list of rules patients',
+      'A set of guarantees',
+      'A billing statement',
+      'A list of hospital'
+    ],
+    correctAnswer: 1,
+    explanation: 'The patient\'s bill of rights guarantees',
+    category: 'Patient Assessment',
+  },
+  {
+    id: 241,
+    question: 'Which best describes effective workplace',
+    options: [
+      'Giving orders without',
+      'Gathering, conveying,',
+      'Communicating only',
+      'Sharing personal'
+    ],
+    correctAnswer: 1,
+    explanation: 'Effective workplace communication',
+    category: 'AMATS',
+  },
+  {
+    id: 242,
+    question: 'What is the purpose of a shift change briefing?',
+    options: [
+      'To socialize with',
+      'To transfer critical',
+      'To count inventory',
+      'To assign parking'
+    ],
+    correctAnswer: 1,
+    explanation: 'Shift change briefings transfer essential',
+    category: 'AMATS',
+  },
+  {
+    id: 243,
+    question: 'What is active listening?',
+    options: [
+      'Hearing what someone says without responding',
+      'Fully concentrating on what is being said, understanding, responding, and remembering',
+      'Interrupting the speaker with questions',
+      'Multitasking while someone is talking'
+    ],
+    correctAnswer: 1,
+    explanation: 'Active listening involves fully concentrating on the speaker, understanding their message, responding appropriately, and remembering what was said for effective communication.',
+    category: 'AMATS',
+  },
+  {
+    id: 244,
+    question: 'Why is accurate documentation important in EMS?',
+    options: [
+      'To fill time during',
+      'To provide a legal',
+      'Only for billing',
+      'To count the number'
+    ],
+    correctAnswer: 1,
+    explanation: 'Accurate documentation provides a legal',
+    category: 'AMATS',
+  },
+  {
+    id: 245,
+    question: 'What is the purpose of a written incident report?',
+    options: [
+      'To assign blame',
+      'To document facts',
+      'To create publicity',
+      'To count the number'
+    ],
+    correctAnswer: 1,
+    explanation: 'Incident reports document factual details',
+    category: 'AMATS',
+  },
+  {
+    id: 246,
+    question: 'What is the key benefit of effective teamwork in',
+    options: [
+      'Individual recognition',
+      'Improved patient',
+      'Reduced need for',
+      'Elimination of'
+    ],
+    correctAnswer: 1,
+    explanation: 'Effective teamwork ensures coordinated,',
+    category: 'AMATS',
+  },
+  {
+    id: 247,
+    question: 'What is a \'crew resource management\' (CRM)',
+    options: [
+      'Managing the',
+      'Using all available',
+      'Managing patient',
+      'Assigning tasks'
+    ],
+    correctAnswer: 1,
+    explanation: 'CRM utilizes all available resources —',
+    category: 'AMATS',
+  },
+  {
+    id: 248,
+    question: 'What is the role of a team leader during an',
+    options: [
+      'To do all tasks alone',
+      'To direct and',
+      'To delegate all tasks',
+      'To drive the'
+    ],
+    correctAnswer: 1,
+    explanation: 'The team leader directs and coordinates',
+    category: 'AMATS',
+  },
+  {
+    id: 249,
+    question: 'What is constructive feedback?',
+    options: [
+      'Criticizing a colleague',
+      'Specific, actionable',
+      'Ignoring mistakes',
+      'Only positive'
+    ],
+    correctAnswer: 1,
+    explanation: 'Constructive feedback provides specific,',
+    category: 'AMATS',
+  },
+  {
+    id: 250,
+    question: 'What is the purpose of a post-call debriefing?',
+    options: [
+      'To gossip about the',
+      'To review the call,',
+      'To assign blame for',
+      'To plan social'
+    ],
+    correctAnswer: 1,
+    explanation: 'Post-call debriefing is a structured review',
+    category: 'AMATS',
+  },
+  {
+    id: 251,
+    question: 'Which action best demonstrates career',
+    options: [
+      'Arriving late for shifts',
+      'Setting work priorities',
+      'Refusing tasks',
+      'Gossiping about'
+    ],
+    correctAnswer: 1,
+    explanation: 'Professionalism involves setting priorities,',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 252,
+    question: 'What is the purpose of continuing education in',
+    options: [
+      'To earn more money',
+      'To maintain and',
+      'To avoid working',
+      'To become a doctor'
+    ],
+    correctAnswer: 1,
+    explanation: 'Continuing education ensures EMS',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 253,
+    question: 'What is ethical behavior in EMS?',
+    options: [
+      'Treating patients',
+      'Adhering to moral',
+      'Accepting gifts from',
+      'Sharing patient'
+    ],
+    correctAnswer: 1,
+    explanation: 'Ethical behavior in EMS requires honesty,',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 254,
+    question: 'What is the purpose of a code of ethics in EMS?',
+    options: [
+      'To create rules for',
+      'To provide a',
+      'To increase',
+      'To reduce the'
+    ],
+    correctAnswer: 1,
+    explanation: 'A code of ethics establishes professional',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 255,
+    question: 'What is stress management important for in EMS?',
+    options: [
+      'Only for personal',
+      'Preventing burnout,',
+      'To avoid work',
+      'To get more vacation'
+    ],
+    correctAnswer: 1,
+    explanation: 'Stress management prevents burnout,',
+    category: 'Legal/Ethical',
+  },
+  {
+    id: 256,
+    question: 'What is the purpose of a post-incident analysis?',
+    options: [
+      'To assign blame for mistakes',
+      'To review the incident response and identify areas for improvement',
+      'To increase workload',
+      'To document patient information only'
+    ],
+    correctAnswer: 1,
+    explanation: 'A post-incident analysis reviews the response to identify what went well and what could be improved, enhancing future performance without assigning blame.',
+    category: 'AMATS',
+  },
+  {
+    id: 257,
+    question: 'What is the purpose of a risk assessment in the',
+    options: [
+      'To create more',
+      'To identify hazards,',
+      'To count the number',
+      'To determine salary'
+    ],
+    correctAnswer: 1,
+    explanation: 'Risk assessment identifies workplace',
+    category: 'OSH',
+  },
+  {
+    id: 258,
+    question: 'What is the hierarchy of controls for managing',
+    options: [
+      'PPE first, then',
+      'Elimination,',
+      'Administrative',
+      'PPE only'
+    ],
+    correctAnswer: 1,
+    explanation: 'The hierarchy prioritizes elimination (most',
+    category: 'OSH',
+  },
+  {
+    id: 259,
+    question: 'What is the purpose of Material Safety Data Sheets',
+    options: [
+      'To list product prices',
+      'To provide',
+      'To advertise products',
+      'To record employee'
+    ],
+    correctAnswer: 1,
+    explanation: 'MSDS/SDS provides critical information',
+    category: 'OSH',
+  },
+  {
+    id: 260,
+    question: 'What is the correct action if an EMS provider',
+    options: [
+      'Ignore it',
+      'Report it immediately',
+      'Wait for the next',
+      'Only report if'
+    ],
+    correctAnswer: 1,
+    explanation: 'Newly identified hazards must be reported',
+    category: 'OSH',
+  }
+];

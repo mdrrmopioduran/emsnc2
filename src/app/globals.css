@@ -1,0 +1,992 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Inter', var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  /* EMS Custom Colors */
+  --color-ems-navy: #1E3A5F;
+  --color-ems-red: #E63946;
+  --color-ems-teal: #2EC4B6;
+  --color-ems-bg: #F8F9FA;
+  --color-ems-surface: #FFFFFF;
+  --color-ems-text: #212529;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #F8F9FA;
+  --foreground: #212529;
+  --card: #FFFFFF;
+  --card-foreground: #212529;
+  --popover: #FFFFFF;
+  --popover-foreground: #212529;
+  --primary: #1E3A5F;
+  --primary-foreground: #FFFFFF;
+  --secondary: #2EC4B6;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F1F3F5;
+  --muted-foreground: #6C757D;
+  --accent: #E63946;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E63946;
+  --border: #DEE2E6;
+  --input: #DEE2E6;
+  --ring: #1E3A5F;
+  --chart-1: #1E3A5F;
+  --chart-2: #2EC4B6;
+  --chart-3: #E63946;
+  --chart-4: #F4A261;
+  --chart-5: #6C757D;
+  --sidebar: #1E3A5F;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #2EC4B6;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(255,255,255,0.1);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255,255,255,0.15);
+  --sidebar-ring: #2EC4B6;
+  --ems-badge-foundation: #2EC4B6;
+  --ems-badge-orientation: #6C757D;
+  --ems-badge-core: #1E3A5F;
+  --ems-badge-legal: #E63946;
+  --ems-badge-operations: #F4A261;
+  --ems-badge-coordination: #845EC2;
+  --ems-badge-clinical: #0081CF;
+  --ems-badge-critical: #E63946;
+  --cat-foundation: #2EC4B6;
+  --cat-orientation: #6C757D;
+  --cat-core: #1E3A5F;
+  --cat-legal: #845EC2;
+  --cat-operations: #F4A261;
+  --cat-coordination: #A78BFA;
+  --cat-clinical: #0081CF;
+  --cat-critical: #E63946;
+}
+
+.dark {
+  --background: #0F1923;
+  --foreground: #E9ECEF;
+  --card: #1A2736;
+  --card-foreground: #E9ECEF;
+  --popover: #1A2736;
+  --popover-foreground: #E9ECEF;
+  --primary: #4A90D9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #2EC4B6;
+  --secondary-foreground: #FFFFFF;
+  --muted: #243447;
+  --muted-foreground: #ADB5BD;
+  --accent: #E63946;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF6B6B;
+  --border: #2D3F50;
+  --input: #2D3F50;
+  --ring: #4A90D9;
+  --chart-1: #4A90D9;
+  --chart-2: #2EC4B6;
+  --chart-3: #FF6B6B;
+  --chart-4: #F4A261;
+  --chart-5: #ADB5BD;
+  --sidebar: #0D1520;
+  --sidebar-foreground: #E9ECEF;
+  --sidebar-primary: #2EC4B6;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(255,255,255,0.08);
+  --sidebar-accent-foreground: #E9ECEF;
+  --sidebar-border: rgba(255,255,255,0.1);
+  --sidebar-ring: #2EC4B6;
+  --ems-badge-foundation: #3DD6C8;
+  --ems-badge-orientation: #ADB5BD;
+  --ems-badge-core: #4A90D9;
+  --ems-badge-legal: #FF6B6B;
+  --ems-badge-operations: #F4A261;
+  --ems-badge-coordination: #A78BFA;
+  --ems-badge-clinical: #3B9FE8;
+  --ems-badge-critical: #FF6B6B;
+  --cat-foundation: #3DD6C8;
+  --cat-orientation: #ADB5BD;
+  --cat-core: #4A90D9;
+  --cat-legal: #A78BFA;
+  --cat-operations: #F4A261;
+  --cat-coordination: #C4B5FD;
+  --cat-clinical: #3B9FE8;
+  --cat-critical: #FF6B6B;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Font size scaling */
+[data-font-size="small"] {
+  font-size: 14px;
+}
+[data-font-size="medium"] {
+  font-size: 16px;
+}
+[data-font-size="large"] {
+  font-size: 18px;
+}
+
+/* High contrast mode */
+.high-contrast {
+  --primary: #000000;
+  --primary-foreground: #FFFFFF;
+  --foreground: #000000;
+  --background: #FFFFFF;
+  --border: #000000;
+  --muted-foreground: #333333;
+}
+.high-contrast.dark {
+  --primary: #FFFFFF;
+  --primary-foreground: #000000;
+  --foreground: #FFFFFF;
+  --background: #000000;
+  --border: #FFFFFF;
+  --muted-foreground: #CCCCCC;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 3px;
+  opacity: 0.5;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* Smooth transitions */
+.sidebar-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-transition {
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Timeline styles */
+.timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--ems-teal), var(--ems-navy));
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  left: 15px;
+  top: 24px;
+  z-index: 1;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--ems-navy);
+}
+
+.timeline-dot.completed {
+  background: var(--ems-teal);
+  box-shadow: 0 0 0 2px var(--ems-teal);
+}
+
+/* Chain of Survival */
+.chain-link {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.chain-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+.chain-link.active {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Quiz styles */
+.quiz-option {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.quiz-option:hover {
+  border-color: var(--primary);
+  background: var(--muted);
+}
+.quiz-option.selected {
+  border-color: var(--primary);
+  background: rgba(30, 58, 95, 0.1);
+}
+.quiz-option.correct {
+  border-color: #22C55E;
+  background: rgba(34, 197, 94, 0.1);
+}
+.quiz-option.incorrect {
+  border-color: var(--ems-red);
+  background: rgba(230, 57, 70, 0.1);
+}
+
+/* Print styles */
+@media print {
+  .no-print { display: none !important; }
+  .sidebar { display: none !important; }
+  .header-bar { display: none !important; }
+  body { background: white !important; }
+  .print-break { page-break-before: always; }
+}
+
+/* Alphabet tabs */
+.alpha-tab {
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.alpha-tab:hover {
+  background: var(--muted);
+}
+.alpha-tab.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Toast animation */
+@keyframes toastIn {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.toast-enter {
+  animation: toastIn 0.3s ease-out;
+}
+
+/* Badge styles */
+.badge-foundation { background: var(--ems-badge-foundation); color: white; }
+.badge-orientation { background: var(--ems-badge-orientation); color: white; }
+.badge-core { background: var(--ems-badge-core); color: white; }
+.badge-legal { background: var(--ems-badge-legal); color: white; }
+.badge-operations { background: var(--ems-badge-operations); color: white; }
+.badge-coordination { background: var(--ems-badge-coordination); color: white; }
+.badge-clinical { background: var(--ems-badge-clinical); color: white; }
+.badge-critical { background: var(--ems-badge-critical); color: white; }
+
+/* Reduced motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* XP gain animation */
+@keyframes xpGain {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-30px) scale(1.3); opacity: 0; }
+}
+
+.xp-gain-pop {
+  animation: xpGain 0.8s ease-out forwards;
+  position: absolute;
+  pointer-events: none;
+  font-weight: bold;
+  color: #F59E0B;
+  z-index: 100;
+}
+
+/* Badge unlock animation */
+@keyframes badgeUnlock {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.badge-unlock {
+  animation: badgeUnlock 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Streak fire animation */
+@keyframes fireGlow {
+  0%, 100% { text-shadow: 0 0 4px rgba(251, 146, 60, 0.5); }
+  50% { text-shadow: 0 0 12px rgba(251, 146, 60, 0.8), 0 0 20px rgba(239, 68, 68, 0.3); }
+}
+
+.streak-fire {
+  animation: fireGlow 2s ease-in-out infinite;
+}
+
+/* Focus ring for keyboard nav */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 8px 16px;
+  z-index: 9999;
+  transition: top 0.2s;
+  font-size: 14px;
+  border-radius: 0 0 8px 0;
+}
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Enhanced card hover */
+.card-hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Focus area pulse animation for suggested topics */
+@keyframes focusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(230, 57, 70, 0); }
+}
+
+.focus-pulse {
+  animation: focusPulse 2s ease-in-out infinite;
+}
+
+/* Level up animation */
+@keyframes levelUp {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.15); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.level-up {
+  animation: levelUp 0.5s ease;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #2EC4B6, #1E3A5F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scrollbar for progress bars */
+.progress-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.progress-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ============================================
+   Modern UI Enhancements (Task 4)
+   ============================================ */
+
+/* 1. Glassmorphism card style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dark .glass-card {
+  background: rgba(26, 39, 54, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 2. Modern card hover with lift and glow */
+.card-modern {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s ease;
+  border: 1px solid var(--border);
+}
+.card-modern:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08),
+              0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.dark .card-modern:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3),
+              0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 3. Active lesson border glow */
+.card-active-glow {
+  box-shadow: 0 0 0 2px var(--primary),
+              0 0 20px rgba(30, 58, 95, 0.15);
+}
+.dark .card-active-glow {
+  box-shadow: 0 0 0 2px var(--primary),
+              0 0 20px rgba(74, 144, 217, 0.2);
+}
+
+/* 4. Subtle gradient backgrounds for sections */
+.section-gradient-foundation { background: linear-gradient(135deg, rgba(46, 196, 182, 0.05), rgba(46, 196, 182, 0.02)); }
+.section-gradient-emergency { background: linear-gradient(135deg, rgba(230, 57, 70, 0.05), rgba(230, 57, 70, 0.02)); }
+.section-gradient-procedures { background: linear-gradient(135deg, rgba(30, 58, 95, 0.05), rgba(30, 58, 95, 0.02)); }
+.section-gradient-legal { background: linear-gradient(135deg, rgba(132, 94, 194, 0.05), rgba(132, 94, 194, 0.02)); }
+.section-gradient-assessment { background: linear-gradient(135deg, rgba(244, 162, 97, 0.05), rgba(244, 162, 97, 0.02)); }
+.section-gradient-review { background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(34, 197, 94, 0.02)); }
+
+/* 5. Progress bar with animated fill */
+.progress-bar-animated {
+  position: relative;
+  overflow: hidden;
+}
+.progress-bar-animated::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: progress-shine 2s ease-in-out infinite;
+}
+@keyframes progress-shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* 6. Sticky continue button */
+.sticky-continue {
+  position: sticky;
+  top: 60px;
+  z-index: 15;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 7. Timeline connector line with gradient animation */
+.timeline-connector {
+  position: relative;
+}
+.timeline-connector::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--ems-teal), var(--primary));
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* 8. Status dot animations */
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(46, 196, 182, 0); }
+}
+.status-dot-active {
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* 9. Quick Review Mode toggle styling */
+.mode-toggle {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px;
+  padding: 3px;
+  background: var(--muted);
+}
+.mode-toggle-option {
+  position: relative;
+  z-index: 1;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+.mode-toggle-option.active {
+  color: white;
+}
+.mode-toggle-slider {
+  position: absolute;
+  top: 3px;
+  height: calc(100% - 6px);
+  border-radius: 9999px;
+  background: var(--primary);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 10. Flashcard flip animation */
+.flashcard {
+  perspective: 1000px;
+  cursor: pointer;
+}
+.flashcard-inner {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+.flashcard-front, .flashcard-back {
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+}
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* 11. Milestone celebration animation */
+@keyframes milestonePop {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.milestone-celebrate {
+  animation: milestonePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 13. Mobile bottom nav styles */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 8px 0;
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .mobile-bottom-nav {
+    display: none;
+  }
+}
+
+/* 13b. Responsive utility enhancements */
+@media (max-width: 640px) {
+  /* Smaller dialog padding on mobile */
+  [role="dialog"] > div {
+    max-width: calc(100vw - 24px) !important;
+    margin: 12px;
+  }
+  /* Better touch scrolling */
+  .custom-scrollbar {
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  main {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  /* Tabs: allow horizontal scroll on mobile */
+  [role="tablist"] {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  [role="tablist"]::-webkit-scrollbar {
+    display: none;
+  }
+  [role="tab"] {
+    flex-shrink: 0;
+  }
+  /* Ensure all grid children don't overflow */
+  .grid {
+    min-width: 0;
+  }
+  /* Ensure cards don't stretch too wide on mobile */
+  .card-modern {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  /* Prevent any child from overflowing its container */
+  .grid > * {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Scrollbar-none utility for tabs */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Category horizontal scroll - visible thin scrollbar */
+.category-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.category-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.category-scroll::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+.category-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* Smooth scroll on mobile for anchor links */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Better text selection on touch */
+  .svg-interactive-region {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Ensure minimum touch targets for interactive elements */
+@media (pointer: coarse) {
+  button:not(.touch-override),
+  a:not(.touch-override),
+  [role="button"]:not(.touch-override) {
+    min-height: 44px;
+  }
+}
+
+/* 14. Knowledge block visual style */
+.knowledge-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+.knowledge-block:hover {
+  border-color: var(--primary);
+  background: rgba(30, 58, 95, 0.04);
+}
+.dark .knowledge-block:hover {
+  background: rgba(74, 144, 217, 0.08);
+}
+
+/* 15. Enhanced sidebar active item glow */
+.sidebar-item-active {
+  position: relative;
+  overflow: hidden;
+}
+.sidebar-item-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--ems-teal);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(46, 196, 182, 0.5);
+}
+
+/* ============================================
+   SVG Diagram Enhancements
+   ============================================ */
+
+/* SVG diagram root styling */
+.svg-diagram-root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Interactive region hover states */
+.svg-interactive-region {
+  transition: opacity 0.25s ease;
+}
+.svg-interactive-region:hover {
+  opacity: 1;
+}
+
+/* Region rectangle animation */
+.svg-region-rect {
+  transition: fill 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke-width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              rx 0.25s ease;
+}
+
+/* SVG text rendering */
+.svg-diagram-root text {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* SVG diagram container subtle background pattern */
+.svg-diagram-container {
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Diagram zoom transition */
+.svg-zoom-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Info panel animation for diagram */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.diagram-info-enter {
+  animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Region list item hover pulse */
+@keyframes regionPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.15); }
+  50% { box-shadow: 0 0 0 3px rgba(46, 196, 182, 0); }
+}
+
+.region-item-active {
+  animation: regionPulse 2s ease-in-out infinite;
+}
+
+/* Infographic card accent shimmer */
+@keyframes accentShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.infographic-accent-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: accentShimmer 3s ease-in-out infinite;
+}
+
+/* Dark mode SVG adjustments */
+.dark .svg-diagram-root {
+  filter: brightness(0.95);
+}
+
+/* SVG diagram print styles */
+@media print {
+  .svg-diagram-root {
+    filter: none !important;
+  }
+  .svg-interactive-region {
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================
+   Role-Playing Simulation Styles
+   ============================================ */
+
+/* Dialogue line entrance animation */
+@keyframes dialogueSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dialogue-line-enter {
+  animation: dialogueSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Critical action glow pulse */
+@keyframes criticalGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 0 8px 2px rgba(245, 158, 11, 0.15); }
+}
+
+.critical-action-glow {
+  animation: criticalGlow 2s ease-in-out infinite;
+}
+
+/* Scenario card colored top border */
+.scenario-card-border {
+  position: relative;
+  overflow: hidden;
+}
+.scenario-card-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--scenario-color, #1E3A5F);
+}
+
+/* Simulation status bar gradient */
+.sim-status-bar {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+}
+.dark .sim-status-bar {
+  background: linear-gradient(135deg, #030712 0%, #111827 100%);
+}
+
+/* Patient status indicators */
+.status-critical {
+  color: #EF4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.status-stable {
+  color: #EAB308;
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+.status-improving {
+  color: #22C55E;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+/* Assessment mode pulse */
+@keyframes assessPulse {
+  0%, 100% { border-color: rgba(245, 158, 11, 0.3); }
+  50% { border-color: rgba(245, 158, 11, 0.7); }
+}
+
+.assess-mode-active {
+  animation: assessPulse 2s ease-in-out infinite;
+  border-width: 2px;
+}
+
+/* Phase progress dots */
+.phase-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.phase-dot.completed {
+  background: #22C55E;
+}
+.phase-dot.active {
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.2);
+}
+.phase-dot.pending {
+  background: var(--muted-foreground);
+  opacity: 0.3;
+}
+
+/* Vital signs table */
+.vitals-table th {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.vitals-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Roleplay print styles */
+@media print {
+  .sim-status-bar { display: none !important; }
+  .dialogue-line-enter { animation: none !important; }
+  .critical-action-glow { animation: none !important; }
+}
