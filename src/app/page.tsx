@@ -96,7 +96,7 @@ export default function HomePage() {
       <Sidebar />
 
       {/* Main area */}
-      <div className="flex-1 md:ml-[240px] lg:ml-[260px] flex flex-col h-screen overflow-hidden">
+      <div className="flex-1 md:ml-[270px] flex flex-col h-screen overflow-hidden min-w-0">
         {/* Header — always visible at top */}
         <Header />
 
