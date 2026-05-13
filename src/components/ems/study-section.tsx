@@ -26,6 +26,7 @@ import { CompetenciesSection } from '@/components/ems/competencies-section'
 import { AIAssistantSection } from '@/components/ems/ai-assistant'
 import { FlashcardSection } from '@/components/ems/flashcard-section'
 import { NotesSection } from '@/components/ems/notes-section'
+import { SmartReviewSection } from '@/components/ems/smart-review-section'
 import { useTranslation } from '@/hooks/use-translation'
 import { InlineSpeakerButton } from '@/components/ems/tts-button'
 
@@ -1133,6 +1134,7 @@ export function StudySection() {
           <TabsTrigger value="acronyms" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal"><BookText className="w-3.5 h-3.5" />{t('sub.acronyms')}</TabsTrigger>
           <TabsTrigger value="definitions" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><Type className="w-3.5 h-3.5" />{t('sub.definitions')}</TabsTrigger>
           <TabsTrigger value="drugs" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Pill className="w-3.5 h-3.5" />{t('sub.drugs')}</TabsTrigger>
+          <TabsTrigger value="smart-review" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><Brain className="w-3.5 h-3.5" />{t('sub.smart-review')}</TabsTrigger>
           <TabsTrigger value="flashcards" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><CreditCard className="w-3.5 h-3.5" />{t('sub.flashcards')}</TabsTrigger>
           <TabsTrigger value="notes" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><StickyNote className="w-3.5 h-3.5" />{t('sub.notes')}</TabsTrigger>
           <TabsTrigger value="ai-assistant" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><Sparkles className="w-3.5 h-3.5" />{t('sub.ai-assistant')}</TabsTrigger>
@@ -1148,6 +1150,9 @@ export function StudySection() {
         </TabsContent>
         <TabsContent value="drugs">
           <DrugReferencePanel />
+        </TabsContent>
+        <TabsContent value="smart-review">
+          <SmartReviewSection />
         </TabsContent>
         <TabsContent value="flashcards">
           <FlashcardSection />

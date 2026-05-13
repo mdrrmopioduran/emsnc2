@@ -318,6 +318,55 @@ function KeyboardShortcutsPanel({ expanded, onToggle }: { expanded: boolean; onT
   )
 }
 
+/** Reusable collapsible settings group wrapper */
+function SettingsGroup({
+  icon,
+  title,
+  iconBg,
+  defaultExpanded = true,
+  children,
+}: {
+  icon: React.ReactNode
+  title: string
+  iconBg?: string
+  defaultExpanded?: boolean
+  children: React.ReactNode
+}) {
+  const [expanded, setExpanded] = React.useState(defaultExpanded)
+  return (
+    <div className="settings-group">
+      <button
+        className="settings-group-header"
+        onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
+      >
+        <div className="flex items-center gap-3">
+          <div className={cn('settings-group-icon', iconBg || 'bg-primary/10 text-primary')}>
+            {icon}
+          </div>
+          <span className="settings-group-title">{title}</span>
+        </div>
+        <ChevronDown
+          className={cn(
+            'settings-group-chevron',
+            expanded && 'expanded'
+          )}
+        />
+      </button>
+      <div
+        className={cn(
+          'settings-group-content',
+          expanded && 'expanded'
+        )}
+      >
+        <div className="settings-group-inner">
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function SettingsSection() {
   const { settings, updateSettings, progress, resetProgress, setLearningMode, setDailyGoalMinutes, importProgress, importSettings } = useAppStore()
   const [shortcutsExpanded, setShortcutsExpanded] = React.useState(true)
@@ -575,14 +624,14 @@ export function SettingsSection() {
       {/* Focus Timer */}
       <FocusTimerSection />
 
-      {/* Learning Mode & Daily Goal */}
-      <Card className="card-modern">
-        <CardHeader>
-          <CardTitle className="text-sm flex items-center gap-2">
-            <GraduationCap className="w-4 h-4" /> {t('settings.learningPreferences')}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
+      {/* Personal — Learning Preferences */}
+      <SettingsGroup
+        icon={<GraduationCap className="w-4 h-4" />}
+        title={t('settings.learningPreferences')}
+        iconBg="bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400"
+      >
+        {/* Learning Mode & Daily Goal */}
+        <div className="space-y-5">
           {/* Learning Mode Toggle */}
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -661,14 +710,13 @@ export function SettingsSection() {
         </CardContent>
       </Card>
 
-      {/* Appearance */}
-      <Card className="card-modern">
-        <CardHeader>
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Palette className="w-4 h-4" /> {t('settings.appearance')}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
+      {/* Preferences — Appearance */}
+      <SettingsGroup
+        icon={<Palette className="w-4 h-4" />}
+        title={t('settings.appearance')}
+        iconBg="bg-purple-50 dark:bg-purple-950/30 text-purple-600 dark:text-purple-400"
+      >
+        <div className="space-y-5">
           {/* Theme Toggle */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -743,17 +791,16 @@ export function SettingsSection() {
               ))}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SettingsGroup>
 
-      {/* Progress & Data */}
-      <Card className="card-modern">
-        <CardHeader>
-          <CardTitle className="text-sm flex items-center gap-2">
-            <BarChart3 className="w-4 h-4" /> {t('settings.progressAndData')}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      {/* Data — Progress & Data */}
+      <SettingsGroup
+        icon={<BarChart3 className="w-4 h-4" />}
+        title={t('settings.progressAndData')}
+        iconBg="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400"
+      >
+        <div className="space-y-4">
           {/* Summary stats - enhanced with gradient backgrounds */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             <div className="p-3 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 text-center border border-primary/10">
@@ -857,17 +904,17 @@ export function SettingsSection() {
               </AlertDialogContent>
             </AlertDialog>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </SettingsGroup>
 
-      {/* Accessibility */}
-      <Card className="card-modern">
-        <CardHeader>
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Eye className="w-4 h-4" /> {t('settings.accessibility')}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+      {/* Personal — Accessibility */}
+      <SettingsGroup
+        icon={<Eye className="w-4 h-4" />}
+        title={t('settings.accessibility')}
+        iconBg="bg-cyan-50 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-400"
+        defaultExpanded={false}
+      >
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Eye className="w-4 h-4" />

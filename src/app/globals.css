@@ -3609,3 +3609,830 @@
     display: none;
   }
 }
+
+/* ============================================
+   Round 6: Major Styling Enhancements (§39-§46)
+   ============================================ */
+
+/* ── 39. Hero Welcome Dashboard ── */
+
+/* Animated gradient background for hero card */
+.hero-gradient {
+  background: linear-gradient(-45deg, #1E3A5F, #2EC4B6, #4A90D9, #1E3A5F);
+  background-size: 300% 300%;
+  animation: heroGradientShift 8s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+.dark .hero-gradient {
+  background: linear-gradient(-45deg, #0D1520, #1A3A5A, #2EC4B6, #0D1520);
+  background-size: 300% 300%;
+  animation: heroGradientShift 8s ease infinite;
+}
+@keyframes heroGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero inner content */
+.hero-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(46,196,182,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Hero quick stats pills */
+.hero-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.dark .hero-stat-pill {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Motivational quote in hero */
+.hero-quote {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: opacity 0.5s ease;
+}
+.dark .hero-quote {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Hero CTA button */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1E3A5F;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  background: #FFFFFF;
+}
+
+/* ── 40. Enhanced Topic Cards ── */
+
+/* Colored left border strip based on difficulty */
+.topic-card-border-beginner {
+  border-left: 4px solid #2EC4B6 !important;
+}
+.topic-card-border-intermediate {
+  border-left: 4px solid #F59E0B !important;
+}
+.topic-card-border-advanced {
+  border-left: 4px solid #EF4444 !important;
+}
+
+/* Topic card hover lift effect */
+.topic-card-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.topic-card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1),
+              0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.dark .topic-card-lift:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Estimated time pill badge */
+.topic-time-pill {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* Completion ribbon overlay */
+.topic-card-ribbon {
+  position: relative;
+  overflow: hidden;
+}
+.topic-card-ribbon::after {
+  content: '✓ Complete';
+  position: absolute;
+  top: 14px;
+  right: -28px;
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  color: white;
+  padding: 2px 32px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: rotate(45deg);
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(34, 197, 94, 0.3);
+}
+
+/* Staggered entrance animation for topic cards */
+@keyframes topicCardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.topic-card-stagger {
+  opacity: 0;
+  animation: topicCardEntrance 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ── 41. Enhanced Progress Section ── */
+
+/* Pulsing ring animation around progress circle */
+@keyframes progressRingPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(46, 196, 182, 0);
+  }
+}
+.progress-ring-pulse {
+  animation: progressRingPulse 2s ease-in-out infinite;
+}
+.dark .progress-ring-pulse {
+  animation: progressRingPulse 2s ease-in-out infinite;
+}
+
+/* Mini module progress bar */
+.module-progress-mini {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--muted);
+  overflow: hidden;
+  position: relative;
+}
+.module-progress-mini-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #2EC4B6, #1E3A5F);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Start first module CTA */
+.progress-start-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2EC4B6, #1E3A5F);
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(46, 196, 182, 0.25);
+}
+.progress-start-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(46, 196, 182, 0.35);
+}
+
+/* ── 42. Settings Section Groups ── */
+
+/* Collapsible settings group card */
+.settings-group {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+.settings-group:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+.dark .settings-group:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Settings group header */
+.settings-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--card);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+.settings-group-header:hover {
+  background: var(--muted);
+}
+
+/* Settings group icon */
+.settings-group-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Settings group title */
+.settings-group-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Settings group chevron */
+.settings-group-chevron {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--muted-foreground);
+}
+.settings-group-chevron.expanded {
+  transform: rotate(180deg);
+}
+
+/* Settings group content wrapper (accordion) */
+.settings-group-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease;
+  opacity: 0;
+}
+.settings-group-content.expanded {
+  max-height: 2000px;
+  opacity: 1;
+}
+
+/* Settings group inner padding */
+.settings-group-inner {
+  padding: 0 18px 16px 18px;
+}
+
+/* ── 43. Enhanced Empty States ── */
+
+/* Rich empty state container */
+.empty-state-rich {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  border-radius: 16px;
+  background: var(--muted);
+  border: 1px dashed var(--border);
+  min-height: 200px;
+}
+.dark .empty-state-rich {
+  background: rgba(36, 52, 71, 0.4);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Empty state large icon */
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(30, 58, 95, 0.08), rgba(46, 196, 182, 0.08));
+  margin-bottom: 16px;
+  font-size: 28px;
+}
+.dark .empty-state-icon {
+  background: linear-gradient(135deg, rgba(74, 144, 217, 0.12), rgba(46, 196, 182, 0.12));
+}
+
+/* Empty state title */
+.empty-state-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 6px;
+}
+
+/* Empty state description */
+.empty-state-desc {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+/* Empty state CTA button */
+.empty-state-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.15);
+}
+.empty-state-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(30, 58, 95, 0.25);
+}
+
+/* ── 44. Tab Content Transitions ── */
+
+/* Section enter animation for tab content */
+@keyframes sectionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.section-enter {
+  animation: sectionEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Tab shimmer effect when content switches */
+@keyframes tabShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.tab-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.tab-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: tabShimmer 0.6s ease-out forwards;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+.dark .tab-shimmer::after {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* ── 45. Responsive Typography Scale ── */
+
+:root {
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+}
+@media (max-width: 640px) {
+  :root {
+    --text-xs: 11px;
+    --text-sm: 13px;
+    --text-base: 15px;
+    --text-lg: 17px;
+    --text-xl: 19px;
+  }
+}
+.text-responsive-xs { font-size: var(--text-xs); }
+.text-responsive-sm { font-size: var(--text-sm); }
+.text-responsive-base { font-size: var(--text-base); }
+.text-responsive-lg { font-size: var(--text-lg); }
+.text-responsive-xl { font-size: var(--text-xl); }
+
+/* ── 46. EKG Pattern Background ── */
+
+/* Decorative medical cross / heartbeat EKG pattern */
+.ekg-pattern-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='60' viewBox='0 0 120 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='0,30 10,30 15,30 20,15 25,45 30,30 35,30 40,30 45,30 50,30 55,30 60,30 65,20 70,40 75,30 80,30 85,30 90,30 95,30 100,30 105,30 110,30 115,30 120,30' fill='none' stroke='%231E3A5F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.4'/%3E%3Ccircle cx='15' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3Ccircle cx='45' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3Ccircle cx='75' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3Ccircle cx='105' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 60px;
+}
+.dark .ekg-pattern-bg {
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='60' viewBox='0 0 120 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='0,30 10,30 15,30 20,15 25,45 30,30 35,30 40,30 45,30 50,30 55,30 60,30 65,20 70,40 75,30 80,30 85,30 90,30 95,30 100,30 105,30 110,30 115,30 120,30' fill='none' stroke='%234A90D9' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.4'/%3E%3Ccircle cx='15' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3Ccircle cx='45' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3Ccircle cx='75' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3Ccircle cx='105' cy='30' r='2' fill='%232EC4B6' opacity='0.5'/%3E%3C/svg%3E");
+}
+/* Hide on mobile */
+@media (max-width: 1023px) {
+  .ekg-pattern-bg {
+    display: none;
+  }
+}
+
+/* ============================================
+   Retry R6: Additional Styling Improvements (§47-§51)
+   ============================================ */
+
+/* ── 47. Enhanced Topic Card Difficulty Classes ── */
+
+/* Beginner: teal left border + teal badge tint */
+.topic-card-beginner {
+  border-left: 4px solid #2EC4B6 !important;
+  background: linear-gradient(135deg, rgba(46, 196, 182, 0.03), transparent) !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease;
+}
+.topic-card-beginner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 196, 182, 0.12),
+              0 2px 8px rgba(46, 196, 182, 0.06);
+}
+.dark .topic-card-beginner {
+  background: linear-gradient(135deg, rgba(46, 196, 182, 0.06), transparent) !important;
+}
+.dark .topic-card-beginner:hover {
+  box-shadow: 0 8px 24px rgba(46, 196, 182, 0.15),
+              0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Intermediate: amber left border + amber badge tint */
+.topic-card-intermediate {
+  border-left: 4px solid #F59E0B !important;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.03), transparent) !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease;
+}
+.topic-card-intermediate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12),
+              0 2px 8px rgba(245, 158, 11, 0.06);
+}
+.dark .topic-card-intermediate {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), transparent) !important;
+}
+.dark .topic-card-intermediate:hover {
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.15),
+              0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Advanced: red left border + red badge tint */
+.topic-card-advanced {
+  border-left: 4px solid #EF4444 !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.03), transparent) !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease;
+}
+.topic-card-advanced:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.12),
+              0 2px 8px rgba(239, 68, 68, 0.06);
+}
+.dark .topic-card-advanced {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), transparent) !important;
+}
+.dark .topic-card-advanced:hover {
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.15),
+              0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Complete: green checkmark overlay at 100% done */
+.topic-card-complete {
+  position: relative;
+  overflow: hidden;
+}
+.topic-card-complete::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 48px 48px 0;
+  border-color: transparent #22C55E transparent transparent;
+  z-index: 5;
+}
+.topic-card-complete::after {
+  content: '✓';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+  z-index: 6;
+}
+
+/* Staggered entrance animation for topic cards */
+.topic-card-enter {
+  opacity: 0;
+  animation: topicCardStaggerEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.topic-card-enter:nth-child(1)  { animation-delay: 0ms; }
+.topic-card-enter:nth-child(2)  { animation-delay: 60ms; }
+.topic-card-enter:nth-child(3)  { animation-delay: 120ms; }
+.topic-card-enter:nth-child(4)  { animation-delay: 180ms; }
+.topic-card-enter:nth-child(5)  { animation-delay: 240ms; }
+.topic-card-enter:nth-child(6)  { animation-delay: 300ms; }
+.topic-card-enter:nth-child(7)  { animation-delay: 360ms; }
+.topic-card-enter:nth-child(8)  { animation-delay: 420ms; }
+.topic-card-enter:nth-child(9)  { animation-delay: 480ms; }
+.topic-card-enter:nth-child(10) { animation-delay: 540ms; }
+@keyframes topicCardStaggerEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── 48. Enhanced Progress Ring Pulse (Border Variant) ── */
+
+/* Pulsing ring with border pseudo-element */
+.progress-ring-pulse-border {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-ring-pulse-border::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--ems-teal);
+  animation: ringPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+.dark .progress-ring-pulse-border::after {
+  border-color: var(--ems-teal);
+  opacity: 0.7;
+}
+@keyframes ringPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+
+/* ── 49. Enhanced Empty State CTA with Floating Icon ── */
+
+/* Larger icon variant for empty-state-cta */
+.empty-state-cta-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(30, 58, 95, 0.08), rgba(46, 196, 182, 0.12));
+  margin-bottom: 20px;
+  font-size: 36px;
+  animation: emptyStateFloat 3s ease-in-out infinite;
+}
+.dark .empty-state-cta-icon {
+  background: linear-gradient(135deg, rgba(74, 144, 217, 0.12), rgba(46, 196, 182, 0.15));
+}
+@keyframes emptyStateFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Enhanced CTA button for empty states */
+.empty-state-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2EC4B6, #1E3A5F);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(46, 196, 182, 0.25);
+  cursor: pointer;
+  border: none;
+}
+.empty-state-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 196, 182, 0.35);
+  opacity: 0.95;
+}
+.empty-state-cta-btn:active {
+  transform: translateY(0);
+}
+
+/* ── 50. App Typography Custom Properties ── */
+
+:root {
+  --app-text-xs: 0.75rem;
+  --app-text-sm: 0.875rem;
+  --app-text-base: 1rem;
+  --app-text-lg: 1.125rem;
+}
+@media (max-width: 640px) {
+  :root {
+    --app-text-xs: 0.6875rem;
+    --app-text-sm: 0.8125rem;
+    --app-text-base: 0.9375rem;
+    --app-text-lg: 1.0625rem;
+  }
+}
+.text-app-xs   { font-size: var(--app-text-xs); }
+.text-app-sm   { font-size: var(--app-text-sm); }
+.text-app-base { font-size: var(--app-text-base); }
+.text-app-lg   { font-size: var(--app-text-lg); }
+
+/* ── 51. Tab Content Transition Shimmer (300ms) ── */
+
+@keyframes tabContentShimmer {
+  0% {
+    background-position: -200% 0;
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+}
+.tab-content-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.tab-content-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--ems-teal) 30%,
+    var(--primary) 50%,
+    var(--ems-teal) 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: tabContentShimmer 0.3s ease-out forwards;
+  z-index: 2;
+  border-radius: 0 0 2px 2px;
+}
+.dark .tab-content-shimmer::before {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(46, 196, 182, 0.6) 30%,
+    rgba(74, 144, 217, 0.8) 50%,
+    rgba(46, 196, 182, 0.6) 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* ── Reduced Motion: Round 6 + Retry R6 animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient {
+    animation: none;
+  }
+  .hero-gradient::before {
+    display: none;
+  }
+  .topic-card-lift:hover {
+    transform: none;
+  }
+  .topic-card-stagger {
+    animation: none;
+    opacity: 1;
+  }
+  .topic-card-ribbon::after {
+    display: none;
+  }
+  .progress-ring-pulse {
+    animation: none;
+  }
+  .settings-group-content {
+    transition: none;
+  }
+  .section-enter {
+    animation: none;
+    opacity: 1;
+  }
+  .tab-shimmer::after {
+    animation: none;
+    display: none;
+  }
+  .ekg-pattern-bg {
+    display: none;
+  }
+  /* Retry R6 additions */
+  .topic-card-beginner:hover,
+  .topic-card-intermediate:hover,
+  .topic-card-advanced:hover {
+    transform: none;
+  }
+  .topic-card-enter {
+    animation: none;
+    opacity: 1;
+  }
+  .topic-card-complete::before,
+  .topic-card-complete::after {
+    display: block;
+    /* Keep the checkmark but no animation */
+  }
+  .progress-ring-pulse-border::after {
+    animation: none;
+    opacity: 0.3;
+  }
+  .empty-state-cta-icon {
+    animation: none;
+  }
+  .tab-content-shimmer::before {
+    animation: none;
+    display: none;
+  }
+}

@@ -1,13 +1,14 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useAppStore } from '@/store/app-store'
 import { useTranslation } from '@/hooks/use-translation'
 import { roadmapTopics } from '@/data/roadmap'
 import {
   CheckCircle2, ChevronDown, ChevronUp, Clock, BookOpen, Sparkles,
   Star, Zap, Flame, Award, Lock, Play, Eye, Bookmark, BookmarkCheck,
-  ArrowRight, ArrowLeft, Target, AlertTriangle, Lightbulb, RotateCcw
+  ArrowRight, ArrowLeft, Target, AlertTriangle, Lightbulb, RotateCcw,
+  GraduationCap, TrendingUp, Heart
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -94,6 +95,80 @@ function MiniProgressBar({ completed, total }: { completed: number; total: numbe
         />
       </div>
       <span className="text-[10px] text-muted-foreground font-medium">{pct}%</span>
+    </div>
+  )
+}
+
+// Motivational quotes for hero dashboard
+const MOTIVATIONAL_QUOTES = [
+  "Every expert was once a beginner. Keep going!",
+  "The best time to start was yesterday. The next best time is now.",
+  "Success is the sum of small efforts, repeated day in and day out.",
+  "First responders save lives. Your journey starts here.",
+  "Knowledge is the best weapon in an emergency.",
+  "Stay calm, stay trained, stay ready.",
+  "One life saved is worth a thousand lessons learned.",
+  "Practice makes permanent. Study every day!",
+  "Your future patients will thank you for studying today.",
+  "EMS: Every Minute Counts, Every Skill Matters.",
+]
+
+// Hero Welcome Dashboard
+function HeroWelcomeDashboard({ progress, t }: { progress: ReturnType<typeof useAppStore.getState>['progress']; t: ReturnType<typeof useTranslation>['t'] }) {
+  const [quoteIndex, setQuoteIndex] = useState(0)
+  const completedCount = progress.readTopics.length
+  const hasActivity = completedCount > 0 || progress.quizScores.length > 0 || progress.streak > 0
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuoteIndex(prev => (prev + 1) % MOTIVATIONAL_QUOTES.length)
+    }, 10000)
+    return () => clearInterval(timer)
+  }, [])
+
+  // Time of day greeting
+  const hour = new Date().getHours()
+  const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening'
+
+  return (
+    <div className="hero-gradient rounded-2xl p-5 md:p-6 text-white relative overflow-hidden">
+      <div className="relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
+          <div>
+            <h2 className="text-lg md:text-xl font-bold text-white drop-shadow-sm">{greeting}! 👋</h2>
+            <p className="text-white/70 text-sm mt-0.5">EMS NCII Reviewer</p>
+          </div>
+          {hasActivity ? (
+            <div className="flex flex-wrap gap-2">
+              <span className="hero-stat-pill">🔥 {progress.streak}-day streak</span>
+              <span className="hero-stat-pill">📚 {completedCount} topics read</span>
+              <span className="hero-stat-pill">⚡ {progress.xp} XP</span>
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              <span className="hero-stat-pill">🚀 Ready to start</span>
+            </div>
+          )}
+        </div>
+        {hasActivity ? (
+          <div className="mt-3">
+            <p className="hero-quote">💡 {MOTIVATIONAL_QUOTES[quoteIndex]}</p>
+          </div>
+        ) : (
+          <div className="mt-4 flex flex-col sm:flex-row items-center gap-3">
+            <p className="text-white/80 text-sm flex-1">Start your EMS journey today! Begin with the first module to earn XP and build your streak.</p>
+            <button
+              className="hero-cta"
+              onClick={() => {
+                const firstTopic = roadmapTopics[0]
+                if (firstTopic) useAppStore.getState().setActiveSubSection(firstTopic.id)
+              }}
+            >
+              <GraduationCap className="w-4 h-4" /> Start First Module
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -265,6 +340,11 @@ export function RoadmapSection() {
 
   return (
     <div className="content-transition space-y-6 overflow-x-hidden w-full max-w-full">
+      {/* Hero Welcome Dashboard */}
+      {!isQuickReview && (
+        <HeroWelcomeDashboard progress={progress} t={t} />
+      )}
+
       {/* Mode Toggle */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div className="mode-toggle">
@@ -352,6 +432,31 @@ export function RoadmapSection() {
           </div>
           <Progress value={progressPercent} className="h-3 progress-bar-animated [&>div]:bg-gradient-to-r [&>div]:from-ems-teal [&>div]:to-ems-teal/70 [&>div]:transition-all [&>div]:duration-700" />
 
+          {/* Mini module progress bar */}
+          <div className="mt-4 mb-4">
+            <div className="module-progress-mini">
+              <div className="module-progress-mini-fill" style={{ width: `${progressPercent}%` }} />
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-1.5 font-medium">
+              {completedCount} of {totalTopics} modules completed
+            </p>
+          </div>
+
+          {/* Start First Module CTA */}
+          {completedCount === 0 && (
+            <div className="mt-3">
+              <button
+                className="progress-start-cta w-full"
+                onClick={() => {
+                  const firstTopic = roadmapTopics[0]
+                  if (firstTopic) handleStartLesson(firstTopic.id)
+                }}
+              >
+                <Play className="w-4 h-4" /> Start First Module
+              </button>
+            </div>
+          )}
+
           {/* Stats Row */}
           <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4">
             <div className="p-1.5 sm:p-2.5 rounded-lg bg-amber-50/50 dark:bg-amber-950/20 text-center">
@@ -427,10 +532,16 @@ export function RoadmapSection() {
               const sectionsCompleted = moduleProgress?.sectionsCompleted.length || 0
               const totalSections = topic.sections.length
               const isBookmarked = progress.bookmarks.includes(topic.id)
+              const difficultyClass = topic.difficulty === 'advanced' ? 'topic-card-advanced' : topic.difficulty === 'intermediate' ? 'topic-card-intermediate' : 'topic-card-beginner'
+              const isComplete = totalSections > 0 && sectionsCompleted >= totalSections
 
               return (
-                <TopicCard
+                <div
                   key={topic.id}
+                  className="topic-card-enter topic-card-stagger relative"
+                  style={{ animationDelay: `${index * 60}ms` }}
+                >
+                <TopicCard
                   topic={topic}
                   isCompleted={isCompleted}
                   isExpanded={isExpanded}
@@ -523,7 +634,9 @@ function TopicCard({ topic, isCompleted, isExpanded, isSuggested, isBookmarked, 
       {/* Card - Modern Redesign */}
       <Card
         className={cn(
-          'card-modern card-shine card-tilt cursor-pointer group overflow-hidden',
+          'card-modern card-shine card-tilt cursor-pointer group overflow-hidden topic-card-lift',
+          difficultyClass,
+          isComplete && 'topic-card-complete',
           isCompleted && 'border-ems-teal/20 bg-gradient-to-br from-ems-teal/5 to-transparent',
           isExpanded && 'card-active-glow',
           isSuggested && !isCompleted && 'border-ems-red/20',

@@ -21,6 +21,7 @@ import {
 import { cn } from '@/lib/utils'
 import { roadmapTopics } from '@/data/roadmap'
 import { StudyStreakCalendar } from '@/components/ems/study-streak-calendar'
+import { StudyCharts } from '@/components/ems/study-charts'
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -579,6 +580,9 @@ export function StudyStatsSection() {
           />
         </CardContent>
       </Card>
+
+      {/* ── Data Visualization Charts ─────────────────────────────────── */}
+      <StudyCharts />
 
       {/* ── Study Streak Calendar ──────────────────────────────────────── */}
       <StudyStreakCalendar />
