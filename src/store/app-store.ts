@@ -19,6 +19,16 @@ export interface LearningGoal {
   completed: boolean
 }
 
+export interface Note {
+  id: string
+  title: string
+  content: string
+  category: 'General' | 'Clinical' | 'Assessment' | 'Operations' | 'Legal' | 'Personal'
+  color: 'red' | 'amber' | 'teal' | 'navy' | 'purple'
+  createdAt: string
+  updatedAt: string
+}
+
 export interface ProgressData {
   readTopics: string[]
   quizScores: { date: string; score: number; total: number; category: string }[]
@@ -46,6 +56,11 @@ export interface ProgressData {
   focusSessionsToday: number
   focusMinutesToday: number
   lastFocusDate: string
+  // Daily challenge
+  dailyChallengeCompleted: string // today's date as ISO string when completed
+  dailyChallengeStreak: number
+  // Notes
+  notes: Note[]
 }
 
 export interface AISettings {
@@ -111,6 +126,10 @@ interface AppState {
   addMilestone: (milestone: string) => void
   toggleFavoriteAcronym: (acronym: string) => void
   addFocusSession: (minutes: number) => void
+  completeDailyChallenge: () => void
+  addNote: (note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) => void
+  updateNote: (id: string, updates: Partial<Pick<Note, 'title' | 'content' | 'category' | 'color'>>) => void
+  deleteNote: (id: string) => void
 
   // Settings
   settings: AppSettings
@@ -143,6 +162,9 @@ const defaultProgress: ProgressData = {
   focusSessionsToday: 0,
   focusMinutesToday: 0,
   lastFocusDate: '',
+  dailyChallengeCompleted: '',
+  dailyChallengeStreak: 0,
+  notes: [],
 }
 
 const defaultAISettings: AISettings = {
@@ -598,6 +620,66 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ progress: updated })
   },
 
+  completeDailyChallenge: () => {
+    const p = get().progress
+    const today = new Date().toISOString().split('T')[0]
+    if (p.dailyChallengeCompleted === today) return
+
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+    const newStreak = p.dailyChallengeCompleted === yesterday ? (p.dailyChallengeStreak || 0) + 1 : 1
+    const xpGain = 50
+    const newXp = p.xp + xpGain
+    const todayISO = new Date().toISOString()
+
+    const updated = {
+      ...p,
+      dailyChallengeCompleted: todayISO,
+      dailyChallengeStreak: newStreak,
+      xp: newXp,
+      level: getLevelFromXp(newXp),
+      streak: newStreak > p.streak ? newStreak : p.streak,
+      lastStudyDate: today,
+    }
+
+    const { newBadges, newMilestones } = checkAndUnlockBadges(updated)
+    if (newBadges.length > 0) updated.badges = [...updated.badges, ...newBadges]
+    if (newMilestones.length > 0) updated.milestones = [...updated.milestones, ...newMilestones]
+
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
+  addNote: (note) => {
+    const p = get().progress
+    if (p.notes.length >= 50) return
+    const newNote: Note = {
+      ...note,
+      id: Date.now().toString() + Math.random().toString(36).slice(2, 7),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
+    const updated = { ...p, notes: [newNote, ...p.notes] }
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
+  updateNote: (id, updates) => {
+    const p = get().progress
+    const updated = {
+      ...p,
+      notes: p.notes.map(n => n.id === id ? { ...n, ...updates, updatedAt: new Date().toISOString() } : n),
+    }
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
+  deleteNote: (id) => {
+    const p = get().progress
+    const updated = { ...p, notes: p.notes.filter(n => n.id !== id) }
+    saveToStorage('ems-progress', updated)
+    set({ progress: updated })
+  },
+
   settings: defaultSettings,
   updateSettings: (partial) => {
     const updated = { ...get().settings, ...partial }
@@ -647,6 +729,9 @@ if (typeof window !== 'undefined') {
     focusSessionsToday: storedProgress.focusSessionsToday || 0,
     focusMinutesToday: storedProgress.focusMinutesToday || 0,
     lastFocusDate: storedProgress.lastFocusDate || '',
+    dailyChallengeCompleted: storedProgress.dailyChallengeCompleted || '',
+    dailyChallengeStreak: storedProgress.dailyChallengeStreak || 0,
+    notes: storedProgress.notes || [],
   }
 
   const migratedSettings: AppSettings = {

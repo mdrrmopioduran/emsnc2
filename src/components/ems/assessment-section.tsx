@@ -11,7 +11,8 @@ import {
   Timer, ClipboardCheck, AlertOctagon, FileText, Flag,
   Shield, Heart, Stethoscope, Scale, Activity, Users,
   Pill, BookOpen, Sparkles, Target, Zap, Eye,
-  MessageSquare, X, GraduationCap, Siren, ClipboardList
+  MessageSquare, X, GraduationCap, Siren, ClipboardList,
+  CalendarDays
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -24,6 +25,7 @@ import { useToast } from '@/hooks/use-toast'
 import { RoleplaySection } from '@/components/ems/roleplay-section'
 import { EmergencySimulation } from '@/components/ems/emergency-simulation'
 import { SpeakerButton } from '@/components/ems/tts-button'
+import { DailyChallengeSection } from '@/components/ems/daily-challenge-section'
 
 // ==================== CATEGORY ICONS MAP ====================
 const categoryIcons: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
@@ -181,7 +183,7 @@ export function QuizEngine() {
   // Setup screen
   if (!mode) {
     return (
-      <div className="content-transition space-y-6 overflow-x-hidden w-full max-w-full">
+      <div className="quiz-state-enter space-y-6 overflow-x-hidden w-full max-w-full">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">PIO DURAN EMS NCII Self-Assessment Quiz</CardTitle>
@@ -350,20 +352,27 @@ export function QuizEngine() {
     const scorePercent = Math.round((correct / quizQuestions.length) * 100)
 
     return (
-      <div className="content-transition space-y-6 overflow-x-hidden w-full max-w-full">
+      <div className="quiz-state-enter space-y-6 overflow-x-hidden w-full max-w-full">
         <Card className="text-center">
           <CardContent className="p-6 sm:p-8">
-            <Trophy className={cn('w-16 h-16 mx-auto mb-4', scorePercent >= 70 ? 'text-yellow-500' : 'text-muted-foreground')} />
-            <h2 className="text-2xl font-bold mb-2">Quiz Complete!</h2>
-            <div className={cn('text-5xl font-bold mb-2', scorePercent >= 70 ? 'text-green-500' : 'text-ems-red')}>
-              {scorePercent}%
+            <div
+              className="score-ring w-32 h-32 sm:w-40 sm:h-40 mx-auto mb-4"
+              style={{ '--score-pct': scorePercent, '--score-color': scorePercent >= 70 ? '#22C55E' : '#E63946'} as React.CSSProperties}
+            >
+              <div className="score-ring-inner">
+                <Trophy className={cn('w-8 h-8 sm:w-10 sm:h-10', scorePercent >= 70 ? 'text-yellow-500' : 'text-muted-foreground')} />
+                <span className={cn('text-2xl sm:text-3xl font-bold leading-none', scorePercent >= 70 ? 'text-green-500' : 'text-ems-red')}>
+                  {scorePercent}%
+                </span>
+                <Badge className={cn('mt-0.5 text-[10px]', scorePercent >= 70 ? 'bg-green-500' : 'bg-ems-red')}>
+                  {scorePercent >= 70 ? '✓ PASS' : '✗ NEEDS IMPROVEMENT'}
+                </Badge>
+              </div>
             </div>
-            <p className="text-muted-foreground">
+            <h2 className="text-lg font-semibold mb-1">Quiz Complete!</h2>
+            <p className="text-sm text-muted-foreground">
               {correct} out of {quizQuestions.length} correct
             </p>
-            <Badge className={cn('mt-2', scorePercent >= 70 ? 'bg-green-500' : 'bg-ems-red')}>
-              {scorePercent >= 70 ? 'PASS' : 'NEEDS IMPROVEMENT'}
-            </Badge>
           </CardContent>
         </Card>
 
@@ -483,7 +492,7 @@ export function QuizEngine() {
             {current.options.map((option, idx) => {
               const isSelected = selectedAnswer === idx
               const isCorrect = idx === current.correctAnswer
-              let optionClass = 'quiz-option border-2 rounded-lg p-3'
+              let optionClass = 'quiz-option quiz-option-glow border-2 rounded-lg p-3'
               if (showResult) {
                 if (isCorrect) optionClass += ' correct'
                 else if (isSelected && !isCorrect) optionClass += ' incorrect'
@@ -1457,6 +1466,7 @@ export function AssessmentSection() {
       >
         <TabsList className="w-full justify-start mb-4 overflow-x-auto flex-nowrap scrollbar-none">
           <TabsTrigger value="quiz" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-amber/15 data-[state=active]:text-ems-amber"><GraduationCap className="w-3.5 h-3.5" />Exam</TabsTrigger>
+          <TabsTrigger value="daily-challenge" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-amber-500/15 data-[state=active]:text-amber-600"><CalendarDays className="w-3.5 h-3.5" />Daily Challenge</TabsTrigger>
           <TabsTrigger value="simulation" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Siren className="w-3.5 h-3.5" />Scenarios</TabsTrigger>
           <TabsTrigger value="pre-assessment" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><ClipboardList className="w-3.5 h-3.5" />Pre-Test</TabsTrigger>
           <TabsTrigger value="roleplay" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal font-semibold">
@@ -1466,6 +1476,9 @@ export function AssessmentSection() {
         </TabsList>
         <TabsContent value="quiz">
           <QuizEngine />
+        </TabsContent>
+        <TabsContent value="daily-challenge">
+          <DailyChallengeSection />
         </TabsContent>
         <TabsContent value="simulation">
           <EmergencySimulation />

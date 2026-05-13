@@ -87,6 +87,8 @@ const subLabels: Record<string, string> = {
   simulation: 'Simulation',
   'pre-assessment': 'Pre-Assessment (Group)',
   flashcards: 'Flashcards',
+  'daily-challenge': 'Daily Challenge',
+  notes: 'Notes',
 }
 
 export function Breadcrumbs() {
@@ -323,9 +325,9 @@ export function GlobalSearch() {
     Object.entries(subLabels).forEach(([id, label]) => {
       if (label.toLowerCase().includes(q)) {
         let section: Section = 'roadmap'
-        if (['acronyms', 'definitions', 'drugs', 'flashcards'].includes(id)) section = 'study'
+        if (['acronyms', 'definitions', 'drugs', 'flashcards', 'notes'].includes(id)) section = 'study'
         else if (['diagrams', 'infographics'].includes(id)) section = 'visual'
-        else if (['quiz', 'simulation', 'pre-assessment'].includes(id)) section = 'assessment'
+        else if (['quiz', 'simulation', 'pre-assessment', 'daily-challenge'].includes(id)) section = 'assessment'
         results.push({ section, sub: id, label, type: 'Page' })
       }
     })

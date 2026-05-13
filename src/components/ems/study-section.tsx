@@ -12,7 +12,7 @@ import {
   Eye, EyeOff, GraduationCap, Zap, Scale, Stethoscope,
   ClipboardCheck, Globe, Building2, Truck, Lightbulb,
   RotateCcw, Star, StarOff, Trophy, Brain, Sparkles, BookText, Type,
-  CreditCard
+  CreditCard, StickyNote
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
@@ -25,6 +25,7 @@ import { useToast } from '@/hooks/use-toast'
 import { CompetenciesSection } from '@/components/ems/competencies-section'
 import { AIAssistantSection } from '@/components/ems/ai-assistant'
 import { FlashcardSection } from '@/components/ems/flashcard-section'
+import { NotesSection } from '@/components/ems/notes-section'
 import { useTranslation } from '@/hooks/use-translation'
 import { InlineSpeakerButton } from '@/components/ems/tts-button'
 
@@ -1133,6 +1134,7 @@ export function StudySection() {
           <TabsTrigger value="definitions" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><Type className="w-3.5 h-3.5" />{t('sub.definitions')}</TabsTrigger>
           <TabsTrigger value="drugs" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Pill className="w-3.5 h-3.5" />{t('sub.drugs')}</TabsTrigger>
           <TabsTrigger value="flashcards" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><CreditCard className="w-3.5 h-3.5" />{t('sub.flashcards')}</TabsTrigger>
+          <TabsTrigger value="notes" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><StickyNote className="w-3.5 h-3.5" />{t('sub.notes')}</TabsTrigger>
           <TabsTrigger value="ai-assistant" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><Sparkles className="w-3.5 h-3.5" />{t('sub.ai-assistant')}</TabsTrigger>
         </TabsList>
         <TabsContent value="competencies">
@@ -1149,6 +1151,9 @@ export function StudySection() {
         </TabsContent>
         <TabsContent value="flashcards">
           <FlashcardSection />
+        </TabsContent>
+        <TabsContent value="notes">
+          <NotesSection />
         </TabsContent>
         <TabsContent value="ai-assistant">
           <AIAssistantSection />

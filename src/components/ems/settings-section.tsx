@@ -36,6 +36,7 @@ import { roadmapTopics } from '@/data/roadmap'
 import { BadgeDisplay, XPBar, GoalsTracker } from '@/components/ems/shared-components'
 import { StudyStatsSection } from '@/components/ems/study-stats-section'
 import { FocusTimerSection } from '@/components/ems/focus-timer-section'
+import { ProgressWidget } from '@/components/ems/progress-widget'
 
 // ==================== MILESTONE DEFINITIONS ====================
 const MILESTONE_INFO: Record<string, { label: string; icon: string; color: string }> = {
@@ -233,6 +234,9 @@ export function SettingsSection() {
 
   return (
     <div className="content-transition space-y-6">
+      {/* Progress Widget */}
+      <ProgressWidget />
+
       {/* XP & Gamification Summary */}
       <XPBar />
 

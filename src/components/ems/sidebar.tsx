@@ -11,7 +11,8 @@ import {
   CheckCircle2, HardHat, Activity, Stethoscope, Scale,
   Siren, Users, FileSearch, Link2, LetterText,
   Pill, ScanEye, Brain, Monitor, FlaskConical,
-  Trophy, Wrench, MessageSquare, Sparkles, CreditCard
+  Trophy, Wrench, MessageSquare, Sparkles, CreditCard,
+  CalendarDays, StickyNote
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ConnectionStatusBadge } from '@/components/ems/pwa-components'
@@ -49,6 +50,7 @@ const navItems: NavItem[] = [
       { id: 'definitions', labelKey: 'sub.definitions', miniIcon: <ScanEye className="w-3 h-3" /> },
       { id: 'drugs', labelKey: 'sub.drugs', miniIcon: <Pill className="w-3 h-3" /> },
       { id: 'flashcards', labelKey: 'sub.flashcards', miniIcon: <CreditCard className="w-3 h-3" /> },
+      { id: 'notes', labelKey: 'sub.notes', miniIcon: <StickyNote className="w-3 h-3" /> },
       { id: 'ai-assistant', labelKey: 'sub.ai-assistant', miniIcon: <Sparkles className="w-3 h-3" /> },
     ],
   },
@@ -68,6 +70,7 @@ const navItems: NavItem[] = [
     labelKey: 'nav.assessment',
     subItems: [
       { id: 'quiz', labelKey: 'sub.quiz', miniIcon: <FlaskConical className="w-3 h-3" /> },
+      { id: 'daily-challenge', labelKey: 'sub.daily-challenge', miniIcon: <CalendarDays className="w-3 h-3" /> },
       { id: 'simulation', labelKey: 'sub.simulation', miniIcon: <Activity className="w-3 h-3" /> },
       { id: 'pre-assessment', labelKey: 'sub.pre-assessment', miniIcon: <ClipboardCheck className="w-3 h-3" /> },
       { id: 'roleplay', labelKey: 'sub.roleplay', miniIcon: <MessageSquare className="w-3 h-3" /> },
