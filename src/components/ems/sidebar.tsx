@@ -164,256 +164,269 @@ export function Sidebar() {
   const badgeCount = progress.badges.length
   const totalBadges = BADGE_DEFINITIONS.length
 
+  // Shared sidebar inner content (rendered in both mobile & desktop versions)
+  const sidebarContent = (
+    <>
+      {/* ── Header ── */}
+      <div className="flex items-center gap-3 px-4 py-3.5 border-b border-sidebar-border">
+        <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0 shadow-lg shadow-ems-teal/20 bg-white">
+          <Image
+            src="/pio-duran-ems-logo.png"
+            alt="PIO DURAN EMS NCII Logo"
+            width={40}
+            height={40}
+            className="w-full h-full object-contain"
+            priority
+          />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h2 className="text-sm font-bold text-white truncate leading-tight">PIO DURAN EMS NCII</h2>
+          <span className="text-[10px] font-semibold text-ems-teal">
+            EMS Reviewer
+          </span>
+        </div>
+        {/* Badge count pill */}
+        <div className="badge-count-pill" title={`${badgeCount} of ${totalBadges} badges earned`}>
+          <Trophy className="w-3 h-3 text-amber-400" />
+          <span className="badge-count-text">{badgeCount}/{totalBadges}</span>
+        </div>
+        <button
+          className="md:hidden p-1 rounded hover:bg-sidebar-accent"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* ── XP Summary Bar ── */}
+      <div className="px-4 py-2.5 border-b border-sidebar-border/50 bg-sidebar-accent/30">
+        <div className="flex items-center justify-between mb-1.5">
+          <div className="flex items-center gap-1.5">
+            <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-[11px] font-bold text-amber-300">Level {getLevelFromXp(progress.xp)}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Flame className={cn('w-3.5 h-3.5', progress.streak > 0 ? 'text-orange-400' : 'text-sidebar-foreground/30')} />
+            <span className={cn('text-[11px] font-bold', progress.streak > 0 ? 'text-orange-300' : 'text-sidebar-foreground/30')}>
+              {progress.streak}d
+            </span>
+          </div>
+          <span className="text-[10px] text-sidebar-foreground/50">
+            {progress.xp} XP
+          </span>
+        </div>
+        <div className="w-full h-2.5 rounded-full bg-sidebar-border/50 overflow-hidden progress-bar-animated xp-shimmer-bar">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-700"
+            style={{ width: `${xpInfo.progress * 100}%` }}
+          />
+        </div>
+        <div className="flex items-center justify-between mt-1">
+          <span className="text-[10px] text-sidebar-foreground/40">{xpInfo.current}/{xpInfo.needed} {t('other.toNext')}</span>
+        </div>
+      </div>
+
+      {/* ── Navigation ── */}
+      <nav className="flex-1 overflow-y-auto custom-scrollbar py-2 px-3">
+        <ul className="space-y-0.5" role="list">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id
+            const isExpanded = expandedItems.has(item.id)
+            const sectionPct = getSectionProgress(item.id, item.subItems, progress)
+
+            return (
+              <li key={item.id}>
+                {/* Section header button */}
+                <button
+                  onClick={() => handleSectionClick(item)}
+                  className={cn(
+                    'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 touch-target',
+                    'hover:translate-x-[2px]',
+                    isActive
+                      ? 'bg-sidebar-accent text-white sidebar-item-active sidebar-active-glow'
+                      : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-white'
+                  )}
+                  aria-expanded={isExpanded}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <span className={cn(
+                    'transition-colors duration-200',
+                    isActive ? 'text-ems-teal' : 'text-sidebar-foreground/50'
+                  )}>
+                    {item.icon}
+                  </span>
+                  <span className={cn(
+                    'flex-1 text-left font-semibold transition-colors duration-200',
+                    isActive ? 'text-amber-300' : 'text-sidebar-foreground/60'
+                  )}>{t(item.labelKey)}</span>
+                  {sectionPct > 0 && (
+                    <span className={cn(
+                      'text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[32px] text-center',
+                      sectionPct === 100
+                        ? 'bg-ems-teal/30 text-ems-teal'
+                        : sectionPct >= 50
+                          ? 'bg-amber-500/20 text-amber-300'
+                          : 'bg-sidebar-accent text-sidebar-foreground/50'
+                    )}>
+                      {sectionPct}%
+                    </span>
+                  )}
+                  {item.subItems.length > 0 && (
+                    <span className="text-sidebar-foreground/40 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
+                      <ChevronDown className="w-3.5 h-3.5" />
+                    </span>
+                  )}
+                </button>
+
+                {/* Mini progress bar under section header */}
+                {item.subItems.length > 0 && sectionPct > 0 && (
+                  <div className="mx-3 mt-0.5 mb-1 h-[2px] rounded-full bg-sidebar-border/40 overflow-hidden">
+                    <div
+                      className={cn(
+                        'h-full rounded-full transition-all duration-700',
+                        sectionPct === 100
+                          ? 'bg-ems-teal'
+                          : sectionPct >= 50
+                            ? 'bg-amber-400'
+                            : 'bg-sidebar-foreground/30'
+                      )}
+                      style={{ width: `${sectionPct}%` }}
+                    />
+                  </div>
+                )}
+
+                {/* Sub-items with smooth collapse */}
+                {item.subItems.length > 0 && (
+                  <div
+                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    style={{
+                      maxHeight: isExpanded ? `${item.subItems.length * 44}px` : '0px',
+                      opacity: isExpanded ? 1 : 0,
+                    }}
+                  >
+                    <ul className="mt-0.5 ml-5 space-y-px min-w-0" role="list">
+                      {item.subItems.map((sub) => {
+                        const isSubActive = activeSection === item.id && activeSubSection === sub.id
+                        const isCompleted = getSubItemProgress(item.id, sub.id, progress) === 100
+                        const subPct = getSubItemProgress(item.id, sub.id, progress)
+
+                        return (
+                          <li key={sub.id} className="min-w-0">
+                            <button
+                              onClick={() => handleSubClick(item.id, sub.id)}
+                              className={cn(
+                                'w-full text-left px-3 py-2.5 rounded-md text-[11px] transition-all duration-200 flex items-center gap-2 group min-w-0 sidebar-sub-item-hover touch-target-sm',
+                                isSubActive
+                                  ? 'bg-ems-teal/20 text-ems-teal font-semibold sidebar-item-active'
+                                  : 'text-sidebar-foreground/45 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground/80'
+                              )}
+                            >
+                              {/* Status indicator */}
+                              {isCompleted ? (
+                                <CheckCircle2 className="w-3 h-3 text-ems-teal flex-shrink-0" />
+                              ) : (
+                                <span className={cn(
+                                  'flex-shrink-0 transition-colors duration-200',
+                                  isSubActive ? 'text-ems-teal' : 'text-sidebar-foreground/30 group-hover:text-sidebar-foreground/50'
+                                )}>
+                                  {sub.miniIcon}
+                                </span>
+                              )}
+
+                              <span className="truncate flex-1">{t(sub.labelKey)}</span>
+
+                              {/* Per-item progress badge or thin bar */}
+                              {!isCompleted && subPct > 0 && item.id === 'roadmap' && (
+                                <span className="text-[10px] font-bold px-1 py-0.5 rounded bg-ems-teal/15 text-ems-teal/80 flex-shrink-0">
+                                  {subPct}%
+                                </span>
+                              )}
+                            </button>
+
+                            {/* Thin progress bar under each roadmap sub-item when partially done */}
+                            {!isCompleted && subPct > 0 && subPct < 100 && item.id === 'roadmap' && (
+                              <div className="mx-2.5 mt-px mb-1 h-[1.5px] rounded-full bg-sidebar-border/30 overflow-hidden">
+                                <div
+                                  className="h-full rounded-full bg-ems-teal/50 transition-all duration-700"
+                                  style={{ width: `${subPct}%` }}
+                                />
+                              </div>
+                            )}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+
+      {/* ── Footer ── */}
+      <div className="px-3 py-2.5 border-t border-sidebar-border space-y-2 relative">
+        {/* Decorative heartbeat line */}
+        <div className="sidebar-heartbeat-line absolute inset-x-0 top-0 h-[1px] opacity-15 pointer-events-none overflow-hidden">
+          <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 270 1">
+            <polyline
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              points="0,0.5 40,0.5 60,0.5 80,0.1 90,0.9 100,0.2 110,0.5 120,0.5 160,0.5 180,0.5 200,0.1 210,0.9 220,0.2 230,0.5 240,0.5 270,0.5"
+            />
+          </svg>
+        </div>
+        <ConnectionStatusBadge />
+        <div className="flex items-center justify-center gap-2">
+          <p className="text-[10px] text-sidebar-foreground/40 text-center">{t('footer.text')}</p>
+          {/* Secret admin button */}
+          <button
+            onClick={() => {
+              setActiveSection('admin' as Section)
+              if (window.innerWidth < 768) setSidebarOpen(false)
+            }}
+            className="text-[8px] text-sidebar-foreground/15 hover:text-sidebar-foreground/40 transition-colors cursor-default select-none"
+            aria-hidden="true"
+            tabIndex={-1}
+            title=""
+          >
+            ©
+          </button>
+        </div>
+      </div>
+    </>
+  )
+
   return (
     <>
-      {/* Overlay for mobile */}
+      {/* ── Mobile: Fixed overlay sidebar (only rendered when open) ── */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-
       <aside
         className={cn(
-          'fixed top-0 left-0 z-50 h-full w-[270px] flex flex-col sidebar-transition',
+          'fixed top-0 left-0 z-50 h-full w-[270px] flex-col sidebar-transition md:hidden',
           'bg-sidebar text-sidebar-foreground sidebar-gradient-overlay',
-          'border-r border-sidebar-border/30',
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full',
-          'md:relative md:translate-x-0 md:z-30 md:flex-shrink-0'
+          sidebarOpen ? 'translate-x-0 flex' : '-translate-x-full flex'
         )}
+        role="navigation"
+        aria-label="Main navigation (mobile)"
+      >
+        {sidebarContent}
+      </aside>
+
+      {/* ── Desktop: Flex child sidebar (always visible, participates in layout) ── */}
+      <aside
+        className="hidden md:flex md:flex-col md:w-[270px] md:flex-shrink-0 bg-sidebar text-sidebar-foreground sidebar-gradient-overlay border-r border-sidebar-border/30"
         role="navigation"
         aria-label="Main navigation"
       >
-        {/* ── Header ── */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-sidebar-border">
-          <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0 shadow-lg shadow-ems-teal/20 bg-white">
-            <Image
-              src="/pio-duran-ems-logo.png"
-              alt="PIO DURAN EMS NCII Logo"
-              width={40}
-              height={40}
-              className="w-full h-full object-contain"
-              priority
-            />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-bold text-white truncate leading-tight">PIO DURAN EMS NCII</h2>
-            <span className="text-[10px] font-semibold text-ems-teal">
-              EMS Reviewer
-            </span>
-          </div>
-          {/* Badge count pill */}
-          <div className="badge-count-pill" title={`${badgeCount} of ${totalBadges} badges earned`}>
-            <Trophy className="w-3 h-3 text-amber-400" />
-            <span className="badge-count-text">{badgeCount}/{totalBadges}</span>
-          </div>
-          <button
-            className="md:hidden p-1 rounded hover:bg-sidebar-accent"
-            onClick={() => setSidebarOpen(false)}
-            aria-label="Close sidebar"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* ── XP Summary Bar ── */}
-        <div className="px-4 py-2.5 border-b border-sidebar-border/50 bg-sidebar-accent/30">
-          <div className="flex items-center justify-between mb-1.5">
-            <div className="flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-[11px] font-bold text-amber-300">Level {getLevelFromXp(progress.xp)}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Flame className={cn('w-3.5 h-3.5', progress.streak > 0 ? 'text-orange-400' : 'text-sidebar-foreground/30')} />
-              <span className={cn('text-[11px] font-bold', progress.streak > 0 ? 'text-orange-300' : 'text-sidebar-foreground/30')}>
-                {progress.streak}d
-              </span>
-            </div>
-            <span className="text-[10px] text-sidebar-foreground/50">
-              {progress.xp} XP
-            </span>
-          </div>
-          <div className="w-full h-2.5 rounded-full bg-sidebar-border/50 overflow-hidden progress-bar-animated xp-shimmer-bar">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-700"
-              style={{ width: `${xpInfo.progress * 100}%` }}
-            />
-          </div>
-          <div className="flex items-center justify-between mt-1">
-            <span className="text-[10px] text-sidebar-foreground/40">{xpInfo.current}/{xpInfo.needed} {t('other.toNext')}</span>
-          </div>
-        </div>
-
-        {/* ── Navigation ── */}
-        <nav className="flex-1 overflow-y-auto custom-scrollbar py-2 px-3">
-          <ul className="space-y-0.5" role="list">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id
-              const isExpanded = expandedItems.has(item.id)
-              const sectionPct = getSectionProgress(item.id, item.subItems, progress)
-
-              return (
-                <li key={item.id}>
-                  {/* Section header button */}
-                  <button
-                    onClick={() => handleSectionClick(item)}
-                    className={cn(
-                      'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 touch-target',
-                      'hover:translate-x-[2px]',
-                      isActive
-                        ? 'bg-sidebar-accent text-white sidebar-item-active sidebar-active-glow'
-                        : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-white'
-                    )}
-                    aria-expanded={isExpanded}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
-                    <span className={cn(
-                      'transition-colors duration-200',
-                      isActive ? 'text-ems-teal' : 'text-sidebar-foreground/50'
-                    )}>
-                      {item.icon}
-                    </span>
-                    <span className={cn(
-                      'flex-1 text-left font-semibold transition-colors duration-200',
-                      isActive ? 'text-amber-300' : 'text-sidebar-foreground/60'
-                    )}>{t(item.labelKey)}</span>
-                    {sectionPct > 0 && (
-                      <span className={cn(
-                        'text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[32px] text-center',
-                        sectionPct === 100
-                          ? 'bg-ems-teal/30 text-ems-teal'
-                          : sectionPct >= 50
-                            ? 'bg-amber-500/20 text-amber-300'
-                            : 'bg-sidebar-accent text-sidebar-foreground/50'
-                      )}>
-                        {sectionPct}%
-                      </span>
-                    )}
-                    {item.subItems.length > 0 && (
-                      <span className="text-sidebar-foreground/40 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" style={{ transform: isExpanded ? 'rotate(0deg)' : 'rotate(-90deg)' }}>
-                        <ChevronDown className="w-3.5 h-3.5" />
-                      </span>
-                    )}
-                  </button>
-
-                  {/* Mini progress bar under section header */}
-                  {item.subItems.length > 0 && sectionPct > 0 && (
-                    <div className="mx-3 mt-0.5 mb-1 h-[2px] rounded-full bg-sidebar-border/40 overflow-hidden">
-                      <div
-                        className={cn(
-                          'h-full rounded-full transition-all duration-700',
-                          sectionPct === 100
-                            ? 'bg-ems-teal'
-                            : sectionPct >= 50
-                              ? 'bg-amber-400'
-                              : 'bg-sidebar-foreground/30'
-                        )}
-                        style={{ width: `${sectionPct}%` }}
-                      />
-                    </div>
-                  )}
-
-                  {/* Sub-items with smooth collapse */}
-                  {item.subItems.length > 0 && (
-                    <div
-                      className="overflow-hidden transition-all duration-300 ease-in-out"
-                      style={{
-                        maxHeight: isExpanded ? `${item.subItems.length * 44}px` : '0px',
-                        opacity: isExpanded ? 1 : 0,
-                      }}
-                    >
-                      <ul className="mt-0.5 ml-5 space-y-px min-w-0" role="list">
-                        {item.subItems.map((sub) => {
-                          const isSubActive = activeSection === item.id && activeSubSection === sub.id
-                          const isCompleted = getSubItemProgress(item.id, sub.id, progress) === 100
-                          const subPct = getSubItemProgress(item.id, sub.id, progress)
-
-                          return (
-                            <li key={sub.id} className="min-w-0">
-                              <button
-                                onClick={() => handleSubClick(item.id, sub.id)}
-                                className={cn(
-                                  'w-full text-left px-3 py-2.5 rounded-md text-[11px] transition-all duration-200 flex items-center gap-2 group min-w-0 sidebar-sub-item-hover touch-target-sm',
-                                  isSubActive
-                                    ? 'bg-ems-teal/20 text-ems-teal font-semibold sidebar-item-active'
-                                    : 'text-sidebar-foreground/45 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground/80'
-                                )}
-                              >
-                                {/* Status indicator */}
-                                {isCompleted ? (
-                                  <CheckCircle2 className="w-3 h-3 text-ems-teal flex-shrink-0" />
-                                ) : (
-                                  <span className={cn(
-                                    'flex-shrink-0 transition-colors duration-200',
-                                    isSubActive ? 'text-ems-teal' : 'text-sidebar-foreground/30 group-hover:text-sidebar-foreground/50'
-                                  )}>
-                                    {sub.miniIcon}
-                                  </span>
-                                )}
-
-                                <span className="truncate flex-1">{t(sub.labelKey)}</span>
-
-                                {/* Per-item progress badge or thin bar */}
-                                {!isCompleted && subPct > 0 && item.id === 'roadmap' && (
-                                  <span className="text-[10px] font-bold px-1 py-0.5 rounded bg-ems-teal/15 text-ems-teal/80 flex-shrink-0">
-                                    {subPct}%
-                                  </span>
-                                )}
-                              </button>
-
-                              {/* Thin progress bar under each roadmap sub-item when partially done */}
-                              {!isCompleted && subPct > 0 && subPct < 100 && item.id === 'roadmap' && (
-                                <div className="mx-2.5 mt-px mb-1 h-[1.5px] rounded-full bg-sidebar-border/30 overflow-hidden">
-                                  <div
-                                    className="h-full rounded-full bg-ems-teal/50 transition-all duration-700"
-                                    style={{ width: `${subPct}%` }}
-                                  />
-                                </div>
-                              )}
-                            </li>
-                          )
-                        })}
-                      </ul>
-                    </div>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
-
-        {/* ── Footer ── */}
-        <div className="px-3 py-2.5 border-t border-sidebar-border space-y-2 relative">
-          {/* Decorative heartbeat line */}
-          <div className="sidebar-heartbeat-line absolute inset-x-0 top-0 h-[1px] opacity-15 pointer-events-none overflow-hidden">
-            <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 270 1">
-              <polyline
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                points="0,0.5 40,0.5 60,0.5 80,0.1 90,0.9 100,0.2 110,0.5 120,0.5 160,0.5 180,0.5 200,0.1 210,0.9 220,0.2 230,0.5 240,0.5 270,0.5"
-              />
-            </svg>
-          </div>
-          <ConnectionStatusBadge />
-          <div className="flex items-center justify-center gap-2">
-            <p className="text-[10px] text-sidebar-foreground/40 text-center">{t('footer.text')}</p>
-            {/* Secret admin button */}
-            <button
-              onClick={() => {
-                setActiveSection('admin' as Section)
-                if (window.innerWidth < 768) setSidebarOpen(false)
-              }}
-              className="text-[8px] text-sidebar-foreground/15 hover:text-sidebar-foreground/40 transition-colors cursor-default select-none"
-              aria-hidden="true"
-              tabIndex={-1}
-              title=""
-            >
-              ©
-            </button>
-          </div>
-        </div>
+        {sidebarContent}
       </aside>
     </>
   )
