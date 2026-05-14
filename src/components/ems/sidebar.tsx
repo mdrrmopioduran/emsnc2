@@ -6,7 +6,7 @@ import { useTranslation } from '@/hooks/use-translation'
 
 import Image from 'next/image'
 import {
-  BookOpen, BookText, Heart, ClipboardCheck, Settings,
+  Home, BookOpen, BookText, Heart, ClipboardCheck, Settings,
   ChevronDown, ChevronRight, X, Zap, Flame,
   CheckCircle2, HardHat, Activity, Stethoscope, Scale,
   Siren, Users, FileSearch, Link2, LetterText,
@@ -25,6 +25,12 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  {
+    id: 'home',
+    icon: <Home className="w-5 h-5" />,
+    labelKey: 'nav.home',
+    subItems: [],
+  },
   {
     id: 'roadmap',
     icon: <BookOpen className="w-5 h-5" />,

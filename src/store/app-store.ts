@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export type Section = 'roadmap' | 'study' | 'visual' | 'assessment' | 'settings' | 'admin'
+export type Section = 'home' | 'roadmap' | 'study' | 'visual' | 'assessment' | 'settings' | 'admin'
 export type SubSection = string
 
 export interface BadgeData {
@@ -332,7 +332,7 @@ function checkAndUnlockBadges(progress: ProgressData): { newBadges: string[]; ne
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  activeSection: 'roadmap',
+  activeSection: 'home',
   activeSubSection: '',
   sidebarOpen: false,
   searchOpen: false,

@@ -4,6 +4,7 @@ import React from 'react'
 import { useAppStore, type Section } from '@/store/app-store'
 import { Sidebar } from '@/components/ems/sidebar'
 import { Header } from '@/components/ems/header'
+import { HomeDashboard } from '@/components/ems/home-dashboard'
 import { RoadmapSection } from '@/components/ems/roadmap-section'
 import { StudySection } from '@/components/ems/study-section'
 import { VisualSection } from '@/components/ems/visual-section'
@@ -16,16 +17,16 @@ import { FloatingChatButton } from '@/components/ems/ai-assistant'
 import { OfflineIndicator, UpdateBanner, LastSyncDisplay } from '@/components/ems/pwa-components'
 import { AchievementToastWatcher } from '@/components/ems/achievement-toast-watcher'
 import { AchievementNotifications } from '@/components/ems/achievement-notifications'
-import { BookOpen, BookText, Heart, ClipboardCheck, Settings } from 'lucide-react'
+import { BookOpen, BookText, Heart, ClipboardCheck, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/hooks/use-translation'
 
 const bottomNavKeys: { section: Section; labelKey: string; icon: React.ElementType }[] = [
   { section: 'roadmap', labelKey: 'nav.roadmap', icon: BookOpen },
   { section: 'study', labelKey: 'nav.study', icon: BookText },
+  { section: 'home', labelKey: 'nav.home', icon: Home },
   { section: 'visual', labelKey: 'nav.visual', icon: Heart },
   { section: 'assessment', labelKey: 'nav.assessment', icon: ClipboardCheck },
-  { section: 'settings', labelKey: 'nav.settings', icon: Settings },
 ]
 
 function FooterText() {
@@ -70,6 +71,8 @@ function SectionContent() {
   const { activeSection, activeSubSection } = useAppStore()
 
   switch (activeSection) {
+    case 'home':
+      return <HomeDashboard />
     case 'roadmap':
       // Key by activeSubSection so RoadmapSection re-initializes and auto-expands
       // the correct topic card when navigating from sidebar
@@ -104,7 +107,7 @@ export default function HomePage() {
         <main className="flex-1 overflow-y-auto overflow-x-hidden" role="main">
           <div className="main-content-wrapper min-h-full flex flex-col">
             {/* Content */}
-            <div className="flex-1 px-3 sm:px-4 md:px-5 pt-4 md:pt-6 pb-20 md:pb-6">
+            <div className="flex-1 px-3 sm:px-4 md:px-5 pt-2 md:pt-4 pb-24 md:pb-6">
               <div className="max-w-4xl mx-auto w-full">
                 <SectionContent />
               </div>

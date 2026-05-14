@@ -3,6 +3,7 @@ export type TranslationKey = string // dot-notation keys like 'nav.roadmap'
 
 export const translations: Record<TranslationKey, { en: string; fil: string }> = {
   // ─── Navigation ───────────────────────────────────────────────
+  'nav.home': { en: 'HOME', fil: 'HOME' },
   'nav.roadmap': { en: 'Learning Roadmap', fil: 'Landas ng Pag-aaral' },
   'nav.study': { en: 'Study & Review', fil: 'Pag-aaral at Pagsusuri' },
   'nav.visual': { en: 'Visualization', fil: 'Paglalantad' },
@@ -643,4 +644,28 @@ export const translations: Record<TranslationKey, { en: string; fil: string }> =
   'custom.notAnswered': { en: 'Not answered', fil: 'Hindi sinagot' },
   'custom.newQuiz': { en: 'New Quiz', fil: 'Bagong Pagsusulit' },
   'custom.changeSettings': { en: 'Change Settings', fil: 'Baguhin ang Setting' },
+
+  // ─── HOME Dashboard ────────────────────────────────────────
+  'home.greeting': { en: 'EMS Responder', fil: 'EMS Responder' },
+  'home.goodMorning': { en: 'Good Morning', fil: 'Magandang Umaga' },
+  'home.goodAfternoon': { en: 'Good Afternoon', fil: 'Magandang Hapon' },
+  'home.goodEvening': { en: 'Good Evening', fil: 'Magandang Gabi' },
+  'home.topicsRead': { en: 'Topics Read', fil: 'Mga Paksa na Nabasa' },
+  'home.quizzesTaken': { en: 'Quizzes Taken', fil: 'Mga Pagsusulit' },
+  'home.studyStreak': { en: 'Study Streak', fil: 'Sunod-sunod na Pag-aaral' },
+  'home.badgesEarned': { en: 'Badges Earned', fil: 'Mga Badge' },
+  'home.dailyChallenge': { en: "Today's Daily Challenge", fil: 'Arawang Hamon Ngayon' },
+  'home.startChallenge': { en: 'Start Challenge', fil: 'Simulan ang Hamon' },
+  'home.challengeDone': { en: 'Challenge Completed!', fil: 'Kumpleto ang Hamon!' },
+  'home.challengeStreak': { en: 'streak', fil: 'sunod-sunod' },
+  'home.quickActions': { en: 'Quick Actions', fil: 'Mabilisang Aksyon' },
+  'home.startQuiz': { en: 'Start Quiz', fil: 'Simulan ang Pagsusulit' },
+  'home.flashcards': { en: 'Flashcards', fil: 'Mga Flashcard' },
+  'home.focusTimer': { en: 'Focus Timer', fil: 'Timer sa Pokus' },
+  'home.acronyms': { en: 'Acronyms', fil: 'Mga Akronim' },
+  'home.drugReference': { en: 'Drug Reference', fil: 'Sanggunian ng Gamot' },
+  'home.continueLearning': { en: 'Continue Learning', fil: 'Ipagpatuloy ang Pag-aaral' },
+  'home.resumeLesson': { en: 'Resume Lesson', fil: 'Ipagpatuloy ang Aralin' },
+  'home.noProgress': { en: 'Start your EMS journey today!', fil: 'Simulan ang iyong EMS na paglalakbay ngayon!' },
+  'home.daysStreak': { en: 'days', fil: 'araw' },
 }

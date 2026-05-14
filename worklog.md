@@ -920,3 +920,69 @@ Stage Summary:
 - Mobile sidebar behavior unchanged (fixed overlay)
 - Subtle border added for visual separation
 - Content padding slightly reduced for more compact feel
+
+---
+Task ID: 10
+Agent: Main Agent (Orchestrator)
+Task: Add HOME Dashboard as default home screen, update bottom nav, remove settings from mobile nav, fix mobile gap
+
+Work Log:
+- Read worklog.md (922 lines) and assessed current project status — app stable on port 3000
+- Updated Zustand store Section type to add 'home': `'home' | 'roadmap' | 'study' | 'visual' | 'assessment' | 'settings' | 'admin'`
+- Set default activeSection to 'home' in store
+- Created comprehensive HOME Dashboard component (`src/components/ems/home-dashboard.tsx` — 318 lines):
+  - **Welcome Card**: Gradient hero banner with time-based greeting (Morning/Afternoon/Evening), level badge with XP progress bar, streak indicator with fire icon
+  - **Quick Stats Grid**: 4 stat cards in 2x2 (mobile) / 4-col (desktop): Topics Read, Quizzes Taken, Study Streak, Badges Earned — each with color-coded icon backgrounds
+  - **Daily Challenge Banner**: Shows "Start Challenge" with +50 XP reward when not completed; shows "Challenge Completed!" with streak count when done today
+  - **Quick Actions Grid**: 6 action buttons (3x2 grid): Start Quiz, Flashcards, Focus Timer, Acronyms, Drug Reference, Daily Challenge — each navigates to the correct section/sub-section
+  - **Continue Learning**: Conditional card showing last viewed topic with Resume button (only shown if lastViewedTopic exists)
+- Updated bottom navigation (`src/app/page.tsx`):
+  - Changed from 5 items to 5 items: Learning (roadmap), Study (study), HOME (home), Visualization (visual), Practice (assessment)
+  - **Removed Settings from bottom nav** on tablet and mobile (Settings still accessible via sidebar on desktop)
+  - HOME is now the center button in the bottom nav for easy thumb access
+- Updated sidebar navigation (`src/components/ems/sidebar.tsx`):
+  - Added HOME as the first nav item with Home icon from lucide-react
+  - HOME has no subItems (existing handleSectionClick already handles this case)
+- Updated header (`src/components/ems/header.tsx`):
+  - Added `home: 'nav.home'` to sectionTitleKeys for correct header title display
+- Fixed mobile header/content gap:
+  - Changed top padding from `pt-4 md:pt-6` to `pt-2 md:pt-4`
+  - Increased bottom padding from `pb-20 md:pb-6` to `pb-24 md:pb-6` for proper bottom nav clearance
+- Added 22 bilingual translation keys (EN/Fil) for HOME dashboard in `src/data/translations.ts`
+- Verified: `bun run lint` — 0 errors
+- Verified: dev server returns HTTP 200 consistently
+
+### Files Created (1 new):
+- `src/components/ems/home-dashboard.tsx` (318 lines)
+
+### Files Modified (4):
+- `src/store/app-store.ts` — Section type, default section
+- `src/app/page.tsx` — Bottom nav, imports, SectionContent, mobile padding
+- `src/components/ems/sidebar.tsx` — HOME nav item
+- `src/components/ems/header.tsx` — sectionTitleKeys
+- `src/data/translations.ts` — 22 HOME dashboard translations
+
+Stage Summary:
+- **HOME Dashboard is now the default screen** when the app loads
+- **Bottom navigation redesigned**: Learning, Study, HOME (center), Visualization, Practice — Settings removed
+- **Mobile gap reduced**: Top padding `pt-2` (was `pt-4`) for tighter header-to-content spacing
+- **All navigation consistent**: HOME appears in sidebar (first item) and bottom nav (center position)
+- **App compiles cleanly** with zero lint errors
+
+### Current Project Status Assessment
+**Status: HEALTHY — Feature-rich and production-ready**
+
+The PIO DURAN EMS NCII Reviewer now has 9 major sections:
+- **HOME** (NEW — default landing page with dashboard)
+- Learning Roadmap, Study & Review (7 tabs), Visualization (3 tabs), Assessment (5 tabs), Settings
+
+### Unresolved Issues and Risks
+1. **Info**: Onboarding dialog covers HOME dashboard on first visit — expected behavior, dismisses to reveal dashboard
+2. **Low**: Some Filipino translations for newest features may need native speaker review
+3. **Info**: PWA service worker registers multiple times in dev (React StrictMode — not production issue)
+
+### Priority Recommendations for Next Phase
+1. **Medium**: Add more dashboard widgets (e.g., mini streak calendar, recent activity timeline)
+2. **Medium**: Add motivational quotes or EMS tips to the HOME dashboard
+3. **Low**: Performance audit for animations on low-end mobile devices
+4. **Low**: Add haptic feedback to mobile bottom navigation

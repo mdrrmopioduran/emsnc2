@@ -11,6 +11,7 @@ import { subscribeToTimer, getGlobalTimerState } from '@/components/ems/focus-ti
 
 // Translation key maps for section/sub titles
 const sectionTitleKeys: Record<Section, string> = {
+  home: 'nav.home',
   roadmap: 'nav.roadmap',
   study: 'nav.study',
   visual: 'nav.visual',
