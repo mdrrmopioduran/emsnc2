@@ -1126,18 +1126,18 @@ export function StudySection() {
       </div>
 
       <Tabs
-        value={activeSubSection || 'acronyms'}
+        value={activeSubSection || 'competencies'}
         onValueChange={(v) => setActiveSubSection(v)}
       >
-        <TabsList className="w-full justify-start mb-4 overflow-x-auto flex-nowrap scrollbar-none">
-          <TabsTrigger value="competencies" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-amber/15 data-[state=active]:text-ems-amber"><Trophy className="w-3.5 h-3.5" />{t('sub.competencies')}</TabsTrigger>
-          <TabsTrigger value="acronyms" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal"><BookText className="w-3.5 h-3.5" />{t('sub.acronyms')}</TabsTrigger>
-          <TabsTrigger value="definitions" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><Type className="w-3.5 h-3.5" />{t('sub.definitions')}</TabsTrigger>
-          <TabsTrigger value="drugs" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Pill className="w-3.5 h-3.5" />{t('sub.drugs')}</TabsTrigger>
-          <TabsTrigger value="smart-review" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><Brain className="w-3.5 h-3.5" />{t('sub.smart-review')}</TabsTrigger>
-          <TabsTrigger value="flashcards" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><CreditCard className="w-3.5 h-3.5" />{t('sub.flashcards')}</TabsTrigger>
-          <TabsTrigger value="notes" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><StickyNote className="w-3.5 h-3.5" />{t('sub.notes')}</TabsTrigger>
-          <TabsTrigger value="ai-assistant" className="text-xs sm:text-sm flex-shrink-0 gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><Sparkles className="w-3.5 h-3.5" />{t('sub.ai-assistant')}</TabsTrigger>
+        <TabsList className="w-full justify-start mb-4 flex-wrap gap-1">
+          <TabsTrigger value="competencies" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-ems-amber/15 data-[state=active]:text-ems-amber"><Trophy className="w-3.5 h-3.5" />{t('sub.competencies')}</TabsTrigger>
+          <TabsTrigger value="acronyms" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal"><BookText className="w-3.5 h-3.5" />{t('sub.acronyms')}</TabsTrigger>
+          <TabsTrigger value="definitions" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><Type className="w-3.5 h-3.5" />{t('sub.definitions')}</TabsTrigger>
+          <TabsTrigger value="drugs" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Pill className="w-3.5 h-3.5" />{t('sub.drugs')}</TabsTrigger>
+          <TabsTrigger value="smart-review" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><Brain className="w-3.5 h-3.5" />{t('sub.smart-review')}</TabsTrigger>
+          <TabsTrigger value="flashcards" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-teal-500/15 data-[state=active]:text-teal-600"><CreditCard className="w-3.5 h-3.5" />{t('sub.flashcards')}</TabsTrigger>
+          <TabsTrigger value="notes" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><StickyNote className="w-3.5 h-3.5" />{t('sub.notes')}</TabsTrigger>
+          <TabsTrigger value="ai-assistant" className="text-xs sm:text-sm gap-1 data-[state=active]:bg-purple-500/15 data-[state=active]:text-purple-600"><Sparkles className="w-3.5 h-3.5" />{t('sub.ai-assistant')}</TabsTrigger>
         </TabsList>
         <TabsContent value="competencies">
           <CompetenciesSection />

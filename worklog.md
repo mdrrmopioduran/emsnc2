@@ -1006,3 +1006,21 @@ Stage Summary:
 - **page.tsx replaced** with user's uploaded version (fixed sidebar + margin-left layout)
 - **App compiles cleanly** — HTTP 200, zero lint errors
 - **Note**: The uploaded sidebar is a simpler version that removes several CSS class dependencies (sidebar-gradient-overlay, badge-count-pill, sidebar-active-glow, etc.). The page.tsx uses margin-left which means sidebar is fixed-position. Both files are internally consistent.
+
+---
+Task ID: 11
+Agent: Main Agent
+Task: Fix mobile/tablet tab display and default module selection
+
+Work Log:
+- Changed Study section default tab from 'acronyms' to 'competencies'
+- Changed Visual section default tab from 'diagrams' to 'equipment'
+- Made Study section tabs wrap on mobile/tablet (changed `overflow-x-auto flex-nowrap scrollbar-none` → `flex-wrap gap-1`, removed `flex-shrink-0` from TabsTrigger items)
+- Made Assessment section tabs wrap on mobile/tablet (same approach as Study section)
+- Verified: lint passes with 0 errors, dev server returns HTTP 200, clean compilation
+
+Stage Summary:
+- **Study & Review** now defaults to "Competencies" tab and shows all 8 tab titles on mobile (wrapping to multiple lines)
+- **Visualization** now defaults to "Equipment Gallery" tab
+- **Practice Assessment** now shows all 5 tab titles on mobile (wrapping to multiple lines)
+- All changes are responsive: on desktop, tabs display in a row; on mobile/tablet, they wrap naturally

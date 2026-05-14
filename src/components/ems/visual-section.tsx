@@ -2019,7 +2019,7 @@ export function VisualSection() {
 
   return (
     <Tabs
-      value={activeSubSection || 'diagrams'}
+      value={activeSubSection || 'equipment'}
       onValueChange={(v) => setActiveSubSection(v)}
       className="content-transition overflow-hidden w-full"
     >

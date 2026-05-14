@@ -1537,12 +1537,12 @@ export function AssessmentSection() {
         value={activeSubSection || 'quiz'}
         onValueChange={(v) => setActiveSubSection(v)}
       >
-        <TabsList className="w-full justify-start mb-4 overflow-x-auto flex-nowrap scrollbar-none">
-          <TabsTrigger value="quiz" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-amber/15 data-[state=active]:text-ems-amber"><GraduationCap className="w-3.5 h-3.5" />Exam</TabsTrigger>
-          <TabsTrigger value="daily-challenge" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-amber-500/15 data-[state=active]:text-amber-600"><CalendarDays className="w-3.5 h-3.5" />Daily Challenge</TabsTrigger>
-          <TabsTrigger value="simulation" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Siren className="w-3.5 h-3.5" />Scenarios</TabsTrigger>
-          <TabsTrigger value="pre-assessment" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><ClipboardList className="w-3.5 h-3.5" />Pre-Test</TabsTrigger>
-          <TabsTrigger value="roleplay" className="text-xs sm:text-sm flex-shrink-0 gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal font-semibold">
+        <TabsList className="w-full justify-start mb-4 flex-wrap gap-1">
+          <TabsTrigger value="quiz" className="text-xs sm:text-sm gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-amber/15 data-[state=active]:text-ems-amber"><GraduationCap className="w-3.5 h-3.5" />Exam</TabsTrigger>
+          <TabsTrigger value="daily-challenge" className="text-xs sm:text-sm gap-1 px-2 sm:px-3 data-[state=active]:bg-amber-500/15 data-[state=active]:text-amber-600"><CalendarDays className="w-3.5 h-3.5" />Daily Challenge</TabsTrigger>
+          <TabsTrigger value="simulation" className="text-xs sm:text-sm gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-red/15 data-[state=active]:text-ems-red"><Siren className="w-3.5 h-3.5" />Scenarios</TabsTrigger>
+          <TabsTrigger value="pre-assessment" className="text-xs sm:text-sm gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-navy/15 data-[state=active]:text-ems-navy"><ClipboardList className="w-3.5 h-3.5" />Pre-Test</TabsTrigger>
+          <TabsTrigger value="roleplay" className="text-xs sm:text-sm gap-1 px-2 sm:px-3 data-[state=active]:bg-ems-teal/15 data-[state=active]:text-ems-teal font-semibold">
             <MessageSquare className="w-3.5 h-3.5" />
             Roleplay
           </TabsTrigger>
