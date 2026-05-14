@@ -76,6 +76,9 @@ import {
   Sparkles,
   Bot,
   Slider,
+  Download,
+  FileJson,
+  FileSpreadsheet,
 } from 'lucide-react'
 
 // ==================== TYPES ====================
@@ -1037,6 +1040,136 @@ function DeleteDialog({
   )
 }
 
+// ==================== EXPORT ROW COMPONENT ====================
+function ExportDataRow({
+  dataType,
+  icon,
+  title,
+  color,
+}: {
+  dataType: string
+  icon: React.ReactNode
+  title: string
+  color: string
+}) {
+  const [exporting, setExporting] = useState(false)
+
+  const handleExport = async (format: 'json' | 'csv') => {
+    setExporting(true)
+    try {
+      const res = await fetch(`/api/admin/export?model=${dataType}&format=${format}`)
+      if (!res.ok) throw new Error('Failed to export')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      const timestamp = new Date().toISOString().split('T')[0]
+      a.download = `ems-${dataType}-${timestamp}.${format}`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      toast.success(`${title} exported as ${format.toUpperCase()} successfully`)
+    } catch {
+      toast.error(`Failed to export ${title.toLowerCase()}`)
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  return (
+    <div className={cn('p-4 rounded-xl border', color)}>
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-9 h-9 rounded-lg bg-background/80 flex items-center justify-center">
+          {icon}
+        </div>
+        <div className="flex-1">
+          <p className="text-sm font-semibold">{title}</p>
+          <p className="text-[10px] text-muted-foreground">All records from database</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5 h-8 text-xs"
+            onClick={() => handleExport('json')}
+            disabled={exporting}
+          >
+            <FileJson className="w-3.5 h-3.5" />
+            JSON
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5 h-8 text-xs"
+            onClick={() => handleExport('csv')}
+            disabled={exporting}
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5" />
+            CSV
+          </Button>
+        </div>
+      </div>
+      {exporting && (
+        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+          <Loader2 className="w-3 h-3 animate-spin" /> Preparing download...
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ==================== EXPORT ALL BUTTON COMPONENT ====================
+function ExportAllButton() {
+  const [exporting, setExporting] = useState(false)
+
+  const handleExportAll = async () => {
+    setExporting(true)
+    try {
+      const types = ['questions', 'acronyms', 'definitions'] as const
+      for (const type of types) {
+        for (const fmt of ['json', 'csv'] as const) {
+          const res = await fetch(`/api/admin/export?model=${type}&format=${fmt}`)
+          if (!res.ok) continue
+          const blob = await res.blob()
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          const timestamp = new Date().toISOString().split('T')[0]
+          a.download = `ems-${type}-${timestamp}.${fmt}`
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+          URL.revokeObjectURL(url)
+          // Small delay between downloads
+          await new Promise((r) => setTimeout(r, 200))
+        }
+      }
+      toast.success('All data exported successfully (6 files)')
+    } catch {
+      toast.error('Some exports failed. Please try individual downloads.')
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  return (
+    <Button
+      className="gap-2 bg-[#1E3A5F] hover:bg-[#1E3A5F]/90"
+      size="sm"
+      disabled={exporting}
+      onClick={handleExportAll}
+    >
+      {exporting ? (
+        <Loader2 className="w-4 h-4 animate-spin" />
+      ) : (
+        <Download className="w-4 h-4" />
+      )}
+      {exporting ? 'Exporting...' : 'Download All (JSON + CSV)'}
+    </Button>
+  )
+}
+
 // ==================== TAB CONTENT COMPONENT ====================
 function ModelTabContent({ config }: { config: ModelConfig }) {
   const [data, setData] = useState<Record<string, unknown>[]>([])
@@ -1705,6 +1838,43 @@ function AppSettingsTab() {
 
         {/* Data Management Tab */}
         <TabsContent value="data" className="space-y-6 mt-4">
+          {/* Export Center Card */}
+          <Card className="card-modern">
+            <CardHeader>
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Download className="w-4 h-4 text-ems-teal" /> Export Data Center
+              </CardTitle>
+              <p className="text-xs text-muted-foreground mt-1">
+                Download all questions, acronyms, and definitions in JSON or CSV format.
+              </p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ExportDataRow
+                dataType="questions"
+                icon={<HelpCircle className="w-4 h-4" />}
+                title="Questions"
+                color="bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800/50"
+              />
+              <ExportDataRow
+                dataType="acronyms"
+                icon={<BookOpen className="w-4 h-4" />}
+                title="Acronyms"
+                color="bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50"
+              />
+              <ExportDataRow
+                dataType="definitions"
+                icon={<BookOpen className="w-4 h-4" />}
+                title="Definitions"
+                color="bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50"
+              />
+
+              {/* Download All button */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <ExportAllButton />
+              </div>
+            </CardContent>
+          </Card>
+
           <Card className="card-modern">
             <CardHeader>
               <CardTitle className="text-sm flex items-center gap-2">

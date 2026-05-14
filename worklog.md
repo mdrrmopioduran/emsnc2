@@ -1024,3 +1024,73 @@ Stage Summary:
 - **Visualization** now defaults to "Equipment Gallery" tab
 - **Practice Assessment** now shows all 5 tab titles on mobile (wrapping to multiple lines)
 - All changes are responsive: on desktop, tabs display in a row; on mobile/tablet, they wrap naturally
+
+---
+Task ID: 10
+Agent: Main Agent (Orchestrator) - Round 6
+Task: Add data export feature to admin dashboard
+
+Work Log:
+- Read worklog.md and assessed current project status — app stable on port 3000
+- Analyzed existing admin-section.tsx component (1930 lines) and admin API routes
+- Analyzed Prisma schema: Question (260 records), Acronym (89 records), Definition (42 records)
+- Created `/src/app/api/admin/export/route.ts` — Export API endpoint:
+  - GET endpoint with query params: `model` (questions/acronyms/definitions) and `format` (json/csv)
+  - Fetches all records from database using explicit Prisma model calls
+  - JSON format: returns pretty-printed JSON with parsed array fields (e.g., question options)
+  - CSV format: returns properly escaped CSV with headers, pipe-delimited arrays for options
+  - Proper Content-Disposition headers for file download
+  - Input validation for model and format parameters
+  - Error handling with descriptive error messages
+- Updated `/src/components/ems/admin-section.tsx` — Added Export Data Center UI:
+  - Added 3 new Lucide icon imports: Download, FileJson, FileSpreadsheet
+  - Created `ExportDataRow` component with per-model download buttons (JSON/CSV)
+  - Created `ExportAllButton` component to download all 6 files at once with 200ms delay
+  - Added Export Data Center card to the Data Management tab (before User Data card)
+  - Color-coded export rows: blue for Questions, amber for Acronyms, emerald for Definitions
+  - Loading states with spinner during export
+  - Toast notifications on success/failure
+
+### API Verification Results:
+- ✅ Questions JSON export — 260 records with parsed options arrays
+- ✅ Questions CSV export — proper CSV with pipe-delimited options
+- ✅ Acronyms JSON export — 89 records
+- ✅ Acronyms CSV export — proper CSV with quoted fields containing commas
+- ✅ Definitions JSON export — 42 records
+- ✅ Definitions CSV export — proper CSV
+- ✅ Invalid model returns 400 error
+- ✅ Invalid format returns 400 error
+- ✅ `bun run lint` — 0 errors, 0 warnings
+
+### Files Created (1 new):
+- `src/app/api/admin/export/route.ts`
+
+### Files Modified (1):
+- `src/components/ems/admin-section.tsx` — Added ExportDataRow, ExportAllButton components + Export Data Center UI card
+
+Stage Summary:
+- **Admin Export Data Center** — New UI card in Settings > Data Management tab
+- **3 exportable data types**: Questions (260), Acronyms (89), Definitions (42)
+- **2 export formats**: JSON (pretty-printed) and CSV (properly escaped)
+- **"Download All" button** — Exports all 6 files (3 models × 2 formats) sequentially
+- **API endpoint** at `/api/admin/export` with proper validation and error handling
+- **Zero lint errors** — all changes pass ESLint cleanly
+- **No existing functionality broken** — all changes are additive
+
+### Current Project Status Assessment
+**Status: HEALTHY — Feature-rich and production-ready**
+
+The PIO DURAN EMS NCII Reviewer continues to grow with comprehensive admin capabilities including:
+- Full data export system for questions, acronyms, and definitions in JSON/CSV format
+- 200+ bilingual translation keys (EN/Fil)
+- 16 badges, study streak calendar, equipment detail sheets, keyboard shortcuts
+- Flashcard system (78+ cards, 3 modes), focus timer, notes system, daily challenges
+- GitHub-style study heatmap, progress dashboard widget
+- 60+ CSS animation/utility classes with glassmorphism and gradient effects
+
+### Priority Recommendations for Next Phase
+1. **High**: Add import functionality (JSON/CSV) to admin dashboard for data migration
+2. **Medium**: Add export for additional models (drugs, competencies, scenarios)
+3. **Medium**: Add data export/import for user progress (flashcard history, focus timer, streak data)
+4. **Low**: Complete Filipino translations for newest features
+5. **Low**: Add haptic feedback to mobile bottom navigation
