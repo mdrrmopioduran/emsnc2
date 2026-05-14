@@ -1207,7 +1207,7 @@ export function SettingsSection() {
 
           <p className="text-sm text-foreground/80">
             This app is designed to help PIO DURAN EMS NCII TESDA candidates prepare for competency assessment.
-            It covers essential topics including OSH, First Aid, BLS/CPR, Patient Assessment,
+            It covers essential topics including OHS, FA, BLS, Assessment,
             Emergency Procedures, and Philippine EMS regulations.
           </p>
 

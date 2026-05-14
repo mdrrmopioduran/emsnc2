@@ -12,7 +12,7 @@ import {
   Shield, Heart, Stethoscope, Scale, Activity, Users,
   Pill, BookOpen, Sparkles, Target, Zap, Eye,
   MessageSquare, X, GraduationCap, Siren, ClipboardList,
-  CalendarDays
+  CalendarDays, Server, Truck, Key
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -29,33 +29,45 @@ import { DailyChallengeSection } from '@/components/ems/daily-challenge-section'
 
 // ==================== CATEGORY ICONS MAP ====================
 const categoryIcons: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
-  'OSH': { icon: <Shield className="w-4 h-4" />, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30' },
-  'First Aid': { icon: <Heart className="w-4 h-4" />, color: 'text-red-500 dark:text-red-400', bg: 'bg-red-100 dark:bg-red-900/30' },
-  'BLS/CPR': { icon: <Activity className="w-4 h-4" />, color: 'text-ems-red dark:text-ems-red', bg: 'bg-red-100 dark:bg-red-900/30' },
-  'Patient Assessment': { icon: <Stethoscope className="w-4 h-4" />, color: 'text-ems-teal dark:text-ems-teal', bg: 'bg-teal-100 dark:bg-teal-900/30' },
+  'OHS': { icon: <Shield className="w-4 h-4" />, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30' },
+  'FA': { icon: <Heart className="w-4 h-4" />, color: 'text-red-500 dark:text-red-400', bg: 'bg-red-100 dark:bg-red-900/30' },
+  'BLS': { icon: <Activity className="w-4 h-4" />, color: 'text-ems-red dark:text-ems-red', bg: 'bg-red-100 dark:bg-red-900/30' },
+  'Assessment': { icon: <Stethoscope className="w-4 h-4" />, color: 'text-ems-teal dark:text-ems-teal', bg: 'bg-teal-100 dark:bg-teal-900/30' },
   'Trauma': { icon: <AlertTriangle className="w-4 h-4" />, color: 'text-orange-500 dark:text-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/30' },
-  'Medical Emergencies': { icon: <Heart className="w-4 h-4" />, color: 'text-purple-500 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/30' },
+  'Med Emerg': { icon: <Heart className="w-4 h-4" />, color: 'text-purple-500 dark:text-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/30' },
   'AMATS': { icon: <Users className="w-4 h-4" />, color: 'text-blue-500 dark:text-blue-400', bg: 'bg-blue-100 dark:bg-blue-900/30' },
-  'Ambulance Management': { icon: <Siren className="w-4 h-4" />, color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/30' },
-  'Radio Communication': { icon: <MessageSquare className="w-4 h-4" />, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-100 dark:bg-cyan-900/30' },
-  'Legal/Ethical': { icon: <Scale className="w-4 h-4" />, color: 'text-indigo-500 dark:text-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-900/30' },
+  'Amb Mgmt': { icon: <Siren className="w-4 h-4" />, color: 'text-sky-600 dark:text-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/30' },
+  'Comms': { icon: <MessageSquare className="w-4 h-4" />, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-100 dark:bg-cyan-900/30' },
+  'Legal': { icon: <Scale className="w-4 h-4" />, color: 'text-indigo-500 dark:text-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-900/30' },
   'Drugs': { icon: <Pill className="w-4 h-4" />, color: 'text-green-500 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-900/30' },
   'TESDA Standards': { icon: <BookOpen className="w-4 h-4" />, color: 'text-primary', bg: 'bg-primary/10' },
+  'PH Care': { icon: <ClipboardCheck className="w-4 h-4" />, color: 'text-teal-500 dark:text-teal-400', bg: 'bg-teal-100 dark:bg-teal-900/30' },
+  'LSE': { icon: <Server className="w-4 h-4" />, color: 'text-emerald-500 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-900/30' },
+  'Driving': { icon: <Truck className="w-4 h-4" />, color: 'text-violet-500 dark:text-violet-400', bg: 'bg-violet-100 dark:bg-violet-900/30' },
+  'Transport': { icon: <Users className="w-4 h-4" />, color: 'text-sky-500 dark:text-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/30' },
+  'Scene': { icon: <Shield className="w-4 h-4" />, color: 'text-rose-500 dark:text-rose-400', bg: 'bg-rose-100 dark:bg-rose-900/30' },
+  'Extrication': { icon: <Key className="w-4 h-4" />, color: 'text-amber-500 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-900/30' },
 }
 
 const categoryWhatYoullLearn: Record<string, string[]> = {
-  'OSH': ['BSI & Standard Precautions', 'PPE selection & doffing', 'Occupational health laws (RA 11058)', 'Exposure management protocols'],
-  'First Aid': ['Bleeding control & tourniquets', 'Burn management', 'Splinting & fracture care', 'Wound management principles'],
-  'BLS/CPR': ['Compression technique & rate', 'AED operation', 'Rescue breathing', 'Choking management'],
-  'Patient Assessment': ['ABCDE primary survey', 'SAMPLE & OPQRST history', 'GCS & AVPU scoring', 'Head-to-toe examination'],
+  'OHS': ['BSI & Standard Precautions', 'PPE selection & doffing', 'Occupational health laws (RA 11058)', 'Exposure management protocols'],
+  'FA': ['Bleeding control & tourniquets', 'Burn management', 'Splinting & fracture care', 'Wound management principles'],
+  'BLS': ['Compression technique & rate', 'AED operation', 'Rescue breathing', 'Choking management'],
+  'Assessment': ['ABCDE primary survey', 'SAMPLE & OPQRST history', 'GCS & AVPU scoring', 'Head-to-toe examination'],
   'Trauma': ['Hemorrhage control', 'Chest injury management', 'Spinal motion restriction', 'Shock recognition & treatment'],
-  'Medical Emergencies': ['Stroke recognition (FAST)', 'Anaphylaxis management', 'Diabetic emergencies', 'Cardiac arrest protocols'],
+  'Med Emerg': ['Stroke recognition (FAST)', 'Anaphylaxis management', 'Diabetic emergencies', 'Cardiac arrest protocols'],
   'AMATS': ['MCI triage & START', 'Incident Command System', 'Scene size-up & safety', 'Hazardous material zones'],
-  'Ambulance Management': ['Patient transport & positioning', 'Emergency vehicle driving', 'Stretcher & lift operations', 'Ambulance inspection & maintenance'],
-  'Radio Communication': ['Radio protocols & 10-codes', 'SBAR & closed-loop comms', 'PCR documentation', 'Crew resource management'],
-  'Legal/Ethical': ['Consent & refusal laws', 'Documentation requirements', 'Scope of practice', 'Patient rights & confidentiality'],
+  'Amb Mgmt': ['Patient transport & positioning', 'Emergency vehicle driving', 'Stretcher & lift operations', 'Ambulance inspection & maintenance'],
+  'Comms': ['Radio protocols & 10-codes', 'SBAR & closed-loop comms', 'PCR documentation', 'Crew resource management'],
+  'Legal': ['Consent & refusal laws', 'Documentation requirements', 'Scope of practice', 'Patient rights & confidentiality'],
   'Drugs': ['Medication routes & dosages', 'Epinephrine administration', 'Nitroglycerin protocols', 'Drug storage & handling'],
   'TESDA Standards': ['Competency assessment criteria', 'Training regulations', 'Certification requirements', 'Practical exam preparation'],
+  'PH Care': ['Patient positioning', 'Vital signs monitoring', 'Ongoing assessment', 'Patient comfort measures'],
+  'LSE': ['Oxygen administration', 'Suction devices', 'AED operation', 'Bag-valve-mask ventilation'],
+  'Driving': ['Emergency vehicle operation', 'Defensive driving', 'Route planning', 'Vehicle safety checks'],
+  'Transport': ['Stretcher operations', 'Patient packaging', 'Loading/unloading', 'Transport priority decisions'],
+  'Scene': ['Scene size-up', 'Hazard recognition', 'Resource management', 'Incident command'],
+  'Extrication': ['Vehicle stabilization', 'Patient disentanglement', 'Tool safety', 'Rapid extrication techniques'],
 }
 
 // ==================== QUIZ ENGINE ====================

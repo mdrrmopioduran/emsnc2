@@ -1700,14 +1700,14 @@ const infographics: InfographicImage[] = [
   {
     id: 'airway-management',
     title: 'Airway Management',
-    category: 'First Aid',
+    category: 'FA',
     src: '/infographics/airway_management_infographic_2.jpg',
     color: '#22C55E',
   },
   {
     id: 'ems-emergency-response',
     title: 'EMS Emergency Response',
-    category: 'First Aid',
+    category: 'FA',
     src: '/infographics/1778208113904.png',
     color: '#10B981',
   },
@@ -1748,11 +1748,11 @@ const infographics: InfographicImage[] = [
   },
 ]
 
-const infographicCategories = ['All', 'CPR', 'First Aid', 'Triage', 'Assessment', 'Trauma', 'Equipment', 'General']
+const infographicCategories = ['All', 'CPR', 'FA', 'Triage', 'Assessment', 'Trauma', 'Equipment', 'General']
 
 const categoryColors: Record<string, string> = {
   'CPR': '#EF4444',
-  'First Aid': '#22C55E',
+  'FA': '#22C55E',
   'Triage': '#F59E0B',
   'Assessment': '#3B82F6',
   'Trauma': '#F97316',

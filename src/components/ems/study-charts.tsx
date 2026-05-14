@@ -71,28 +71,33 @@ function formatDateShort(d: Date): string {
 }
 
 const RADAR_CATEGORIES = [
-  'OSH',
-  'First Aid',
-  'BLS/CPR',
-  'Patient Assessment',
+  'OHS',
+  'FA',
+  'BLS',
+  'Assessment',
   'Trauma',
-  'Legal/Ethical',
-  'Communications',
+  'Legal',
+  'Comms',
 ]
 
 const RADAR_CATEGORY_MAP: Record<string, string> = {
-  'OSH': 'OSH',
-  'First Aid': 'First Aid',
-  'BLS/CPR': 'BLS/CPR',
-  'Patient Assessment': 'Patient Assessment',
+  'OHS': 'OHS',
+  'FA': 'FA',
+  'BLS': 'BLS',
+  'Assessment': 'Assessment',
   'Trauma': 'Trauma',
-  'Medical Emergencies': 'Patient Assessment',
-  'Legal/Ethical': 'Legal/Ethical',
-  'Radio Communication': 'Communications',
-  'Ambulance Management': 'Operations',
+  'Med Emerg': 'Assessment',
+  'Legal': 'Legal',
+  'Comms': 'Comms',
+  'Amb Mgmt': 'Operations',
   'AMATS': 'Operations',
   'Operations': 'Operations',
-  'Communications': 'Communications',
+  'PH Care': 'Assessment',
+  'LSE': 'Operations',
+  'Driving': 'Operations',
+  'Transport': 'Operations',
+  'Scene': 'Operations',
+  'Extrication': 'Operations',
 }
 
 const PIE_COLORS = [TEAL, AMBER, PURPLE, RED]

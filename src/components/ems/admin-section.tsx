@@ -194,16 +194,16 @@ const MODEL_CONFIGS: ModelConfig[] = [
       { key: 'correctAnswer', label: 'Correct Answer Index', type: 'number', required: true, placeholder: '0 (0-based index)' },
       { key: 'explanation', label: 'Explanation', type: 'textarea', rows: 3, placeholder: 'Explain the correct answer' },
       { key: 'category', label: 'Category', type: 'select', options: [
-        { value: 'OSH', label: 'OSH' },
-        { value: 'First Aid', label: 'First Aid' },
-        { value: 'BLS-CPR', label: 'BLS/CPR' },
-        { value: 'Patient Assessment', label: 'Patient Assessment' },
+        { value: 'OHS', label: 'OHS' },
+        { value: 'FA', label: 'FA' },
+        { value: 'BLS', label: 'BLS' },
+        { value: 'Assessment', label: 'Assessment' },
         { value: 'Trauma', label: 'Trauma' },
-        { value: 'Medical Emergencies', label: 'Medical Emergencies' },
+        { value: 'Med Emerg', label: 'Med Emerg' },
         { value: 'AMATS', label: 'AMATS' },
-        { value: 'Ambulance Management', label: 'Ambulance Management' },
-        { value: 'Radio Communication', label: 'Radio Communication' },
-        { value: 'Legal-Ethical', label: 'Legal/Ethical' },
+        { value: 'Amb Mgmt', label: 'Amb Mgmt' },
+        { value: 'Comms', label: 'Comms' },
+        { value: 'Legal', label: 'Legal' },
         { value: 'Drugs', label: 'Drugs' },
         { value: 'TESDA Standards', label: 'TESDA Standards' },
       ] },
@@ -1057,7 +1057,7 @@ function ExportDataRow({
   const handleExport = async (format: 'json' | 'csv') => {
     setExporting(true)
     try {
-      const res = await fetch(`/api/admin/export?model=${dataType}&format=${format}`)
+      const res = await fetch(`/api/admin/export?type=${dataType}&format=${format}`)
       if (!res.ok) throw new Error('Failed to export')
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
@@ -1129,7 +1129,7 @@ function ExportAllButton() {
       const types = ['questions', 'acronyms', 'definitions'] as const
       for (const type of types) {
         for (const fmt of ['json', 'csv'] as const) {
-          const res = await fetch(`/api/admin/export?model=${type}&format=${fmt}`)
+          const res = await fetch(`/api/admin/export?type=${type}&format=${fmt}`)
           if (!res.ok) continue
           const blob = await res.blob()
           const url = URL.createObjectURL(blob)

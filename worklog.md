@@ -1094,3 +1094,60 @@ The PIO DURAN EMS NCII Reviewer continues to grow with comprehensive admin capab
 3. **Medium**: Add data export/import for user progress (flashcard history, focus timer, streak data)
 4. **Low**: Complete Filipino translations for newest features
 5. **Low**: Add haptic feedback to mobile bottom navigation
+
+---
+Task ID: 10
+Agent: Main Agent (Orchestrator) - Round 6+
+Task: Replace questions.ts with updated categories and add Admin Export feature
+
+Work Log:
+- Replaced `/src/data/questions.ts` with user-uploaded version (5705 lines, expanded question set)
+- Updated Question interface to use new short categories (16 categories):
+  BLS, Assessment, Trauma, FA, Med Emerg, PH Care, LSE, Comms, Driving, Transport, Scene, Extrication, Amb Mgmt, OHS, Legal, AMATS
+- Batch-replaced all old category values in questions.ts data:
+  BLS/CPR → BLS, Life Support Equipment → LSE, Safe Access/ Extrication → Extrication,
+  Ambu-Srvce Management → Amb Mgmt, Ambulance Communication → Comms, Drive Ambulance → Driving,
+  Transport Patients → Transport, Scene Management → Scene, First Aid → FA, Legal/Ethical → Legal,
+  Medical Emergency/Medical Emergencies → Med Emerg, OSH → OHS, Occupational Health and Safety → OHS,
+  Patient Assessment → Assessment, Pre-Hospital Patient Care → PH Care, Ambulance Management → Amb Mgmt
+- Updated category references across ALL source files (30+ files):
+  - app-store.ts topicMapping, shared-components.tsx categories array
+  - All component files (custom-quiz, smart-review, admin, study-charts, settings, assessment, visual, ai-assistant)
+  - All data files (scenarios, emergency-scenarios, roleplay-scenarios, assessment-scenes, roadmap, competencies)
+  - API route (chat/route.ts)
+- Updated Prisma schema default category: "BLS/CPR" → "BLS"
+- Created `/src/app/api/admin/export/route.ts` — Admin data export API:
+  - GET /api/admin/export?type=questions|acronyms|definitions|all&format=json|csv
+  - JSON format with proper parsing of stored JSON strings
+  - CSV format with semicolon-separated options and proper escaping
+  - Content-Disposition headers for file downloads
+  - Error handling with 400/500 responses
+- Admin-section.tsx already had export UI integrated by sub-agent
+- Verified: lint passes clean, dev server compiles with HTTP 200
+
+Stage Summary:
+- **questions.ts replaced** with expanded question set using new short category system (16 categories)
+- **All category references updated** across 30+ source files
+- **Admin Export API** created at /api/admin/export (JSON + CSV for questions, acronyms, definitions)
+- **Prisma schema updated** with new default category
+- **Lint passes clean**, dev server stable
+
+### Category Mapping Reference:
+| Short Code | Full Name |
+|---|---|
+| BLS | Basic Life Support / CPR |
+| Assessment | Patient Assessment |
+| Trauma | Trauma Care |
+| FA | First Aid |
+| Med Emerg | Medical Emergencies |
+| PH Care | Pre-Hospital Care |
+| LSE | Life Support Equipment |
+| Comms | Ambulance Communication |
+| Driving | Ambulance Driving |
+| Transport | Patient Transport |
+| Scene | Scene Management |
+| Extrication | Safe Access / Extrication |
+| Amb Mgmt | Ambulance Service Management |
+| OHS | Occupational Health & Safety |
+| Legal | Legal / Ethical Issues |
+| AMATS | Ambulance Medical Assistance & Transfer System |

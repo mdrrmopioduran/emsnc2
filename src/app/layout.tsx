@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "PIO DURAN EMS NCII | EMS Reviewer",
   description: "Comprehensive study and review platform for Emergency Medical Service NCII TESDA standards in the Philippines. Features learning roadmap, study materials, interactive diagrams, practice assessments, and more.",
-  keywords: ["EMS", "NCII", "TESDA", "Philippines", "Pio Duran", "First Aid", "CPR", "Emergency Medical Service", "BLS", "Assessment"],
+  keywords: ["EMS", "NCII", "TESDA", "Philippines", "Pio Duran", "FA", "CPR", "Emergency Medical Service", "BLS", "Assessment"],
   icons: {
     icon: "/pio-duran-ems-logo.png",
     apple: "/icons/icon-192x192.png",

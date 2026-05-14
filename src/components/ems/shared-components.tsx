@@ -856,7 +856,7 @@ export function DiagnosticAssessment() {
     )
   }
 
-  const categories = ['OSH', 'First Aid', 'BLS/CPR', 'Patient Assessment', 'Legal/Ethical']
+  const categories = ['OHS', 'FA', 'BLS', 'Assessment', 'Legal']
   const selfAssessLevels = [
     { label: t('diagnostic.notFamiliar'), value: 20 },
     { label: t('diagnostic.basicKnowledge'), value: 40 },

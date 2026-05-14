@@ -6,7 +6,8 @@ import { questions } from '@/data/questions'
 import {
   Shuffle, CheckCircle2, XCircle, ArrowRight, ArrowLeft,
   Trophy, Clock, Filter, Zap, Target, BookOpen,
-  GraduationCap, RotateCcw, ChevronRight, Eye, Play
+  GraduationCap, RotateCcw, ChevronRight, Eye, Play,
+  ClipboardCheck, Server, Truck, Users, Shield, Key
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -50,18 +51,24 @@ const DIFFICULTY_OPTIONS: { value: QuizDifficulty; label: string; labelFil: stri
 ]
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  'OSH': <Target className="w-4 h-4" />,
-  'First Aid': <Zap className="w-4 h-4" />,
-  'BLS/CPR': <Target className="w-4 h-4" />,
-  'Patient Assessment': <GraduationCap className="w-4 h-4" />,
+  'OHS': <Target className="w-4 h-4" />,
+  'FA': <Zap className="w-4 h-4" />,
+  'BLS': <Target className="w-4 h-4" />,
+  'Assessment': <GraduationCap className="w-4 h-4" />,
   'Trauma': <Shuffle className="w-4 h-4" />,
-  'Medical Emergencies': <Zap className="w-4 h-4" />,
+  'Med Emerg': <Zap className="w-4 h-4" />,
   'AMATS': <BookOpen className="w-4 h-4" />,
-  'Ambulance Management': <Clock className="w-4 h-4" />,
-  'Radio Communication': <Zap className="w-4 h-4" />,
-  'Legal/Ethical': <BookOpen className="w-4 h-4" />,
+  'Amb Mgmt': <Clock className="w-4 h-4" />,
+  'Comms': <Zap className="w-4 h-4" />,
+  'Legal': <BookOpen className="w-4 h-4" />,
   'Drugs': <Target className="w-4 h-4" />,
   'TESDA Standards': <BookOpen className="w-4 h-4" />,
+  'PH Care': <ClipboardCheck className="w-4 h-4" />,
+  'LSE': <Server className="w-4 h-4" />,
+  'Driving': <Truck className="w-4 h-4" />,
+  'Transport': <Users className="w-4 h-4" />,
+  'Scene': <Shield className="w-4 h-4" />,
+  'Extrication': <Key className="w-4 h-4" />,
 }
 
 // ==================== HELPERS ====================

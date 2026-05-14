@@ -27,7 +27,7 @@ export const scenarios: Scenario[] = [
     title: "Adult CPR with AED",
     description:
       "You respond to a 55-year-old male who has collapsed in a shopping mall. Bystanders report he was walking normally, then suddenly fell to the ground. He is unresponsive and not breathing normally.",
-    category: "BLS/CPR",
+    category: "BLS",
     startStepId: "step1",
     steps: {
       step1: {
@@ -239,7 +239,7 @@ export const scenarios: Scenario[] = [
     title: "Choking Adult (Conscious → Unconscious)",
     description:
       "You are on duty at a community event when a 40-year-old male suddenly begins clutching his throat while eating. He appears distressed and cannot speak.",
-    category: "First Aid",
+    category: "FA",
     startStepId: "c1",
     steps: {
       c1: {
@@ -569,7 +569,7 @@ export const scenarios: Scenario[] = [
     title: "Anaphylaxis (Epi-Pen Administration)",
     description:
       "A 30-year-old female was stung by a bee at a park. She has a known bee allergy and carries an EpiPen. She is developing facial swelling and difficulty breathing.",
-    category: "Medical Emergencies",
+    category: "Med Emerg",
     startStepId: "a1",
     steps: {
       a1: {
@@ -700,7 +700,7 @@ export const scenarios: Scenario[] = [
     title: "Stroke Recognition (FAST Assessment)",
     description:
       "You respond to a home where a 65-year-old woman's family reports she suddenly developed right-sided weakness and slurred speech during breakfast.",
-    category: "Medical Emergencies",
+    category: "Med Emerg",
     startStepId: "s1",
     steps: {
       s1: {
@@ -949,7 +949,7 @@ export const scenarios: Scenario[] = [
     title: "Diabetic Emergency (Hypoglycemia)",
     description:
       "You respond to an office where a 45-year-old male with diabetes has become confused, diaphoretic, and tremulous. Coworkers say he took insulin but skipped lunch.",
-    category: "Medical Emergencies",
+    category: "Med Emerg",
     startStepId: "d1",
     steps: {
       d1: {

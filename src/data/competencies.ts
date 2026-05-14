@@ -212,7 +212,7 @@ export const competencyModules: CompetencyModule[] = [
   // ──────────────────────────────────────────────
   {
     id: 'patient-assessment',
-    title: 'Patient Assessment',
+    title: 'Assessment',
     shortTitle: 'Assessment',
     description: 'Systematic approach to patient assessment including scene size-up, primary survey, focused history, and detailed physical examination with proper documentation techniques.',
     icon: '🔍',
@@ -404,7 +404,7 @@ export const competencyModules: CompetencyModule[] = [
   // ──────────────────────────────────────────────
   {
     id: 'medical-emergencies',
-    title: 'Medical Emergencies',
+    title: 'Med Emerg',
     shortTitle: 'Medical',
     description: 'Recognition and management of acute medical conditions including cardiac emergencies, stroke, diabetic emergencies, respiratory distress, allergic reactions, and seizures.',
     icon: '🫀',

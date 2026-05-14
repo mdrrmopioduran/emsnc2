@@ -497,14 +497,14 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     // Build suggested path: weak categories first, then strong
     const topicMapping: Record<string, string> = {
-      'OSH': 'osh',
-      'First Aid': 'first-aider',
-      'BLS/CPR': 'chain-of-survival',
-      'Patient Assessment': 'assessment-procedure',
+      'OHS': 'osh',
+      'FA': 'first-aider',
+      'BLS': 'chain-of-survival',
+      'Assessment': 'assessment-procedure',
       'Trauma': 'action-plan',
-      'Medical Emergencies': 'chain-of-survival',
+      'Med Emerg': 'chain-of-survival',
       'AMATS': 'amats',
-      'Legal/Ethical': 'rules-law',
+      'Legal': 'rules-law',
       'Drugs': 'assessment-procedure',
       'TESDA Standards': 'life-on-the-line',
     }

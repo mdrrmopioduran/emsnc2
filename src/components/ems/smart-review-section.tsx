@@ -8,7 +8,7 @@ import {
   Brain, AlertTriangle, BookOpen, RotateCcw, Target, Zap,
   Clock, ChevronRight, CheckCircle2, XCircle, ArrowRight,
   ArrowLeft, Trophy, BarChart3, Play, Lightbulb, Star,
-  TrendingDown, Eye, CreditCard
+  TrendingDown, Eye, CreditCard, ClipboardCheck, Server, Truck, Users, Shield, Key
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -57,18 +57,24 @@ const PRIORITY_CONFIG: Record<Priority, { color: string; bg: string; border: str
 }
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  'OSH': <AlertTriangle className="w-4 h-4" />,
-  'First Aid': <Zap className="w-4 h-4" />,
-  'BLS/CPR': <Target className="w-4 h-4" />,
-  'Patient Assessment': <Brain className="w-4 h-4" />,
+  'OHS': <AlertTriangle className="w-4 h-4" />,
+  'FA': <Zap className="w-4 h-4" />,
+  'BLS': <Target className="w-4 h-4" />,
+  'Assessment': <Brain className="w-4 h-4" />,
   'Trauma': <AlertTriangle className="w-4 h-4" />,
-  'Medical Emergencies': <AlertTriangle className="w-4 h-4" />,
+  'Med Emerg': <AlertTriangle className="w-4 h-4" />,
   'AMATS': <BarChart3 className="w-4 h-4" />,
-  'Ambulance Management': <Clock className="w-4 h-4" />,
-  'Radio Communication': <Zap className="w-4 h-4" />,
-  'Legal/Ethical': <BookOpen className="w-4 h-4" />,
+  'Amb Mgmt': <Clock className="w-4 h-4" />,
+  'Comms': <Zap className="w-4 h-4" />,
+  'Legal': <BookOpen className="w-4 h-4" />,
   'Drugs': <Star className="w-4 h-4" />,
   'TESDA Standards': <BookOpen className="w-4 h-4" />,
+  'PH Care': <ClipboardCheck className="w-4 h-4" />,
+  'LSE': <Server className="w-4 h-4" />,
+  'Driving': <Truck className="w-4 h-4" />,
+  'Transport': <Users className="w-4 h-4" />,
+  'Scene': <Shield className="w-4 h-4" />,
+  'Extrication': <Key className="w-4 h-4" />,
 }
 
 // ==================== HELPER ====================

@@ -8,14 +8,12 @@ export interface Question {
     | "BLS"
     | "Assessment"
     | "Trauma"
-    | "FA"
     | "Med Emerg"
     | "PH Care"
     | "LSE"
     | "Comms"
     | "Driving"
     | "Transport"
-    | "Scene"
     | "Extrication"
     | "Amb Mgmt"
     | "OHS"
@@ -35,7 +33,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The standard ratio for adult CPR is 30 compressions to 2 ventilations per American Heart Association (AHA) guidelines.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 2,
@@ -48,7 +46,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "American Heart Association (AHA) recommends at least 2 inches (5 cm) compression depth for adults.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 3,
@@ -61,7 +59,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "The recommended compression rate is 100-120 compressions per minute.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 4,
@@ -74,7 +72,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "An AED is used when a patient is unresponsive and not breathing normally to analyze heart rhythm.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 5,
@@ -87,7 +85,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Always ensure scene safety and call for help before initiating CPR.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 6,
@@ -100,7 +98,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Each rescue breath should be given over 1 second to provide adequate ventilation without over-inflating.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 7,
@@ -113,7 +111,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Hands should be placed on the lower half of the sternum for effective compressions.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 8,
@@ -126,7 +124,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "If AED advises no shock, resume CPR immediately starting with chest compressions.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 9,
@@ -139,7 +137,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "For children, compress at least 1/3 the AP diameter of the chest, about 2 inches.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 10,
@@ -152,7 +150,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Switch compressors every 2 minutes or 5 cycles to prevent fatigue and maintain quality.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 11,
@@ -165,7 +163,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "For two-rescuer child CPR, the ratio is 15 compressions to 2 ventilations.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 12,
@@ -178,7 +176,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "In an unconscious patient, the tongue relaxes and falls back, blocking the airway.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 13,
@@ -191,7 +189,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The recovery position keeps the airway open and allows fluids to drain in an unresponsive breathing patient.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 14,
@@ -204,7 +202,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Check for moisture, medication patches, and pacemakers as they interfere with AED function.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 15,
@@ -217,7 +215,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "For infants, compress about 1/3 the AP diameter, approximately 1.5 inches (4 cm).",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 16,
@@ -230,7 +228,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Head tilt-chin lift is the standard method to open the airway when no spinal injury is suspected.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 17,
@@ -243,7 +241,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Press shock only when AED advises and ensure no one is touching the patient.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 18,
@@ -256,7 +254,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "For infants, use two fingers placed in the center of the chest just below the nipple line.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 19,
@@ -269,7 +267,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "CAB stands for Compressions, Airway, Breathing - compressions are started first.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 20,
@@ -282,7 +280,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Full chest recoil allows the heart to refill with blood for the next compression to be effective.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 21,
@@ -295,7 +293,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "AEDs should be checked daily or per protocol to ensure battery charge and pad availability.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 22,
@@ -308,7 +306,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "AED pads typically last 2-5 years; always check the expiration date before use.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 23,
@@ -321,7 +319,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "A reading in the red zone indicates low supply; replace the cylinder immediately.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 24,
@@ -334,7 +332,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Oxygen cylinders must be stored upright and secured to prevent falling and valve damage.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 25,
@@ -347,7 +345,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Check that the valve works, the mask seals properly, and the reservoir is attached.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 26,
@@ -360,7 +358,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Use approved disinfectants following manufacturer guidelines to ensure proper decontamination.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 27,
@@ -373,7 +371,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Suction units must be tested for power and adequate vacuum pressure before each shift.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 28,
@@ -386,7 +384,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "All disposable supplies that contacted bodily fluids must go into biohazard containers.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 29,
@@ -399,7 +397,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "The battery indicator confirms the AED has enough power to analyze and deliver shocks.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 30,
@@ -412,7 +410,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Shift checks ensure all equipment is present, functional, and ready for emergency use.",
-   "category": "LSE"
+   "category": "Life Support Equipment"
 },
  {
    "id": 31,
@@ -425,7 +423,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Scene safety and hazard control must be established before any rescue or patient contact.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 32,
@@ -438,7 +436,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Cribbing and wheel chocks stabilize the vehicle to prevent movement during extrication.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 33,
@@ -451,7 +449,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "The KED immobilizes the head, neck, and torso for safe removal from a vehicle.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 34,
@@ -464,7 +462,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Rapid extrication is used when the scene poses immediate danger to the patient or rescuers.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 35,
@@ -477,7 +475,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Full PPE including helmet, gloves, eye protection, and reflective vest is required during extrication.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 36,
@@ -490,7 +488,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Deactivate the vehicle battery and maintain distance from undeployed airbags to prevent accidental deployment.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 37,
@@ -503,7 +501,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Rapid extrication with manual spinal stabilization is used when tools are not available.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 38,
@@ -516,7 +514,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Disconnecting the battery prevents electrical fires, accidental airbag deployment, and other hazards.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 39,
@@ -529,7 +527,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Protect the patient from glass, announce the action for safety, and use a window punch or proper tool.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 40,
@@ -542,7 +540,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "EMS providers focus on patient care while coordinating with the extrication team.",
-   "category": "Extrication"
+   "category": "Safe Access/ Extrication"
 },
  {
    "id": 41,
@@ -555,7 +553,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "DOH Administrative Orders and TESDA TRs set the standards for ambulance service operations.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 42,
@@ -568,7 +566,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "A BLS ambulance requires at least two trained EMS providers for safe operations.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 43,
@@ -581,7 +579,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "A DOH License to Operate is required for ambulance services in the Philippines.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 44,
@@ -594,7 +592,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Quality assurance ensures compliance with standards and continuous improvement of patient care.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 45,
@@ -607,7 +605,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Incident reports must comprehensively include date, time, location, personnel, patient info, and care given.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 46,
@@ -620,7 +618,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Records must be securely stored and retained according to DOH and regulatory requirements.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 47,
@@ -633,7 +631,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "SOPs provide standardized guidelines ensuring consistent, safe, and effective ambulance operations.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 48,
@@ -646,7 +644,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "The assigned EMS crew is responsible for checking and ensuring the ambulance is properly equipped.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 49,
@@ -659,7 +657,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The PCR documents all findings, care provided, and interventions for medical and legal purposes.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 50,
@@ -672,7 +670,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Complaints must be documented, investigated, and resolved with appropriate corrective action.",
-   "category": "Amb Mgmt"
+   "category": "Ambu-Srvce Management"
 },
  {
    "id": 51,
@@ -685,7 +683,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Two-way radio or phone is the standard tool for communicating with medical direction.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 52,
@@ -698,7 +696,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "A radio report must include demographics, chief complaint, findings, and treatment for continuity of care.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 53,
@@ -711,7 +709,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "SBAR stands for Situation, Background, Assessment, Recommendation - a structured communication method.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 54,
@@ -724,7 +722,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "NIMS and FEMA recommend plain language for clear, universal communication across agencies.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 55,
@@ -737,7 +735,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "MCI protocols coordinate resources, triage, and communication among responders during large-scale incidents.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 56,
@@ -750,7 +748,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Always listen first to avoid interrupting ongoing communications on the channel.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 57,
@@ -763,7 +761,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Repeat key information and confirm receipt to ensure accurate communication.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 58,
@@ -776,7 +774,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Face the patient, speak clearly, and use alternative methods like writing to communicate effectively.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 59,
@@ -789,7 +787,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Structured formats like I-PASS or SBAR ensure complete and accurate patient turnover.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 60,
@@ -802,7 +800,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The Data Privacy Act and medical ethics require protecting patient information during all communications.",
-   "category": "Comms"
+   "category": "Ambulance Communication"
 },
  {
    "id": 61,
@@ -815,7 +813,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Scene safety assessment is always the first priority before any patient contact.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 62,
@@ -828,7 +826,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "MARCH: Massive hemorrhage, Airway, Respiration, Circulation, Hypothermia/Head injury.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 63,
@@ -841,7 +839,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "An MCI is declared when patient numbers exceed available resources to manage them effectively.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 64,
@@ -854,7 +852,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "The Incident Commander oversees the entire operation, resource allocation, and coordination.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 65,
@@ -867,7 +865,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Black tags indicate deceased or nonsurvivable injuries in the START triage system.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 66,
@@ -880,7 +878,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Red tags identify immediate/critical patients who need urgent care to survive.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 67,
@@ -893,7 +891,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Danger zones contain hazards and must be cordoned off to protect both rescuers and bystanders.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 68,
@@ -906,7 +904,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Patient care decisions are made by the highest qualified EMS provider in consultation with medical direction.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 69,
@@ -919,7 +917,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "The treatment sector is a designated area where patients receive assessment and initial treatment.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 70,
@@ -932,7 +930,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The triage officer rapidly assesses and categorizes patients by injury severity for priority care.",
-   "category": "Scene"
+   "category": "Scene Management"
 },
  {
    "id": 71,
@@ -945,7 +943,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Scene safety and general impression are always assessed first before any patient contact.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 72,
@@ -958,7 +956,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "SAMPLE: Signs/Symptoms, Allergies, Medications, Past history, Last oral intake, Events.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 73,
@@ -971,7 +969,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "The primary survey follows ABCDE: Airway, Breathing, Circulation, Disability, Exposure.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 74,
@@ -984,7 +982,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The normal adult respiratory rate is 12-20 breaths per minute.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 75,
@@ -997,7 +995,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The normal adult heart rate ranges from 60 to 100 beats per minute.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 76,
@@ -1010,7 +1008,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Normal adult systolic blood pressure is typically 90-120 mmHg.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 77,
@@ -1023,7 +1021,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "The secondary assessment is done after the primary survey once immediate threats are addressed.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 78,
@@ -1036,7 +1034,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "The GCS assesses level of consciousness based on eye, verbal, and motor responses.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 79,
@@ -1049,7 +1047,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "OPQRST: Onset, Provocation, Quality, Radiation, Severity, Time of pain.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 80,
@@ -1062,7 +1060,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Normal SpO2 is 95-100%; below 94% may indicate hypoxemia requiring intervention.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 81,
@@ -1075,7 +1073,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The cuff must be on bare skin, at heart level, and properly sized for accurate readings.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 82,
@@ -1088,7 +1086,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "DCAP-BTLS is a mnemonic for signs of injury: Deformities, Contusions, Abrasions, Punctures, Burns, Tenderness, Lacerations, Swelling.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 83,
@@ -1101,7 +1099,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Rapid trauma assessment quickly identifies life-threatening injuries from head to toe.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 84,
@@ -1114,7 +1112,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Normal pupils constrict equally and briskly when exposed to light (PERL - Pupils Equal and Reactive to Light).",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 85,
@@ -1127,7 +1125,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Fowler's or semi-Fowler's position helps patients with breathing difficulty by allowing lung expansion.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 86,
@@ -1140,7 +1138,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Modified Trendelenburg is supine with legs elevated about 12 inches to improve venous return.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 87,
@@ -1153,7 +1151,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Vital signs are monitored every 5 min for critical and every 15 min for stable patients during transport.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 88,
@@ -1166,7 +1164,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Auscultation uses a stethoscope to listen to breath, heart, and other body sounds for abnormalities.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 89,
@@ -1179,7 +1177,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Absent breath sounds on one side may indicate pneumothorax or hemothorax requiring immediate attention.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 90,
@@ -1192,7 +1190,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Assess skin color, temperature, and moisture as indicators of perfusion and shock.",
-   "category": "PH Care"
+   "category": "Pre-Hospital Patient Care"
 },
  {
    "id": 91,
@@ -1205,7 +1203,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Spinal immobilization must be maintained at all times to prevent further spinal cord damage.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 92,
@@ -1218,7 +1216,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Carry feet first going down stairs with the patient's head at the higher end.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 93,
@@ -1231,7 +1229,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Secure the patient to a long backboard before any movement when spinal injury is suspected.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 94,
@@ -1244,7 +1242,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "At least two rescuers are needed, but four is preferred for safe stretcher carrying.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 95,
@@ -1257,7 +1255,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Verify the stretcher locking mechanism and that the patient is secured with all straps before loading.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 96,
@@ -1270,7 +1268,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Left lateral recumbent position prevents aortocaval compression and improves blood flow to the fetus.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 97,
@@ -1283,7 +1281,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Use a long backboard or scoop stretcher with minimal movement to prevent further pelvic injury.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 98,
@@ -1296,7 +1294,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "All patients and equipment must be secured to prevent injury from sudden movements.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 99,
@@ -1309,7 +1307,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Emergency transport is used only when time-critical conditions exist and benefits outweigh risks.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 100,
@@ -1322,7 +1320,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Notify the hospital of patient condition, estimated time of arrival, and any special requirements.",
-   "category": "Transport"
+   "category": "Transport Patients"
 },
  {
    "id": 101,
@@ -1335,7 +1333,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Ambulance drivers must have a valid professional driver's license with the appropriate restriction code.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 102,
@@ -1348,7 +1346,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "At intersections, slow down, verify all lanes are clear, and proceed with extreme caution.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 103,
@@ -1361,7 +1359,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Even during emergencies, ambulances must observe speed limits with due regard for public safety.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 104,
@@ -1374,7 +1372,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Stop at red lights, ensure all traffic has yielded, then proceed cautiously through the intersection.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 105,
@@ -1387,7 +1385,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Pre-trip inspections ensure the ambulance is mechanically sound and fully equipped for emergencies.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 106,
@@ -1400,7 +1398,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Maintain at least 3-4 seconds following distance in normal conditions for safe stopping.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 107,
@@ -1413,7 +1411,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Sudden braking can injure the patient and crew; smooth driving prevents unsecured movement.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 108,
@@ -1426,7 +1424,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Stop immediately, check for injuries, and notify dispatch and authorities per protocol.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 109,
@@ -1439,7 +1437,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Escorts help clear traffic and ensure safe passage through congested or hazardous areas.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 110,
@@ -1452,7 +1450,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Park at a safe distance from hazards with warning lights on, positioned for rapid departure.",
-   "category": "Driving"
+   "category": "Drive Ambulance"
 },
  {
    "id": 111,
@@ -1465,7 +1463,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "PD 442 (Labor Code) and RA 11058 establish occupational safety and health standards in the Philippines.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 112,
@@ -1478,7 +1476,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "PPE protects EMS providers from exposure to biological, chemical, and physical hazards.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 113,
@@ -1491,7 +1489,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Standard Precautions means treating ALL body fluids as potentially infectious with appropriate PPE.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 114,
@@ -1504,7 +1502,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Wash immediately, report the incident, and follow post-exposure prophylaxis protocols.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 115,
@@ -1517,7 +1515,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Use the glove-in-glove technique: remove one glove inside the other to prevent contamination.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 116,
@@ -1530,7 +1528,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "DOLE requires workplace incidents to be reported within 48 hours using prescribed forms.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 117,
@@ -1543,7 +1541,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Ergonomics focuses on safe lifting techniques and equipment design to prevent musculoskeletal injuries.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 118,
@@ -1556,7 +1554,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Proper technique: bend knees, keep back straight, lift with leg muscles to prevent back injuries.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 119,
@@ -1569,7 +1567,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "CISD helps emergency providers process psychological effects of traumatic incidents.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 120,
@@ -1582,7 +1580,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Gloves are minimum; add eye protection and gown when there is splash risk from bleeding.",
-   "category": "OHS"
+   "category": "Occupational Health and Safety"
 },
  {
    "id": 121,
@@ -1595,7 +1593,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Chest pain or pressure is the hallmark symptom of an acute myocardial infarction.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 122,
@@ -1608,7 +1606,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Aspirin is given to inhibit platelet aggregation during suspected cardiac chest pain.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 123,
@@ -1621,7 +1619,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A stroke occurs when blood flow to part of the brain is disrupted, causing brain tissue damage.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 124,
@@ -1634,7 +1632,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "FAST: Face drooping, Arm weakness, Speech difficulty, Time to call emergency services.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 125,
@@ -1647,7 +1645,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Normal fasting blood glucose for adults is approximately 70-110 mg/dL.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 126,
@@ -1660,7 +1658,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Unconscious hypoglycemic patients need IV dextrose or glucagon; never give oral food to an unconscious patient.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 127,
@@ -1673,7 +1671,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Anaphylaxis is a severe allergic reaction that can cause airway obstruction and shock.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 128,
@@ -1686,7 +1684,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Epinephrine is the first-line treatment for anaphylaxis to reverse airway obstruction and hypotension.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 129,
@@ -1699,7 +1697,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Absent breath sounds on the affected side with tracheal deviation are classic signs of tension pneumothorax.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 130,
@@ -1712,7 +1710,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Supine with legs elevated (modified Trendelenburg) improves venous return in hypovolemic shock.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 131,
@@ -1725,7 +1723,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Seizures are caused by abnormal brain electrical activity resulting in involuntary movements or altered consciousness.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 132,
@@ -1738,7 +1736,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Never place objects in a seizing patient's mouth; it can cause injury or airway obstruction.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 133,
@@ -1751,7 +1749,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "COPD is a progressive lung disease that includes emphysema and chronic bronchitis, causing airflow obstruction.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 134,
@@ -1764,7 +1762,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "COPD patients require low-flow oxygen to avoid suppressing their hypoxic respiratory drive.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 135,
@@ -1777,7 +1775,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Abdominal aortic aneurysm is a life-threatening cause of abdominal pain in elderly patients.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 136,
@@ -1790,7 +1788,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Pulmonary edema is fluid accumulation in the lungs, often caused by heart failure.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 137,
@@ -1803,7 +1801,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Sitting upright with legs dangling reduces venous return and eases breathing in pulmonary edema.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 138,
@@ -1816,7 +1814,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "TIA is a temporary stroke-like episode that resolves within 24 hours but warns of future stroke risk.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 139,
@@ -1829,7 +1827,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Time is critical; rapid transport to a stroke center allows for timely thrombolytic therapy.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 140,
@@ -1842,7 +1840,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "DKA is a life-threatening complication of diabetes characterized by hyperglycemia, ketosis, and metabolic acidosis.",
-   "category": "Med Emerg"
+   "category": "Medical Emergency"
 },
  {
    "id": 141,
@@ -1855,7 +1853,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Direct pressure is the first and most effective method to control external bleeding.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 142,
@@ -1868,7 +1866,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Tourniquets are used only when direct pressure cannot control severe, life-threatening extremity bleeding.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 143,
@@ -1881,7 +1879,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Immobilize the fracture in the position found without attempting realignment; pad and splint.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 144,
@@ -1894,7 +1892,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Cool the burn with running water for 10-20 minutes; never apply ice, butter, or pop blisters.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 145,
@@ -1907,7 +1905,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Sit upright, lean forward, pinch the soft part of the nose for 10-15 minutes to stop bleeding.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 146,
@@ -1920,7 +1918,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Do not remove embedded objects; flush with clean water only for loose, superficial particles.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 147,
@@ -1933,7 +1931,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Keep the patient calm, immobilize the bitten limb at heart level, and transport immediately.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 148,
@@ -1946,7 +1944,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Heat stroke is life-threatening; move to a cool place, remove clothing, and cool the body rapidly.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 149,
@@ -1959,7 +1957,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Move to warmth, remove wet clothing, and warm gradually with blankets; avoid rapid reheating.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 150,
@@ -1972,7 +1970,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Wrap in sterile dressing, seal in a bag, then place that bag on ice for transport with the patient.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 151,
@@ -1985,7 +1983,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "The Heimlich maneuver (abdominal thrusts) is used to clear foreign body airway obstruction.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 152,
@@ -1998,7 +1996,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Flush chemical burns with copious amounts of water for at least 20 minutes to remove the chemical.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 153,
@@ -2011,7 +2009,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "The rule of nines estimates burn surface area to guide fluid resuscitation and treatment decisions.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 154,
@@ -2024,7 +2022,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Scrape off the stinger, clean the area, and apply a cold compress to reduce swelling.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 155,
@@ -2037,7 +2035,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Immobilize the cervical spine, minimize all movement, and use a backboard for safe transport.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 156,
@@ -2050,7 +2048,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 3,
    "explanation": "Never remove impaled objects as they may be tamponading bleeding; stabilize and transport.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 157,
@@ -2063,7 +2061,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "For choking infants, use 5 back blows followed by 5 chest thrusts; never use abdominal thrusts.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 158,
@@ -2076,7 +2074,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "RICE (Rest, Ice, Compression, Elevation) is the standard first aid treatment for sprains.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 159,
@@ -2089,7 +2087,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Ensure scene safety first, then identify the substance; never induce vomiting without medical direction.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 160,
@@ -2102,7 +2100,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Disconnect the power source first to ensure safety, then assess and treat the patient.",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 161,
@@ -2115,7 +2113,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Compressions help circulate blood to the brain and heart.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 162,
@@ -2128,7 +2126,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Place hands on the center of the chest.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 163,
@@ -2141,7 +2139,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Adult CPR uses 100 to 120 compressions per minute.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 164,
@@ -2154,7 +2152,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Compress the adult chest about 5 to 6 cm.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 165,
@@ -2167,7 +2165,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Switch on the AED and follow voice or visual prompts.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 166,
@@ -2180,7 +2178,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "No one should touch the patient during shock.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 167,
@@ -2193,7 +2191,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Adult CPR commonly uses 30 compressions and 2 breaths.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 168,
@@ -2206,7 +2204,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "If breathing returns, monitor and place safely if appropriate.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 169,
@@ -2219,7 +2217,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Frequent pauses reduce blood flow to vital organs.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 170,
@@ -2232,7 +2230,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Rescue breaths deliver air to the lungs.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 171,
@@ -2245,7 +2243,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Hands-only CPR is better than no CPR.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 172,
@@ -2258,7 +2256,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Pads are placed upper right chest and lower left side.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 173,
@@ -2271,7 +2269,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Do not touch the patient while AED analyzes rhythm.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 174,
@@ -2284,7 +2282,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A dry chest helps pads stick and improves safety.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 175,
@@ -2297,7 +2295,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Remove the patch with gloves before pad placement.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 176,
@@ -2310,7 +2308,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Stop only when help takes over, patient recovers, or it is unsafe.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 177,
@@ -2323,7 +2321,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "BLS keeps oxygen and blood flow until advanced care arrives.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 178,
@@ -2336,7 +2334,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The standard adult CPR ratio for a single",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 179,
@@ -2349,7 +2347,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Before delivering a shock, the rescuer",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 180,
@@ -2362,7 +2360,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "AHA guidelines recommend at least 2",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 181,
@@ -2375,7 +2373,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "The recommended compression rate is",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 182,
@@ -2388,7 +2386,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "For two-rescuer adult CPR, the ratio",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 183,
@@ -2401,7 +2399,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "For two-rescuer CPR on a child, the",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 184,
@@ -2414,7 +2412,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Interruptions to chest compressions",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 185,
@@ -2427,7 +2425,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Once pads are placed, the AED",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 186,
@@ -2440,7 +2438,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Ventricular fibrillation (VF) is the most",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 187,
@@ -2453,7 +2451,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Compressions should be performed on",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 188,
@@ -2466,7 +2464,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Full chest recoil between compressions",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 189,
@@ -2479,7 +2477,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "For infant CPR, two fingers are placed on",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 190,
@@ -2492,7 +2490,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "AEDs can be used on pediatric patients",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 191,
@@ -2505,7 +2503,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Current AHA guidelines recommend simultaneously checking for breathing and pulse for no more than 10 seconds to minimize delays in starting CPR.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 192,
@@ -2518,7 +2516,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Assessment of breathing and pulse",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 193,
@@ -2531,7 +2529,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Each breath should be about 500-600 mL",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 194,
@@ -2544,7 +2542,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Excessive ventilation can cause gastric",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 195,
@@ -2557,7 +2555,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "CAB stands for Circulation, Airway,",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 196,
@@ -2570,7 +2568,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "An unresponsive patient with normal",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 197,
@@ -2583,7 +2581,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "After a shock is delivered, resume chest",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 198,
@@ -2596,7 +2594,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The jaw-thrust maneuver involves placing",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 199,
@@ -2609,7 +2607,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A bag-valve-mask (BVM) is the primary",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 200,
@@ -2622,7 +2620,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The BVM should be connected to",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 201,
@@ -2635,7 +2633,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Pulseless electrical activity (PEA) is a",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 202,
@@ -2648,7 +2646,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The head-tilt/chin-lift maneuver opens the",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 203,
@@ -2661,7 +2659,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Equipment inspection ensures that all life",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 204,
@@ -2674,7 +2672,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Any equipment malfunction must be",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 205,
@@ -2687,7 +2685,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "When a second trained rescuer arrives who can provide effective rescue breaths, switch from compression-only CPR to conventional CPR with a 30:2 ratio.",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 206,
@@ -2700,7 +2698,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Oxygen cylinders must be stored upright",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 207,
@@ -2713,7 +2711,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A pulse oximeter non-invasively",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 208,
@@ -2726,7 +2724,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A normal SpO2 reading for a healthy adult",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 209,
@@ -2739,7 +2737,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The one-way valve in the BVM directs",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 210,
@@ -2752,7 +2750,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The pop-off (pressure relief) valve vents",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 211,
@@ -2765,7 +2763,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "A 14 Fr rigid suction catheter (Yankauer)",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 212,
@@ -2778,7 +2776,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The pressure gauge must show adequate",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 213,
@@ -2791,7 +2789,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A non-rebreather mask with a reservoir",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 214,
@@ -2804,7 +2802,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A nasal cannula is typically set at 1-6",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 215,
@@ -2817,7 +2815,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A simple face mask at 6-10 L/min delivers",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 216,
@@ -2830,7 +2828,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Ambulances should carry at least two sets",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 217,
@@ -2843,7 +2841,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A cervical collar immobilizes the cervical",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 218,
@@ -2856,7 +2854,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The KED is a vest-type device designed",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 219,
@@ -2869,7 +2867,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Equipment must be checked at the",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 220,
@@ -2882,7 +2880,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "PASS stands for Pull the pin, Aim at the",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 221,
@@ -2895,7 +2893,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A CID (head immobilizer) prevents lateral",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 222,
@@ -2908,7 +2906,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "EMS providers must maintain equipment",
-   "category": "BLS"
+   "category": "BLS/CPR"
 },
  {
    "id": 223,
@@ -3766,7 +3764,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Red-tagged patients have life-threatening",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 289,
@@ -3779,7 +3777,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Hazard assessment identifies risks such",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 290,
@@ -3792,7 +3790,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "ICS stands for Incident Command System",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 291,
@@ -3805,7 +3803,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The first step in START triage is to",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 292,
@@ -3818,7 +3816,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "In START triage, a respiratory rate",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 293,
@@ -3831,7 +3829,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 2,
    "explanation": "Green tags are assigned to walking",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 294,
@@ -3844,7 +3842,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A black tag indicates the patient is",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 295,
@@ -3857,7 +3855,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A command post centralizes incident",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 296,
@@ -3870,7 +3868,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The triage officer rapidly assesses each",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 297,
@@ -3883,7 +3881,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Scene control involves managing who",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 298,
@@ -3896,7 +3894,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The warm zone is the contamination",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 299,
@@ -3909,7 +3907,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The cold zone is the safe area free from",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 300,
@@ -3922,7 +3920,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The hot zone is the contaminated area",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 301,
@@ -3935,7 +3933,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Entry into the hot zone requires",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 302,
@@ -3948,7 +3946,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Scene size-up rapidly identifies hazards,",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 303,
@@ -3961,7 +3959,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "MCI triage prioritizes treating the greatest",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 304,
@@ -3974,7 +3972,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The staging area holds arriving units and",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 305,
@@ -3987,7 +3985,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The staging area holds arriving units and resources in an organized manner until the incident commander assigns them to specific tasks or sectors.",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 306,
@@ -4000,7 +3998,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Similar to START, JumpSTART begins by",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 307,
@@ -4013,7 +4011,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "An IAP documents the incident objectives,",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 308,
@@ -4026,7 +4024,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Minimum PPE at a crash scene includes",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 309,
@@ -4039,7 +4037,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "If a secondary hazard is discovered,",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 310,
@@ -4052,7 +4050,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Size-up is a rapid visual assessment that",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 311,
@@ -4065,7 +4063,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Law enforcement provides scene safety,",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 312,
@@ -4078,7 +4076,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "This principle guides MCI triage",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 313,
@@ -4091,7 +4089,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The normal resting heart rate for a healthy",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 314,
@@ -4104,7 +4102,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "SAMPLE is a medical history mnemonic:",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 315,
@@ -4117,7 +4115,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Normal adult blood pressure is",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 316,
@@ -4130,7 +4128,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The normal respiratory rate for a healthy",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 317,
@@ -4143,7 +4141,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "In OPQRST (pain assessment), P stands",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 318,
@@ -4156,7 +4154,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Q stands for Quality   asking the patient",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 319,
@@ -4169,7 +4167,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "R stands for Radiation   asking whether",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 320,
@@ -4182,7 +4180,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "S stands for Severity   asking the patient",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 321,
@@ -4195,7 +4193,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "T stands for Time   asking when the",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 322,
@@ -4208,7 +4206,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Patient assessment begins with scene",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 323,
@@ -4221,7 +4219,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Proper technique involves inflating the",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 324,
@@ -4234,7 +4232,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Normal pupils constrict equally and briskly",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 325,
@@ -4247,7 +4245,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "PEARL stands for Pupils Equal And",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 326,
@@ -4260,7 +4258,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The GCS ranges from 3 (worst) to 15",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 327,
@@ -4273,7 +4271,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A GCS of 8 or below indicates severe",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 328,
@@ -4286,7 +4284,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "GCS assesses three components: Eye",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 329,
@@ -4299,7 +4297,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "Dyspnea is the medical term for difficulty",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 330,
@@ -4312,7 +4310,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Normal body temperature is 36.1-37.2 C",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 331,
@@ -4325,7 +4323,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The carotid pulse is the preferred site for",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 332,
@@ -4338,7 +4336,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Tidaling (fluctuation of fluid level with",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 333,
@@ -4351,7 +4349,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A patient in anaphylactic shock should be",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 334,
@@ -4364,7 +4362,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Epinephrine is the first-line treatment for",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 335,
@@ -4377,7 +4375,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The standard adult dose for anaphylaxis",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 336,
@@ -4390,7 +4388,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Shallow or irregular chest movement",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 337,
@@ -4403,7 +4401,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The head-tilt/chin-lift is the standard",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 338,
@@ -4416,7 +4414,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "An OPA keeps the tongue away from the",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 339,
@@ -4429,7 +4427,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "An NPA maintains airway patency and",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 340,
@@ -4442,7 +4440,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Suspected basilar skull fracture is a",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 341,
@@ -4455,7 +4453,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The correct OPA size is measured from",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 342,
@@ -4468,7 +4466,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Capillary refill time assesses peripheral",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 343,
@@ -4936,7 +4934,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Hand hygiene is the single most effective",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 379,
@@ -4949,7 +4947,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Tuberculosis is transmitted via airborne",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 380,
@@ -4962,7 +4960,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The WHO and CDC recommend",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 381,
@@ -4975,7 +4973,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Alcohol-based hand rub is not effective",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 382,
@@ -4988,7 +4986,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Standard Precautions are applied to ALL",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 383,
@@ -5001,7 +4999,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Gloves are the minimum PPE for",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 384,
@@ -5014,7 +5012,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The correct removal sequence minimizes",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 385,
@@ -5027,7 +5025,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Used needles must be placed directly in a",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 386,
@@ -5040,7 +5038,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A needlestick injury is a percutaneous",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 387,
@@ -5053,7 +5051,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "After a needlestick, wash the wound with",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 388,
@@ -5066,7 +5064,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The three major bloodborne pathogens of",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 389,
@@ -5079,7 +5077,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "An exposure control plan details",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 390,
@@ -5092,7 +5090,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Droplet precautions require a standard",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 391,
@@ -5105,7 +5103,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Biohazardous waste must be disposed of",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 392,
@@ -5118,7 +5116,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "The incubation period is the interval",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 393,
@@ -5131,7 +5129,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The provider must first ensure personal",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 394,
@@ -5144,7 +5142,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "De-escalation uses calm communication,",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 395,
@@ -5157,7 +5155,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Active listening and empathy help validate",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 396,
@@ -5170,7 +5168,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Physical restraint is justified only when",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 397,
@@ -5183,7 +5181,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Complete documentation includes the",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 398,
@@ -5196,7 +5194,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Implied consent allows EMS providers to",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 399,
@@ -5209,7 +5207,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Expressed consent is explicitly given by a",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 400,
@@ -5222,7 +5220,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Competent adults have the right to refuse",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 401,
@@ -5235,7 +5233,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Cooling with running cool water for at",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 402,
@@ -5248,7 +5246,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Pinching the soft nose while leaning",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 403,
@@ -5261,7 +5259,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Abdominal thrusts (Heimlich maneuver)",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 404,
@@ -5274,7 +5272,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Suspected fractures should be",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 405,
@@ -5287,7 +5285,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Keep the patient calm and still to slow",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 406,
@@ -5300,7 +5298,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 0,
    "explanation": "RICE stands for Rest, Ice, Compression,",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 407,
@@ -5313,7 +5311,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Impaled objects should be stabilized in",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 408,
@@ -5326,7 +5324,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "During a seizure, protect the patient from",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 409,
@@ -5339,7 +5337,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Dog bites should be washed with soap",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 410,
@@ -5352,7 +5350,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Chemical burns require immediate and",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 411,
@@ -5365,7 +5363,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Scrape the stinger away (not squeeze),",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 412,
@@ -5391,7 +5389,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "An open (compound) fracture involves a",
-   "category": "FA"
+   "category": "First Aid"
 },
  {
    "id": 414,
@@ -5404,7 +5402,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "High patient service standards ensure",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 415,
@@ -5417,7 +5415,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Patient confidentiality means protecting",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 416,
@@ -5430,7 +5428,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Informed consent requires that the patient",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 417,
@@ -5443,7 +5441,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The patient's bill of rights guarantees",
-   "category": "Assessment"
+   "category": "Patient Assessment"
 },
  {
    "id": 418,
@@ -5586,7 +5584,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Professionalism involves setting priorities,",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 429,
@@ -5599,7 +5597,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Continuing education ensures EMS",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 430,
@@ -5612,7 +5610,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Ethical behavior in EMS requires honesty,",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 431,
@@ -5625,7 +5623,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "A code of ethics establishes professional",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 432,
@@ -5638,7 +5636,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Stress management prevents burnout,",
-   "category": "Legal"
+   "category": "Legal/Ethical"
 },
  {
    "id": 433,
@@ -5664,7 +5662,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Risk assessment identifies workplace",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 435,
@@ -5677,7 +5675,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "The hierarchy prioritizes elimination (most",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 436,
@@ -5690,7 +5688,7 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "MSDS/SDS provides critical information",
-   "category": "OHS"
+   "category": "OSH"
 },
  {
    "id": 437,
@@ -5703,6 +5701,6 @@ export const questions: Question[] = [
    ],
    "correctAnswer": 1,
    "explanation": "Newly identified hazards must be reported",
-   "category": "OHS"
+   "category": "OSH"
 }
 ]

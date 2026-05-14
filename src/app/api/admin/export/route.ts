@@ -1,16 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
-// Supported export models with their CSV column definitions
-type ExportModel = 'questions' | 'acronyms' | 'definitions'
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+type ExportType = 'questions' | 'acronyms' | 'definitions' | 'all'
+type ExportFormat = 'json' | 'csv'
 
 interface ExportColumn {
   key: string
   label: string
+  /** Optional transformer applied when building CSV rows */
   transform?: (val: unknown) => string
 }
 
-const EXPORT_COLUMNS: Record<ExportModel, ExportColumn[]> = {
+// ---------------------------------------------------------------------------
+// Column definitions per model
+// ---------------------------------------------------------------------------
+
+const EXPORT_COLUMNS: Record<Exclude<ExportType, 'all'>, ExportColumn[]> = {
   questions: [
     { key: 'id', label: 'ID' },
     { key: 'question', label: 'Question' },
@@ -20,7 +29,7 @@ const EXPORT_COLUMNS: Record<ExportModel, ExportColumn[]> = {
       transform: (val: unknown) => {
         try {
           const parsed = typeof val === 'string' ? JSON.parse(val) : val
-          return Array.isArray(parsed) ? parsed.join(' | ') : String(val)
+          return Array.isArray(parsed) ? parsed.join('; ') : String(val)
         } catch {
           return String(val)
         }
@@ -44,16 +53,25 @@ const EXPORT_COLUMNS: Record<ExportModel, ExportColumn[]> = {
   ],
 }
 
-// Escape CSV field value
+const VALID_TYPES: ExportType[] = ['questions', 'acronyms', 'definitions', 'all']
+const VALID_FORMATS: ExportFormat[] = ['json', 'csv']
+const ALL_MODELS: Exclude<ExportType, 'all'>[] = ['questions', 'acronyms', 'definitions']
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Escape a value for use inside a CSV field */
 function escapeCSV(value: string): string {
-  if (!value) return '""'
-  if (value.includes(',') || value.includes('"') || value.includes('\n') || value.includes('\r')) {
-    return '"' + value.replace(/"/g, '""') + '"'
+  if (value === undefined || value === null) return '""'
+  const str = String(value)
+  if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+    return '"' + str.replace(/"/g, '""') + '"'
   }
-  return value
+  return str
 }
 
-// Convert records to CSV string
+/** Convert an array of records + column defs into a CSV string */
 function toCSV(records: Record<string, unknown>[], columns: ExportColumn[]): string {
   const header = columns.map((col) => escapeCSV(col.label)).join(',')
   const rows = records.map((record) =>
@@ -63,13 +81,13 @@ function toCSV(records: Record<string, unknown>[], columns: ExportColumn[]): str
         const value = col.transform ? col.transform(rawVal) : String(rawVal ?? '')
         return escapeCSV(value)
       })
-      .join(',')
+      .join(','),
   )
   return [header, ...rows].join('\n')
 }
 
-// Fetch all records for a given model using explicit Prisma calls
-async function fetchRecords(model: ExportModel): Promise<Record<string, unknown>[]> {
+/** Fetch all records for a single model */
+async function fetchRecords(model: Exclude<ExportType, 'all'>): Promise<Record<string, unknown>[]> {
   switch (model) {
     case 'questions':
       return (await db.question.findMany({ orderBy: { id: 'asc' } })) as unknown as Record<string, unknown>[]
@@ -77,70 +95,126 @@ async function fetchRecords(model: ExportModel): Promise<Record<string, unknown>
       return (await db.acronym.findMany({ orderBy: { id: 'asc' } })) as unknown as Record<string, unknown>[]
     case 'definitions':
       return (await db.definition.findMany({ orderBy: { id: 'asc' } })) as unknown as Record<string, unknown>[]
-    default:
-      return []
   }
 }
+
+/**
+ * Clean a record for JSON output — parse stored JSON strings back into objects
+ * (e.g. the `options` field on questions is stored as a JSON string).
+ */
+function cleanForJSON(
+  records: Record<string, unknown>[],
+  columns: ExportColumn[],
+): Record<string, unknown>[] {
+  return records.map((record) => {
+    const cleaned: Record<string, unknown> = {}
+    for (const col of columns) {
+      const rawVal = record[col.key]
+      if (typeof rawVal === 'string' && (rawVal.startsWith('[') || rawVal.startsWith('{'))) {
+        try {
+          cleaned[col.key] = JSON.parse(rawVal)
+        } catch {
+          cleaned[col.key] = rawVal
+        }
+      } else {
+        cleaned[col.key] = rawVal
+      }
+    }
+    return cleaned
+  })
+}
+
+// ---------------------------------------------------------------------------
+// GET handler
+// ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const model = searchParams.get('model') as ExportModel | null
-    const format = searchParams.get('format') || 'json'
+    const type = searchParams.get('type') as ExportType | null
+    const format = (searchParams.get('format') ?? 'json') as ExportFormat
 
-    if (!model || !EXPORT_COLUMNS[model]) {
+    // --- Validate `type` ---
+    if (!type || !VALID_TYPES.includes(type)) {
       return NextResponse.json(
-        { error: 'Invalid model. Supported: questions, acronyms, definitions' },
-        { status: 400 }
+        { error: `Invalid type. Supported: ${VALID_TYPES.join(', ')}` },
+        { status: 400 },
       )
     }
 
-    if (format !== 'json' && format !== 'csv') {
+    // --- Validate `format` ---
+    if (!VALID_FORMATS.includes(format)) {
       return NextResponse.json(
-        { error: 'Invalid format. Supported: json, csv' },
-        { status: 400 }
+        { error: `Invalid format. Supported: ${VALID_FORMATS.join(', ')}` },
+        { status: 400 },
       )
     }
-
-    const records = await fetchRecords(model)
-    const columns = EXPORT_COLUMNS[model]
 
     const timestamp = new Date().toISOString().split('T')[0]
 
-    if (format === 'json') {
-      // For JSON, parse JSON string fields into actual objects
-      const cleanRecords = records.map((record) => {
-        const cleaned: Record<string, unknown> = {}
-        columns.forEach((col) => {
-          const rawVal = record[col.key]
-          if (typeof rawVal === 'string' && (rawVal.startsWith('[') || rawVal.startsWith('{'))) {
-            try {
-              cleaned[col.key] = JSON.parse(rawVal)
-            } catch {
-              cleaned[col.key] = rawVal
-            }
-          } else {
-            cleaned[col.key] = rawVal
-          }
-        })
-        return cleaned
-      })
+    // -----------------------------------------------------------------------
+    // Single-model export
+    // -----------------------------------------------------------------------
+    if (type !== 'all') {
+      const records = await fetchRecords(type)
+      const columns = EXPORT_COLUMNS[type]
 
-      const json = JSON.stringify(cleanRecords, null, 2)
-      return new NextResponse(json, {
+      if (format === 'json') {
+        const body = JSON.stringify(cleanForJSON(records, columns), null, 2)
+        return new NextResponse(body, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Disposition': `attachment; filename="ems-${type}-${timestamp}.json"`,
+          },
+        })
+      }
+
+      // CSV
+      const csv = toCSV(records, columns)
+      return new NextResponse(csv, {
         headers: {
-          'Content-Type': 'application/json',
-          'Content-Disposition': `attachment; filename="ems-${model}-${timestamp}.json"`,
+          'Content-Type': 'text/csv; charset=utf-8',
+          'Content-Disposition': `attachment; filename="ems-${type}-${timestamp}.csv"`,
         },
       })
     }
 
-    // CSV format
-    const csv = toCSV(records, columns)
+    // -----------------------------------------------------------------------
+    // "all" — export every model at once
+    // -----------------------------------------------------------------------
+
+    // Fetch all models in parallel
+    const allRecords = await Promise.all(
+      ALL_MODELS.map(async (model) => ({
+        model,
+        records: await fetchRecords(model),
+        columns: EXPORT_COLUMNS[model],
+      })),
+    )
+
+    if (format === 'json') {
+      const body: Record<string, unknown> = {}
+      for (const { model, records, columns } of allRecords) {
+        body[model] = cleanForJSON(records, columns)
+      }
+      return new NextResponse(JSON.stringify(body, null, 2), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Disposition': `attachment; filename="ems-all-${timestamp}.json"`,
+        },
+      })
+    }
+
+    // CSV "all" — sections separated by blank lines with a header row per section
+    const sections = allRecords.map(
+      ({ model, records, columns }) => `### ${model.toUpperCase()}\n${toCSV(records, columns)}`,
+    )
+    const csv = sections.join('\n\n')
+
     return new NextResponse(csv, {
       headers: {
         'Content-Type': 'text/csv; charset=utf-8',
-        'Content-Disposition': `attachment; filename="ems-${model}-${timestamp}.csv"`,
+        'Content-Disposition': `attachment; filename="ems-all-${timestamp}.csv"`,
       },
     })
   } catch (error) {
@@ -150,7 +224,7 @@ export async function GET(request: NextRequest) {
         error: 'Failed to export data',
         details: error instanceof Error ? error.message : String(error),
       },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }

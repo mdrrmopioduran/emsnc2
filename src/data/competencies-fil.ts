@@ -188,7 +188,7 @@ export const competenciesFil: Record<string, CompetencyModuleFil> = {
   },
 
   'patient-assessment': {
-    title: 'Patient Assessment',
+    title: 'Assessment',
     description: 'Sistematikong paglalapit sa pagsusuri ng pasyente kabilang ang scene size-up, primary survey, focused history, at detalyadong pisikal na pagsusuri na may tamang pamamaraan sa dokumentasyon.',
     reviewerNotes: 'Ang patient assessment ay ang sistematikong pundasyon kung saan nakabatay ang buong pangangalagang EMS. Sakop ng module na ito ang tatlong yugto: initial assessment (scene size-up at primary survey gamit ang ABCDE), focused assessment (SAMPLE history at OPQRST pain assessment), at detalyadong head-to-toe examination. Susuriin ng TESDA NCII assessor ang iyong kakayahang magsagawa ng metodiko at organisadong assessment nang walang nakaliligtaang kritikal na hakbang. Sa setting ng EMS sa Pilipinas, ang mga pasyente ay madalas na nagpapakita nang huli at na may maraming reklamo, kaya ang kasiguruhan ay mahalaga. Ang dokumentasyon gamit ang SOAP format ay sinusuri rin. Ang critical thinking sa pagpapanatili ng priyoridad sa mga banta sa buhay ay mabigat na sinusuri.',
     procedures: [
@@ -277,7 +277,7 @@ export const competenciesFil: Record<string, CompetencyModuleFil> = {
   },
 
   'medical-emergencies': {
-    title: 'Medical Emergencies',
+    title: 'Med Emerg',
     description: 'Pagkilala at pamamahala ng mga acute na medikal na kondisyon kabilang ang cardiac emergencies, stroke, diabetic emergencies, respiratory distress, allergic reactions, at seizures.',
     reviewerNotes: 'Sakop ng medical emergencies ang malawak na hanay ng acute na kondisyon na madalas na nakikita ng mga EMS provider. Susuriin ng TESDA NCII assessor ang iyong kakayahang makilala ang iba\'t ibang medikal na kondisyon batay sa pagpapakita, magbigay ng angkop na prehospital intervensyon, at tantyahin ang priyoridad sa transport. Sa konteksto ng Pilipinas, kabilang sa mga karaniwang pagpapakita ang hypertensive emergencies, diabetic crises (parehong hypo at hyperglycemia), asthma exacerbations, at cerebrovascular accidents. Ang pangunahing diin ay sa mabilis na assessment gamit ang OPQRST at SAMPLE mnemonics, pagkilala sa stroke gamit ang FAST mnemonic, at angkop na paggamit ng glucose meter. Ang pag-unawa sa pagkakaiba sa pagitan ng angina at MI, hypo at hyperglycemia, at iba\'t ibang respiratory conditions ay mahalaga.',
     procedures: [
