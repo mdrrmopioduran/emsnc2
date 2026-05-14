@@ -38,7 +38,7 @@ function MobileBottomNav() {
   const { t } = useTranslation()
 
   return (
-    <nav className="mobile-bottom-nav mobile-nav-frosted mobile-bottom-nav-enhanced" aria-label="Mobile navigation">
+    <nav className="mobile-bottom-nav mobile-nav-frosted mobile-bottom-nav-enhanced md:hidden" aria-label="Mobile navigation">
       {bottomNavKeys.map(({ section, labelKey, icon: Icon }) => {
         const isActive = activeSection === section
         return (
